@@ -1,0 +1,71 @@
+/* Theme deportivo — tokens and base slide chrome.
+   Font URLs are relative to this file. Copy themes/ and assets/ together. */
+
+@font-face { font-family: "Graduate"; src: url(../assets/fonts/graduate-400.woff2) format("woff2"); font-weight: 400; font-display: block; }
+@font-face { font-family: "Barlow"; src: url(../assets/fonts/barlow-500.woff2) format("woff2"); font-weight: 500; font-display: block; }
+@font-face { font-family: "Barlow"; src: url(../assets/fonts/barlow-600.woff2) format("woff2"); font-weight: 600; font-display: block; }
+@font-face { font-family: "Barlow"; src: url(../assets/fonts/barlow-700.woff2) format("woff2"); font-weight: 700; font-display: block; }
+@font-face { font-family: "Barlow"; src: url(../assets/fonts/barlow-800.woff2) format("woff2"); font-weight: 800; font-display: block; }
+
+:root {
+  --ink: #17181C;
+  --coal: #131316;
+  --paper: #F4F4F7;
+  --white: #FFFFFF;
+  --yellow: #FFD600;
+  --gold: #D9A800;
+  --blue: #3D6BFF;
+  --blue-l: #7395FF;
+  --muted: #6B6E7A;
+  --display: "Graduate", Georgia, serif;
+  --text: "Barlow", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-family: var(--text); color: var(--ink); }
+p { font-size: 32px; font-weight: 600; line-height: 1.3; margin: 0; }
+#stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); }
+
+.slide { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 96px 120px 150px; opacity: 0;
+  pointer-events: none; transition: opacity .4s; background: var(--paper); color: var(--ink); overflow: hidden; }
+.slide.active { opacity: 1; pointer-events: auto; }
+.slide.dark { background: var(--coal); color: var(--white); }
+.slide.blue { background: var(--blue); color: var(--white); }
+.slide.yellow { background: var(--yellow); color: var(--ink); }
+.slide > * { position: relative; z-index: 1; }
+.notes { display: none; }
+
+.kicker { display: flex; align-items: center; gap: 18px; margin: 0 0 26px; font: 800 26px/1 var(--text); letter-spacing: .2em;
+  text-transform: uppercase; color: var(--blue); }
+.kicker::before { content: ""; width: 56px; height: 6px; background: currentColor; }
+.dark .kicker { color: var(--yellow); }
+.blue .kicker, .yellow .kicker { color: inherit; }
+.title { font: 400 104px/1.02 var(--display); margin: 0; }
+.title.xl { font-size: 128px; }
+.title.sm { font-size: 86px; }
+.a { color: var(--blue); }
+.dark .a, .blue .a { color: var(--yellow); }
+
+.foot { position: absolute; left: 120px; right: 120px; bottom: 46px; display: flex; justify-content: space-between; align-items: center;
+  font: 800 22px var(--text); letter-spacing: .16em; z-index: 3; }
+.foot .page { border: 3px solid currentColor; border-radius: 999px; padding: 6px 20px; letter-spacing: .04em; }
+.foot .bar { position: absolute; left: -120px; bottom: -46px; height: 10px; background: var(--yellow); }
+.yellow .foot .bar { background: var(--ink); }
+
+#notes { position: absolute; left: 40px; right: 40px; bottom: 110px; z-index: 6; display: none; padding: 22px 28px; border-radius: 18px;
+  background: rgba(19, 19, 22, .95); color: #E6E6EC; border: 3px solid var(--yellow); font: 500 28px/1.4 var(--text); }
+body.show-notes #notes { display: block; }
+
+@page { size: 1920px 1080px; margin: 0; }
+body.print { overflow: visible; height: auto; background: var(--paper); }
+body.print #stage { position: static; transform: none !important; height: auto; overflow: visible; }
+body.print #notes, body.print button.rerun { display: none; }
+body.print .slide { position: relative; opacity: 1; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+body.print .slide:last-child { break-after: auto; page-break-after: auto; }
+@media print {
+  html, body { overflow: visible; height: auto; background: var(--paper); }
+  #stage { position: static; transform: none !important; height: auto; overflow: visible; }
+  #notes, button.rerun { display: none; }
+  .slide { position: relative; opacity: 1; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+}

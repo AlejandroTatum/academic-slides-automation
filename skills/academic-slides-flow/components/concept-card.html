@@ -1,0 +1,21 @@
+<!-- component: concept-card | theme: metro
+     Paste the style once. One card per term that is in the user's list.
+     .like is the analogy ("Imaginalo"). .trap is the mistake ("Ojo"). -->
+<style>
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
+  .card { background: #FBF9F4; border: 0.3mm solid var(--rule); border-radius: 2.5mm; padding: 3mm 3.6mm; display: flex; flex-direction: column; gap: 1.5mm; }
+  .card .hd { display: flex; align-items: center; gap: 2mm; }
+  .card h3 { font-family: var(--head); font-size: 14.5pt; letter-spacing: -0.01em; line-height: 1.05; }
+  .card .what { font-size: 10.5pt; }
+  .card .like { font-size: 10.5pt; padding-left: 2.4mm; border-left: 0.9mm solid var(--rule); }
+  .card .like::before { content: "Imaginalo: "; font-weight: 600; }
+  .card .trap { margin-top: auto; font-size: 10.5pt; background: var(--paper-2); border-radius: 1.4mm; padding: 1.4mm 2mm; }
+  .card .trap::before { content: "Ojo · "; font-family: var(--mono); font-weight: 600; }
+  .code { font-family: var(--mono); font-weight: 600; font-size: 7.4pt; color: #fff; border-radius: 1.2mm; padding: .4mm 1.6mm; }
+</style>
+<article class="card" id="a1">
+  <div class="hd"><span class="code bg-a">A1</span><h3>Término</h3></div>
+  <p class="what">Definición corregida, en una frase, con el término que el usuario pidió.</p>
+  <p class="like">la analogía concreta.</p>
+  <p class="trap">el error que se confunde con este término.</p>
+</article>

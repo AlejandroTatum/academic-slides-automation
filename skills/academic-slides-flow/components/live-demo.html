@@ -1,0 +1,50 @@
+<!-- component: live-demo | theme: deportivo | deck only
+     Seeded canvas. data-random on the button changes the seed; omit it to repeat the same run.
+     Replace draw() with the course simulation. Keep the seed control. -->
+<style>
+  .monitor { --acc: var(--yellow); background: var(--coal); border: 4px solid var(--ink); border-radius: 28px;
+    box-shadow: 16px 16px 0 var(--yellow); display: flex; flex-direction: column; overflow: hidden; min-height: 420px; }
+  .dark .monitor, .blue .monitor { border-color: var(--white); }
+  .mbar { height: 68px; display: flex; align-items: center; gap: 12px; padding: 0 26px; background: #1E1F25; color: #C9CAD3; font: 600 24px var(--text); }
+  .mbar .d { width: 16px; height: 16px; border-radius: 50%; background: #FF5F56; }
+  .mbar .live { margin-left: auto; color: var(--acc); font-weight: 800; font-size: 20px; letter-spacing: .14em; }
+  button.rerun { margin-left: 18px; font: 800 20px var(--text); background: var(--acc); color: var(--ink); border: 3px solid var(--ink); border-radius: 999px; padding: 6px 18px; cursor: pointer; }
+  .monitor canvas { width: 100%; height: 320px; display: block; }
+</style>
+<div class="monitor" data-scope>
+  <div class="mbar"><span class="d"></span><span class="name">demo.sim</span><span class="live">EN VIVO</span>
+    <button class="rerun" type="button" data-random>Otra semilla</button></div>
+  <canvas data-sim="bars" data-seed="42"></canvas>
+</div>
+<script>
+(function () {
+  const BASE = 42;
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function draw(cv) {
+    const rng = mulberry32(Number(cv.dataset.seed || BASE));
+    const ctx = cv.getContext("2d");
+    const w = cv.width = cv.clientWidth * 2, h = cv.height = 640;
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < 12; i++) {
+      const bh = 80 + rng() * (h - 120);
+      ctx.fillStyle = i % 2 ? "#FFD600" : "#7395FF";
+      ctx.fillRect(40 + i * ((w - 80) / 12), h - bh, (w - 80) / 16, bh);
+    }
+  }
+  document.querySelectorAll("canvas[data-sim='bars']").forEach(draw);
+  document.addEventListener("click", (event) => {
+    const btn = event.target.closest("button.rerun");
+    if (!btn) return;
+    const cv = btn.closest(".monitor").querySelector("canvas");
+    if (btn.hasAttribute("data-random")) cv.dataset.seed = Number(cv.dataset.seed || BASE) + 1;
+    draw(cv);
+  });
+})();
+</script>

@@ -1,0 +1,14 @@
+<!-- component: quiz-linked | theme: metro
+     Question href="#rN" and answer id="rN" must exist. Answer links back. -->
+<style>
+  .quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 3.4mm 6mm; }
+  .q { display: grid; grid-template-columns: 9mm 1fr; gap: 2mm; padding: 2.8mm 3mm; background: #FBF9F4; border: 0.3mm solid var(--rule); border-radius: 2mm; }
+  .q .num, .r .num { font-family: var(--head); font-weight: 700; font-size: 16pt; line-height: 1; }
+  .q p, .r p { font-size: 10.5pt; }
+  .ans { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2mm 6mm; }
+  .r { display: grid; grid-template-columns: 9mm 1fr; gap: 2mm; padding: 1.8mm 0; border-bottom: 0.3mm dashed var(--rule); }
+  .r .back { font-family: var(--mono); font-size: 7.6pt; color: var(--muted); }
+  .r .back a { color: var(--ink); }
+</style>
+<a class="q" id="q1" href="#r1"><span class="num fg-a">01</span><p>Pregunta que se responde con un término de la lista.</p></a>
+<div class="r" id="r1"><span class="num fg-a">01</span><div><p>Respuesta corta.</p><span class="back"><a href="#q1">volver</a></span></div></div>

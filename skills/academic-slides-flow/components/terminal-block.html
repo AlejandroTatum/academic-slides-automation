@@ -1,0 +1,22 @@
+<!-- component: terminal-block | theme: metro
+     Paste the style into <head> and one .cmd into the page.
+     Color on .code tags is the category, not decoration. -->
+<style>
+  .lab { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; }
+  .cmd { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3mm; align-items: start; }
+  .term { background: var(--ink); color: #E8E3D7; border-radius: 2mm; padding: 2.4mm 3mm; font-family: var(--mono); font-size: 8.6pt; line-height: 1.5; white-space: pre; overflow: hidden; }
+  .term .p { color: var(--d); }
+  .term .hl { color: #7FE3D3; }
+  .cmd h4 { font-family: var(--head); font-size: 12pt; margin-bottom: .8mm; }
+  .cmd .tags { margin-top: 1.2mm; display: flex; gap: 1mm; flex-wrap: wrap; }
+  .code { font-family: var(--mono); font-weight: 600; font-size: 7.4pt; color: #fff; border-radius: 1.2mm; padding: .4mm 1.6mm; }
+</style>
+<div class="cmd">
+  <div class="term"><span class="p">$</span> comando
+<span class="hl">dato que hay que leer</span></div>
+  <div>
+    <h4>Qué pregunta responde</h4>
+    <p>Una frase: qué línea de la salida importa y por qué.</p>
+    <div class="tags"><a class="code bg-b" href="#estacion">B1</a></div>
+  </div>
+</div>

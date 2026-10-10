@@ -1,0 +1,12 @@
+<!-- component: timeline-steps | theme: metro
+     Numbered journey. Each step names one event, not a paragraph. -->
+<style>
+  .journey { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; counter-reset: s; }
+  .jstep { position: relative; padding: 3mm; background: #FBF9F4; border: 0.3mm solid var(--rule); border-radius: 2.5mm; min-height: 40mm; }
+  .jstep::before { counter-increment: s; content: counter(s); position: absolute; right: 3mm; top: 1mm; font-family: var(--head); font-weight: 700; font-size: 22pt; color: var(--paper-2); }
+  .jstep h4 { font-family: var(--head); font-size: 12.5pt; margin-bottom: 1.5mm; }
+  .jstep p { font-size: 10.5pt; }
+</style>
+<div class="journey">
+  <article class="jstep"><h4>Paso</h4><p>Qué pasa acá, en una frase.</p></article>
+</div>

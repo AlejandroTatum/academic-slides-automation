@@ -1,0 +1,27 @@
+<!-- component: cover
+     deck: section.slide.dark inside #stage. guide: section.page.cover.
+     Paste only the variant for the chosen mode. -->
+<style>
+  .cover { background: var(--ink); color: var(--paper); }
+  .cover .kicker { color: #A9A396; }
+  .cover h1 { font-family: var(--head); font-weight: 700; font-size: 50pt; line-height: .92; letter-spacing: -0.035em; margin-top: 5mm; }
+  .cover h1 em { font-style: normal; color: var(--d); }
+  .cover .lead { max-width: 120mm; margin-top: 5mm; color: #D8D2C4; font-size: 11pt; }
+  .cover .howto { position: absolute; left: 16mm; bottom: 12mm; font-family: var(--mono); font-size: 8.6pt; color: #A9A396; max-width: 120mm; }
+  .cover .howto b { color: var(--paper); }
+</style>
+
+<!-- guide -->
+<section class="page cover" id="portada">
+  <div class="kicker">Materia · Guía de estudio</div>
+  <h1>Título de la<br><em>guía</em></h1>
+  <p class="lead">Para qué sirve y cuántos términos tiene.</p>
+  <p class="howto"><b>Cómo usarla.</b> El mapa enlaza cada ficha. El autoexamen enlaza la respuesta.</p>
+</section>
+
+<!-- deck -->
+<section class="slide dark" id="portada">
+  <p class="kicker">Materia · Semana</p>
+  <h1 class="title xl">Título<br><span class="a">acento</span></h1>
+  <aside class="notes">Qué se dice en esta diapositiva, en una frase.</aside>
+</section>
