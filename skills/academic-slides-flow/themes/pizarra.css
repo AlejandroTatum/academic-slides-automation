@@ -1,0 +1,25 @@
+/* Theme pizarra — chalkboard in a wooden frame. Math, simulation, step-by-step formulas.
+   Link after deck-base.css. Chalk colors: a1 yellow, a2 pink, a3 blue. */
+@font-face { font-family: "C059"; src: url(../assets/fonts/c059-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "C059"; src: url(../assets/fonts/c059-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "C059"; src: url(../assets/fonts/c059-400-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
+@font-face { font-family: "C059"; src: url(../assets/fonts/c059-700-italic.woff2) format("woff2"); font-weight: 700; font-style: italic; font-display: block; }
+@font-face { font-family: "Caladea"; src: url(../assets/fonts/caladea-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Caladea"; src: url(../assets/fonts/caladea-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "Caladea"; src: url(../assets/fonts/caladea-400-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
+
+:root {
+  --bg: #21402F; --fg: #EEEBE0; --muted: #B9C2B4;
+  --a1: #F6D86B; --a2: #F49A9A; --a3: #94CCEB;
+  --alt-bg: #172E22; --alt-fg: #EEEBE0;
+  --display: "C059", Georgia, serif; --body: "Caladea", Georgia, serif; --mono: "Caladea", Georgia, serif;
+  --dw: 700;
+}
+.slide { background-image: radial-gradient(circle at 20% 30%, #ffffff0d, transparent 40%), radial-gradient(circle at 80% 70%, #ffffff0a, transparent 45%);
+  box-shadow: inset 0 0 0 30px #6B4A2E, inset 0 0 0 36px #4E351F; }
+.title { font-style: italic; }
+.title::after { content: ""; display: block; width: 420px; border-bottom: 6px dashed #F6D86Baa; margin-top: 28px; }
+.flow-steps .dot, .recap .dot { background: transparent !important; border: 6px solid currentColor; color: var(--a1); }
+.flow-steps li:nth-child(3n+2) .dot, .recap li:nth-child(3n+2) .dot { color: var(--a2); }
+.flow-steps li:nth-child(3n) .dot, .recap li:nth-child(3n) .dot { color: var(--a3); }
+.foot { color: var(--muted); }

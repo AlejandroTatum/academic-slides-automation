@@ -1,0 +1,28 @@
+/* Theme retro — 90s desktop window. Operating systems, history of computing.
+   Link after deck-base.css. a1 navy, a2 maroon, a3 green. .alt is the blue screen. */
+@font-face { font-family: "Iosevka Term"; src: url(../assets/fonts/iosevka-term-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Iosevka Term"; src: url(../assets/fonts/iosevka-term-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "DejaVu Sans"; src: url(../assets/fonts/dejavu-sans-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DejaVu Sans"; src: url(../assets/fonts/dejavu-sans-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+
+:root {
+  --bg: #C0C0C0; --fg: #000000; --muted: #222222;
+  --a1: #000080; --a2: #800000; --a3: #006400;
+  --alt-bg: #0000AA; --alt-fg: #FFFFFF;
+  --display: "Iosevka Term", monospace; --body: "DejaVu Sans", sans-serif; --mono: "Iosevka Term", monospace;
+  --dw: 700;
+}
+.slide { background: #008080; padding: 190px 200px 170px; }
+.slide::before { content: ""; position: absolute; inset: 90px 120px 110px; background: #C0C0C0; border: 6px solid;
+  border-color: #fff #404040 #404040 #fff; z-index: 0; }
+.slide::after { content: attr(data-window); position: absolute; left: 126px; right: 126px; top: 96px; height: 62px; z-index: 0;
+  background: linear-gradient(90deg, #000080, #1084D0); color: #fff; font: 700 32px var(--mono); padding: 12px 24px; }
+.slide.alt { background: var(--alt-bg); padding: 96px 140px 150px; }
+.slide.alt::before, .slide.alt::after { display: none; }
+.title { font-size: 92px; }
+.title.xl { font-size: 112px; }
+.icon-row li { background: #C0C0C0; border: 6px solid; border-color: #fff #404040 #404040 #fff; padding: 30px 10px; }
+.flow-steps .dot, .recap .dot { background: #C0C0C0 !important; border: 6px solid; border-color: #fff #404040 #404040 #fff; border-radius: 0 !important; }
+.foot { color: #000; left: 200px; right: 200px; bottom: 130px; }
+.alt .foot { color: inherit; left: 140px; right: 140px; bottom: 46px; }
+.alt { --a1: #FFFF55; --a2: #55FFFF; --a3: #FFFFFF; --muted: #C0C0FF; }

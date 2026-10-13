@@ -1,0 +1,22 @@
+/* Theme bauhaus — primary shapes, bold uppercase. Strong openings, design, key concepts.
+   Link after deck-base.css. a1 red, a2 blue, a3 yellow. */
+@font-face { font-family: "Space Grotesk"; src: url(../assets/fonts/space-grotesk-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Space Grotesk"; src: url(../assets/fonts/space-grotesk-500.woff2) format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "Space Grotesk"; src: url(../assets/fonts/space-grotesk-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+
+:root {
+  --bg: #F2EBDD; --fg: #1A1A1A; --muted: #5A554C;
+  --a1: #E63322; --a2: #1D4DB6; --a3: #F5C400;
+  --alt-bg: #1D4DB6; --alt-fg: #F2EBDD;
+  --display: "Space Grotesk", sans-serif; --body: "Space Grotesk", sans-serif; --mono: "Space Grotesk", sans-serif;
+  --dw: 700; --tt: uppercase; --ls: -0.02em;
+}
+.slide::before { content: ""; position: absolute; right: -120px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: #F5C400; z-index: 0; }
+.slide::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 36px; background: #1D4DB6; z-index: 0; }
+.slide.cover::before { right: -160px; top: -160px; width: 700px; height: 700px; }
+.slide.cover::after { left: auto; top: auto; right: 240px; width: 260px; height: 340px; }
+.alt::after { background: #E63322; }
+.alt .kicker { color: #F5C400; }
+.title { font-size: 116px; }
+.flow-steps li:nth-child(3n+2) .dot, .recap li:nth-child(3n+2) .dot { border-radius: 0 !important; }
+.flow-steps li:nth-child(3n) .dot, .recap li:nth-child(3n) .dot { border-radius: 0 !important; clip-path: polygon(50% 0, 100% 100%, 0 100%); padding-top: 50px; color: #1A1A1A !important; }

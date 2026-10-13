@@ -1,0 +1,23 @@
+/* Theme terminal — green phosphor console. Programming, commands, networks.
+   Link after deck-base.css. a1 prompt green, a2 magenta, a3 cyan. */
+@font-face { font-family: "Fira Code"; src: url(../assets/fonts/fira-code-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Fira Code"; src: url(../assets/fonts/fira-code-500.woff2) format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "Fira Code"; src: url(../assets/fonts/fira-code-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+
+:root {
+  --bg: #0B0F0C; --fg: #D7FFD9; --muted: #6FA77A;
+  --a1: #39FF88; --a2: #FF4FD8; --a3: #5CC8FF;
+  --alt-bg: #39FF88; --alt-fg: #0B0F0C;
+  --display: "Fira Code", monospace; --body: "Fira Code", monospace; --mono: "Fira Code", monospace;
+  --dw: 700;
+}
+.slide { background-image: repeating-linear-gradient(0deg, #ffffff06 0 2px, transparent 2px 6px); }
+.kicker::before { content: "$ "; color: var(--fg); }
+.alt .kicker, .alt .kicker::before { color: inherit; }
+.title { font-size: 96px; }
+.title::after { content: "▌"; color: var(--a1); margin-left: 12px; }
+.alt .title::after { color: inherit; }
+.big-number .num { text-shadow: 0 0 40px #39FF8866; }
+.flow-steps .dot, .recap .dot { border-radius: 16px !important; }
+.alt { --a1: #0B0F0C; --muted: #0B0F0C; }
+.alt .a { background: #0B0F0C; color: #39FF88; padding: 0 14px; }
