@@ -26,3 +26,6 @@
 .foot { color: #000; left: 200px; right: 200px; bottom: 130px; }
 .alt .foot { color: inherit; left: 140px; right: 140px; bottom: 46px; }
 .alt { --a1: #FFFF55; --a2: #55FFFF; --a3: #FFFFFF; --muted: #C0C0FF; }
+.flow-steps .dot, .recap .dot { color: var(--a1); }
+.flow-steps li:nth-child(3n+2) .dot, .recap li:nth-child(3n+2) .dot { color: var(--a2); }
+.flow-steps li:nth-child(3n) .dot, .recap li:nth-child(3n) .dot { color: var(--a3); }

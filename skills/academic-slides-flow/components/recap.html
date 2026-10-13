@@ -1,0 +1,20 @@
+<!-- component: recap | deck, every theme
+     Closing ideas, numbered. Default 3. One line each; no new concept appears here. -->
+<style>
+  :where(.recap) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 40px; }
+  :where(.recap li) { display: flex; align-items: center; gap: 40px; font-size: 52px; font-weight: 600; }
+  :where(.recap .dot) { flex: none; width: 110px; height: 110px; border-radius: 50%; display: grid; place-items: center; background: var(--a1);
+    color: var(--dot-fg, var(--bg)); font-family: var(--display); font-weight: var(--dw); font-size: 56px; }
+  :where(.recap li:nth-child(3n+2) .dot) { background: var(--a2); }
+  :where(.recap li:nth-child(3n) .dot) { background: var(--a3); }
+</style>
+<section class="slide" id="cierre">
+  <p class="kicker">Cierre</p>
+  <h1 class="title sm">Para llevarse</h1>
+  <ol class="recap">
+    <li><span class="dot">1</span>El planificador reparte la CPU</li>
+    <li><span class="dot">2</span>El quantum define el turno</li>
+    <li><span class="dot">3</span>Cada proceso cambia de estado</li>
+  </ol>
+  <aside class="notes">Repasar las tres ideas y abrir preguntas.</aside>
+</section>

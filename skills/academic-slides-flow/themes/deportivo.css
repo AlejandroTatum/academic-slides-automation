@@ -21,7 +21,7 @@
   --text: "Barlow", system-ui, sans-serif;
   /* deck-base token contract, so shared components work in this theme */
   --bg: var(--paper); --fg: var(--ink);
-  --a1: var(--blue); --a2: var(--yellow); --a3: var(--blue-l);
+  --a1: var(--blue); --a2: var(--gold); --a3: var(--blue-l); --dot-fg: var(--coal);
   --alt-bg: var(--coal); --alt-fg: var(--white);
   --body: var(--text); --mono: var(--text);
   --dw: 400; --tt: uppercase; --ls: 0;
@@ -37,6 +37,7 @@ p { font-size: 32px; font-weight: 600; line-height: 1.3; margin: 0; }
 .slide.active { opacity: 1; pointer-events: auto; }
 .slide.dark, .slide.alt { background: var(--coal); color: var(--white); }
 .dark, .alt { --a1: var(--yellow); --a2: var(--blue-l); --a3: var(--white); }
+.blue { --a1: var(--yellow); --a2: var(--white); --a3: var(--coal); }
 .slide.blue { background: var(--blue); color: var(--white); }
 .slide.yellow { background: var(--yellow); color: var(--ink); }
 .slide > * { position: relative; z-index: 1; }

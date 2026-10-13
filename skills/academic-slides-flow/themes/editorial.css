@@ -13,7 +13,7 @@
   --display: "C059", Georgia, serif; --body: "Inter", system-ui, sans-serif; --mono: "Inter", system-ui, sans-serif;
   --dw: 700; --ls: -0.01em;
 }
-.slide { border-top: 22px solid #141414; }
+.slide { border-top: 22px solid #141414; padding-top: 150px; }
 .slide::before { content: ""; position: absolute; left: 140px; right: 140px; top: 100px; height: 3px; background: currentColor; }
 .kicker { letter-spacing: .3em; }
 .title { font-size: 120px; }
