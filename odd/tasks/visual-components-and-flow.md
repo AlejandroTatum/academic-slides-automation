@@ -33,7 +33,7 @@ S9. "hay que mejroar esos assets estan terribles" (screenshot of the hand-drawn 
 - [x] T6 (S7) Speaker-guide generator: deck + outline → separate guide `.html`/`.pdf` on the `guide` shell; fixture + test. Route: inline. Commit: 9883871
 - [x] T7 (all) Update `DESIGN.md` (drop stale "not yet implemented"), `flow.md`, `SKILL.md`; refresh examples; `sync_skills.sh` dry run. Route: inline. Commit: 9a79a94
 - [x] T8 (S8) Turn the user-picked proposals into `themes/*.css` (vendored local woff2 fonts), status `experimental` until a real deck passes gate 2. Picked (L10): pizarra, editorial, terminal, bauhaus, cuaderno, pop, retro. Route: inline. Commit: f94f924
-- [ ] T9 (S9) Vendor Lucide (ISC) as icon data, `tools/icons.py` (search + sprite), rebuild `icon-sprite` from Lucide, icon tiles in `icon-row`; rebuild catalog and examples. Route: inline. Commit: —
+- [x] T9 (S9) Vendor Lucide (ISC) as icon data, `tools/icons.py` (search + sprite), rebuild `icon-sprite` from Lucide, icon tiles in `icon-row`; rebuild catalog and examples. Route: inline. Commit: da23f91
 
 ## Log
 
