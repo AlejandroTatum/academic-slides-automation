@@ -1,0 +1,27 @@
+<!-- component: figure-full | deck, every theme
+     One diagram or image filling the slide, plus a short caption. Build figures with
+     academic-visual-builder and save them under assets/figures/ in the destination;
+     use <img src="assets/figures/name.svg" alt="..."> or an inline <svg> like the example.
+     Text inside an <svg> does not count toward slide density. -->
+<style>
+  :where(.figure-full) { justify-content: center; gap: 28px; }
+  :where(.figure-full figure) { margin: 0; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 24px; }
+  :where(.figure-full figure > img, .figure-full figure > svg) { flex: 1; min-height: 0; width: 100%; object-fit: contain; }
+  :where(.figure-full figcaption) { font-size: 34px; color: var(--muted); }
+</style>
+<section class="slide figure-full" id="figura">
+  <p class="kicker">Figura</p>
+  <figure>
+    <svg viewBox="0 0 1400 520" role="img" aria-label="Cola de listos, CPU y bloqueados" style="font-family: var(--body)" fill="none" stroke="currentColor" stroke-width="6">
+      <rect x="20" y="180" width="360" height="160" rx="18" style="stroke: var(--a1)"/>
+      <rect x="560" y="160" width="280" height="200" rx="18" style="stroke: var(--a2)"/>
+      <rect x="1020" y="180" width="360" height="160" rx="18" style="stroke: var(--a3)"/>
+      <path d="M380 260h160m-30-24 30 24-30 24M840 260h160m-30-24 30 24-30 24M1200 340v110H200V360m-24 30 24-30 24 30"/>
+      <g fill="currentColor" stroke="none" font-size="56" font-weight="600" text-anchor="middle">
+        <text x="200" y="278">Listos</text><text x="700" y="278">CPU</text><text x="1200" y="278">E/S</text>
+      </g>
+    </svg>
+    <figcaption>El proceso vuelve a la cola al terminar su E/S</figcaption>
+  </figure>
+  <aside class="notes">Recorrer la figura de izquierda a derecha y volver por abajo.</aside>
+</section>
