@@ -74,6 +74,13 @@ class OutlinePlanTests(unittest.TestCase):
         self.assertIn("plan: 2 slides · 2:00 · 0 speakers\n", proc.stdout)
         self.assertIn("01  0:00  1:00  -  -  Una idea\n", proc.stdout)
 
+    def test_one_speaker_is_singular(self):
+        text = FOUR.replace("# speakers: Ana, Luis", "# speakers: Ana")
+        proc, _ = run(text)
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertTrue(proc.stdout.startswith("plan: 4 slides · 10:00 · 1 speaker\n"), proc.stdout)
+        self.assertIn("speaker: Ana 4 slides 10:00\n", proc.stdout)
+
     def test_long_message_and_odd_slide_count_are_notes_not_failures(self):
         text = FOUR.replace("Para llevarse", "Para llevarse estas tres ideas muy importantes del tema de hoy")
         text = text.replace("# duration: 10 min", "# duration: 20 min")

@@ -172,7 +172,8 @@ def render(plan: Plan) -> list[str]:
     w_start = max((len(clock(s.start)) for s in plan.slides), default=4)
     w_len = max((len(clock(s.seconds or 0)) for s in plan.slides), default=4)
     total = plan.duration if plan.duration is not None else plan.total
-    lines = [f"plan: {len(plan.slides)} slides · {clock(total)} · {len(plan.speakers)} speakers"]
+    people = "speaker" if len(plan.speakers) == 1 else "speakers"
+    lines = [f"plan: {len(plan.slides)} slides · {clock(total)} · {len(plan.speakers)} {people}"]
     for s, name, comp in zip(plan.slides, who, what):
         lines.append(
             f"{s.number:02d}  {clock(s.start).rjust(w_start)}  {clock(s.seconds or 0).rjust(w_len)}  "

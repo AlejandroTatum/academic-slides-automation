@@ -15,7 +15,7 @@
 .kicker::before { content: "$ "; color: var(--fg); }
 .alt .kicker, .alt .kicker::before { color: inherit; }
 .title { font-size: 96px; }
-.title::after { content: "▌"; color: var(--a1); margin-left: 12px; }
+.title::after { content: "\2060▌"; color: var(--a1); margin-left: 12px; } /* word joiner: the cursor never wraps alone */
 .alt .title::after { color: inherit; }
 .big-number .num { text-shadow: 0 0 40px #39FF8866; }
 .flow-steps .dot, .recap .dot { border-radius: 16px !important; }
