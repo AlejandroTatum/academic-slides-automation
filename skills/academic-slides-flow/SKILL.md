@@ -60,5 +60,5 @@ Return the mode, theme (and whether it is experimental), destination path, outli
 - `references/fonts.md` — local font files.
 - `DESIGN.md` — themes, token contract, components, tools.
 - `catalog/` — every shared deck component in every deck theme (`live-demo` stays deportivo-only) (`tools/build_catalog.py` regenerates it).
-- `tools/` — `check_deck.py`, `outline.py`, `speaker_guide.py`, `build_catalog.py`, `render.sh`.
+- `tools/` — `check_deck.py`, `outline.py`, `icons.py` (Lucide search + sprite), `speaker_guide.py`, `build_catalog.py`, `render.sh`.
 - `references/profiles/` — course profiles reused from `academic-report-flow`.

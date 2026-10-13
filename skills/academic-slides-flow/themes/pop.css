@@ -19,3 +19,4 @@ p { font-weight: 700; }
 .icon-row li { background: #fff; color: #111; border: 7px solid #111; box-shadow: 12px 12px 0 #111; padding: 40px 20px; }
 .flow-steps .dot, .recap .dot { border: 7px solid #111; box-shadow: 10px 10px 0 #111; color: #fff !important; }
 .big-number .num { -webkit-text-stroke: 8px #111; text-shadow: 14px 14px 0 #111; }
+.icon-row .icon { background: none; padding: 20px; } /* the card is the tile */

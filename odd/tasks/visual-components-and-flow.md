@@ -21,6 +21,8 @@ S7. "la guia que se genere aparte como una guia mismo": the `guia-expositores` (
 
 S8. "si faltaria agregar mas modelos de diapositivas tambien, muestrame propuestas en html para verlas y voy eligiendo yo que se tener unas 10 como maximo". New themes are shown in `proposals/slide-themes.html`; the user picks; total themes (including `deportivo` and `metro`) stay at about 10 at most. Every theme follows the shared token contract so all components work in it.
 
+S9. "hay que mejroar esos assets estan terribles" (screenshot of the hand-drawn icon-row icons). Icons come from a professional, consistent, locally vendored set; a deck embeds only the icons it uses; icon-row gives icons visual weight.
+
 ## Tasks
 
 - [x] T1 (S1, S2) Density rule in checker (RED tests first) + `writing.md` / `SKILL.md` wording. Route: inline. Commit: 61f2f74
@@ -31,6 +33,7 @@ S8. "si faltaria agregar mas modelos de diapositivas tambien, muestrame propuest
 - [x] T6 (S7) Speaker-guide generator: deck + outline → separate guide `.html`/`.pdf` on the `guide` shell; fixture + test. Route: inline. Commit: 9883871
 - [x] T7 (all) Update `DESIGN.md` (drop stale "not yet implemented"), `flow.md`, `SKILL.md`; refresh examples; `sync_skills.sh` dry run. Route: inline. Commit: 9a79a94
 - [x] T8 (S8) Turn the user-picked proposals into `themes/*.css` (vendored local woff2 fonts), status `experimental` until a real deck passes gate 2. Picked (L10): pizarra, editorial, terminal, bauhaus, cuaderno, pop, retro. Route: inline. Commit: f94f924
+- [ ] T9 (S9) Vendor Lucide (ISC) as icon data, `tools/icons.py` (search + sprite), rebuild `icon-sprite` from Lucide, icon tiles in `icon-row`; rebuild catalog and examples. Route: inline. Commit: —
 
 ## Log
 
@@ -67,3 +70,7 @@ L15. Independent verify (gentle-ai-verify): PASS S1-S8. Minor findings fixed in 
 L16. aporta RDD para la creacion de documentos, o el verify es suficiente? / entonces pasame el comando para desactivarlo solo en el repo
 
 L17. Decision: no native review for this branch (whole-branch candidate exceeded the lens context budget); independent verify (PASS S1-S8) is the closing proof. User will disable RDD for this clone themselves.
+
+L18. /tmp/pi-clipboard-0c407cfe-7655-48cf-846e-59f2dece8fba.png hay que mejroar esos assets estan terribles
+
+L19. Decision: Lucide (ISC, 1879 icons, consistent 24-grid stroke style) vendored as icon-nodes.json + tags.json; sprite ids become `i-<lucide-name>` (the old hand-drawn ids were never released; PR #1 is unmerged).

@@ -29,3 +29,4 @@
 .flow-steps .dot, .recap .dot { color: var(--a1); }
 .flow-steps li:nth-child(3n+2) .dot, .recap li:nth-child(3n+2) .dot { color: var(--a2); }
 .flow-steps li:nth-child(3n) .dot, .recap li:nth-child(3n) .dot { color: var(--a3); }
+.icon-row .icon { background: none; padding: 20px; } /* the card is the tile */

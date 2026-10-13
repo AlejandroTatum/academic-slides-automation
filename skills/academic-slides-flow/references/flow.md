@@ -65,7 +65,7 @@ destination/
 └── outline.txt         # the approved outline
 ```
 
-A deck links `themes/deck-base.css` first, then `themes/<theme>.css`. A guide links `themes/metro.css`. Font URLs inside a theme are relative to the CSS file (`../assets/fonts/`). Do not rewrite them if `themes/` and `assets/` stay siblings. Deck components use the token contract in `deck-base.css`, so they work in every deck theme. Paste `icon-sprite.html` once after `<body>` when a slide uses icons.
+A deck links `themes/deck-base.css` first, then `themes/<theme>.css`. A guide links `themes/metro.css`. Font URLs inside a theme are relative to the CSS file (`../assets/fonts/`). Do not rewrite them if `themes/` and `assets/` stay siblings. Deck components use the token contract in `deck-base.css`, so they work in every deck theme. Icons are Lucide (ISC). Find the icon that names the idea with `python3 tools/icons.py search WORD`, then paste the output of `python3 tools/icons.py sprite NAME...` once after `<body>`, with exactly the icons the deck uses (`components/icon-sprite.html` is a ready default set). Never draw icons by hand.
 
 Paste the component `<style>` once and the markup per item. No ad-hoc CSS. A new visual pattern becomes a file in `components/` first.
 

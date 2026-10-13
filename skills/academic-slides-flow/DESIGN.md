@@ -75,7 +75,7 @@ An experimental theme becomes proven when a real deck in it passes gate 2.
 Default density: 3 items and 20 words per slide, checked by `check_deck.py`;
 `data-dense` or `--max-items` / `--max-words` lift it when the user or the
 content needs more. New components, all deck, all themes: `big-number`,
-`icon-row` (+ `icon-sprite`, 28 stroke icons), `flow-steps`, `question-hook`,
+`icon-row` (Lucide icons in color tiles; `icon-sprite` default set, `tools/icons.py` for any of 1,879 icons), `flow-steps`, `question-hook`,
 `recap`, `figure-full`, `formula-hero` (local KaTeX). `cover` and
 `section-divider` gained a token-based deck variant.
 

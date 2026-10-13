@@ -10,8 +10,8 @@ decks (`deck` mode) and study guides (`guide` mode) built from nine deck themes
   themes, shells, components, tools, fixtures).
 - `scripts/sync_skills.sh` — publishes the skill to the Pi runtime
   (`~/.pi/agent/skills`).
-- `scripts/vendor_fonts.sh`, `scripts/vendor_katex.sh` — rebuild the local
-  fonts and KaTeX inside the skill.
+- `scripts/vendor_fonts.sh`, `scripts/vendor_katex.sh`, `scripts/vendor_icons.sh` —
+  rebuild the local fonts, KaTeX and Lucide icon data inside the skill.
 - `proposals/slide-themes.html` — the theme proposals the user picked from.
 - `odd/tasks/` — feature plans and their log.
 
