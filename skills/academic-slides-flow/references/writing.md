@@ -4,7 +4,12 @@
 
 ## Deck density (default, not a limit)
 
-By default a deck slide shows at most **3 items** and **20 words**. Visual first: an icon, a number, a figure, a step, not a sentence.
+By default a deck slide shows at most **3 items** and **30 words**. Visual first, with words that guide the speaker:
+
+- Title carries the point. One optional `.lead` line under it (≤ 12 words) gives the context.
+- Each icon or step has a 1–3 word label and an optional `.desc` line (≤ 6 words): the cue for what to say, not the speech.
+- Recap lines are one short sentence each.
+- The full spoken text stays in `.notes`. Bare labels with no guide are too thin; paragraphs are too much.
 
 - An item is an `<li>` or an element with class `item`. Words are the visible text outside `.notes`, `.kicker`, `.foot`, `pre`, `code`, `svg`, and math.
 - When the user asks for more, or the content needs it (a comparison table, a dense recap), mark that slide `data-dense`. Say why in the outline line.

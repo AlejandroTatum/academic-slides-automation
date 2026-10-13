@@ -1,6 +1,6 @@
 <!-- component: big-number | deck, every theme
      One huge figure and one short line. The number is the slide; the explanation goes in .notes.
-     Items: 0. Keep .cap under 8 words. -->
+     Items: 0. Keep .cap under 8 words; an optional .lead adds one context line. -->
 <style>
   :where(.big-number) { display: flex; flex-direction: column; gap: 24px; }
   :where(.big-number .num) { font-family: var(--display); font-weight: var(--dw); font-size: 280px; line-height: .9;
@@ -10,5 +10,6 @@
 <section class="slide" id="dato">
   <p class="kicker">02 · Dato</p>
   <div class="big-number"><span class="num">10–100 ms</span><p class="cap">quantum típico en Round Robin</p></div>
+  <p class="lead">Muy corto: muchos cambios · muy largo: poca respuesta</p>
   <aside class="notes">Qué significa el número y de dónde sale.</aside>
 </section>

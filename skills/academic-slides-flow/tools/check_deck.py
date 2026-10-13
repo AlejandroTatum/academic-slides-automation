@@ -43,7 +43,7 @@ USAGE = (
     " [--max-items N] [--max-words N]"
 )
 MAX_ITEMS = 3
-MAX_WORDS = 20
+MAX_WORDS = 30
 # Text inside these never counts toward slide density: it is spoken, chrome, or code.
 DENSITY_SKIP_CLASSES = {"notes", "kicker", "foot", "katex"}
 DENSITY_SKIP_TAGS = {"pre", "code", "script", "style", "svg", "math"}

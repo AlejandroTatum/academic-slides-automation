@@ -65,14 +65,15 @@ theme can override them and every component works in every deck theme.
 |---|---|---|
 | `deportivo` | proven | Simulación Semana 2 deck (self-contained; maps its tokens to the contract) |
 | `metro-deck` | proven look | the metro guide palette on the deck canvas |
-| `pizarra`, `editorial`, `terminal`, `bauhaus`, `cuaderno`, `pop`, `retro` | experimental | picked by the user from `proposals/slide-themes.html` (repo) |
+| `terminal` | proven | Engram deck, approved at gate 2 on 2026-10-13 |
+| `pizarra`, `editorial`, `bauhaus`, `cuaderno`, `pop`, `retro` | experimental | picked by the user from `proposals/slide-themes.html` (repo) |
 
 An experimental theme becomes proven when a real deck in it passes gate 2.
 `metro.css` stays the guide theme.
 
 ## Visual deck components (2026-10-13)
 
-Default density: 3 items and 20 words per slide, checked by `check_deck.py`;
+Default density: 3 items and 30 words per slide (raised from 20 after the Engram deck: guiding text, not bare labels), checked by `check_deck.py`;
 `data-dense` or `--max-items` / `--max-words` lift it when the user or the
 content needs more. New components, all deck, all themes: `big-number`,
 `icon-row` (Lucide icons in color tiles; `icon-sprite` default set, `tools/icons.py` for any of 1,879 icons), `flow-steps`, `question-hook`,

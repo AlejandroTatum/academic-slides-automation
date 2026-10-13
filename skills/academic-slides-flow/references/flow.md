@@ -20,7 +20,7 @@ Do not overwrite an existing HTML or PDF in that folder unless the user explicit
 | `metro-deck` | proven look, new on decks | the metro guide look on a deck, category color |
 | `pizarra` | experimental | math, simulation, formulas |
 | `editorial` | experimental | theory, readings |
-| `terminal` | experimental | programming, commands, networks |
+| `terminal` | proven (Engram deck, 2026-10-13) | programming, commands, networks |
 | `bauhaus` | experimental | strong openings, key concepts |
 | `cuaderno` | experimental | reviews, intro classes |
 | `pop` | experimental | waking up the room, dynamics |
@@ -80,7 +80,7 @@ tools/render.sh destination/index.html
 python3 tools/check_deck.py destination/index.html --mode deck|guide --outline destination/outline.txt --dom
 ```
 
-In `deck` mode the checker also reports `density:` lines: a slide above 3 items or 20 words fails, naming the slide, unless it is marked `data-dense`. Add `--max-items N` / `--max-words N` only when the user asked for a denser deck.
+In `deck` mode the checker also reports `density:` lines: a slide above 3 items or 30 words fails, naming the slide, unless it is marked `data-dense`. Add `--max-items N` / `--max-words N` only when the user asked for a denser deck.
 
 `check_deck.py` writes findings to stdout and does not modify the HTML. Exit 0 is required before showing the PDF. Then look at the thumbnails. Fix overflow and empty pages. A checker pass is not visual approval.
 

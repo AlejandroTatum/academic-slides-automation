@@ -74,3 +74,9 @@ L17. Decision: no native review for this branch (whole-branch candidate exceeded
 L18. /tmp/pi-clipboard-0c407cfe-7655-48cf-846e-59f2dece8fba.png hay que mejroar esos assets estan terribles
 
 L19. Decision: Lucide (ISC, 1879 icons, consistent 24-grid stroke style) vendored as icon-nodes.json + tags.json; sprite ids become `i-<lucide-name>` (the old hand-drawn ids were never released; PR #1 is unmerged).
+
+L20. si me convence mas, pero siento que hay muy poquito texto si vendria bien palabras al menos para guiarme, vuelve a darme la propuesta y vamos ajusando la skill con las diapos que considero ideal
+
+L21. si perfecto esas serian las ideales poco texto, de esa manera, actualiza la skill
+
+L22. Decision: the Engram v2 deck is the ideal. Default density becomes 3 items / 30 words of guiding text: title, one .lead line, a .desc line (≤ 6 words) under each icon or step, one-sentence recap lines; speech stays in .notes. terminal is proven (gate 2 passed on the Engram deck).

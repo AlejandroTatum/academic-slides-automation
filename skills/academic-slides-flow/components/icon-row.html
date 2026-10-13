@@ -1,5 +1,5 @@
 <!-- component: icon-row | deck, every theme | needs icon-sprite (or a tools/icons.py sprite)
-     Icons in color tiles with 1-3 word labels. Default 3; add <li> when the slide needs more (see writing.md).
+     Icons in color tiles with a 1-3 word label and an optional guiding line (.desc, up to 6 words). Default 3; add <li> when the slide needs more (see writing.md).
      Accent order is a1, a2, a3 and repeats; each position is a category the reader can name.
      Pick the icon that names the idea, not a loose metaphor: tools/icons.py search WORD. -->
 <style>
@@ -10,14 +10,15 @@
     stroke-linecap: round; stroke-linejoin: round; color: var(--a1); }
   :where(.icon-row li:nth-child(3n+2) .icon) { color: var(--a2); }
   :where(.icon-row li:nth-child(3n) .icon) { color: var(--a3); }
+  :where(.icon-row .desc) { margin: -14px 0 0; max-width: 500px; font-size: 34px; font-weight: 400; line-height: 1.25; color: inherit; opacity: .78; }
 </style>
 <section class="slide" id="idea">
   <p class="kicker">01 · Idea</p>
   <h1 class="title sm">¿Qué decide el planificador?</h1>
   <ul class="icon-row">
-    <li><svg class="icon"><use href="#i-log-in"/></svg>Quién entra</li>
-    <li><svg class="icon"><use href="#i-clock"/></svg>Cuánto dura</li>
-    <li><svg class="icon"><use href="#i-users"/></svg>Quién espera</li>
+    <li><svg class="icon"><use href="#i-log-in"/></svg>Quién entra<p class="desc">El próximo proceso en la CPU</p></li>
+    <li><svg class="icon"><use href="#i-clock"/></svg>Cuánto dura<p class="desc">El turno o quantum</p></li>
+    <li><svg class="icon"><use href="#i-users"/></svg>Quién espera<p class="desc">La cola de listos</p></li>
   </ul>
   <aside class="notes">El planificador elige el próximo proceso, cuánto tiempo corre y quién queda en la cola.</aside>
 </section>

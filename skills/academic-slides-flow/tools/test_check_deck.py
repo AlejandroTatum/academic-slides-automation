@@ -61,7 +61,7 @@ def deck(*slides: str) -> str:
 FOUR_ITEMS = '<section class="slide" id="s1"><h1 class="title">Lista</h1><ul><li>uno</li><li>dos</li><li>tres</li><li>cuatro</li></ul></section>'
 WORDY = (
     '<section class="slide" id="s1"><h1 class="title">Título</h1><p>'
-    + " ".join(f"palabra{i}" for i in range(24))
+    + " ".join(f"palabra{i}" for i in range(34))
     + "</p></section>"
 )
 
@@ -79,13 +79,25 @@ class DensityTests(unittest.TestCase):
         proc, same = run(deck(WORDY), "--mode", "deck", "--expect", "1")
         self.assertEqual(proc.returncode, 1)
         self.assertTrue(same)
-        self.assertIn("density: slide 1 (#s1) has 25 words (max 20)\n", proc.stdout)
+        self.assertIn("density: slide 1 (#s1) has 35 words (max 30)\n", proc.stdout)
 
-    def test_three_items_twenty_words_pass(self):
+    def test_three_items_thirty_words_pass(self):
         slide = (
             '<section class="slide"><h1 class="title">Tres cosas</h1>'
             "<ul><li>uno</li><li>dos</li><li>tres</li></ul>"
-            "<p>" + " ".join(["w"] * 15) + "</p></section>"
+            "<p>" + " ".join(["w"] * 25) + "</p></section>"
+        )
+        proc, _ = run(deck(slide), "--mode", "deck", "--expect", "1")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertIn("density: pass\n", proc.stdout)
+
+    def test_guiding_text_of_the_ideal_slide_passes_by_default(self):
+        slide = (
+            '<section class="slide" id="s1"><p class="kicker">01 · Problema</p>'
+            '<h1 class="title">Dónde se pierde la memoria</h1><ul class="icon-row">'
+            '<li>Sesión nueva<p class="desc">Arranca sin contexto previo</p></li>'
+            '<li>Compactación<p class="desc">El resumen pierde detalles</p></li>'
+            '<li>Otro agente<p class="desc">No sabe lo que aprendió el otro</p></li></ul></section>'
         )
         proc, _ = run(deck(slide), "--mode", "deck", "--expect", "1")
         self.assertEqual(proc.returncode, 0, proc.stdout)
@@ -125,15 +137,15 @@ class DensityTests(unittest.TestCase):
         proc, _ = run(deck(FOUR_ITEMS), "--mode", "deck", "--expect", "1", "--max-items", "4")
         self.assertEqual(proc.returncode, 0, proc.stdout)
         self.assertIn("density: pass\n", proc.stdout)
-        proc, _ = run(deck(WORDY), "--mode", "deck", "--expect", "1", "--max-words", "25")
+        proc, _ = run(deck(WORDY), "--mode", "deck", "--expect", "1", "--max-words", "35")
         self.assertEqual(proc.returncode, 0, proc.stdout)
         proc, _ = run(deck(FOUR_ITEMS), "--mode", "deck", "--expect", "1", "--max-items", "2")
         self.assertIn("density: slide 1 (#s1) has 4 items (max 2)", proc.stdout)
 
     def test_raised_limit_still_fails_above_it(self):
-        proc, _ = run(deck(WORDY), "--mode", "deck", "--expect", "1", "--max-words", "24")
+        proc, _ = run(deck(WORDY), "--mode", "deck", "--expect", "1", "--max-words", "34")
         self.assertEqual(proc.returncode, 1)
-        self.assertIn("density: slide 1 (#s1) has 25 words (max 24)", proc.stdout)
+        self.assertIn("density: slide 1 (#s1) has 35 words (max 34)", proc.stdout)
 
     def test_limits_are_deck_only_and_positive(self):
         for args in (

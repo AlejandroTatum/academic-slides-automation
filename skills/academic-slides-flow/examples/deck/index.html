@@ -17,6 +17,7 @@
     stroke-linecap: round; stroke-linejoin: round; color: var(--a1); }
   :where(.icon-row li:nth-child(3n+2) .icon) { color: var(--a2); }
   :where(.icon-row li:nth-child(3n) .icon) { color: var(--a3); }
+  :where(.icon-row .desc) { margin: -14px 0 0; max-width: 500px; font-size: 34px; font-weight: 400; line-height: 1.25; color: inherit; opacity: .78; }
 </style>
 <style>
   :where(.flow-steps) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 96px; }
@@ -25,6 +26,7 @@
     color: var(--dot-fg, var(--bg)); font-family: var(--display); font-weight: var(--dw); font-size: 80px; }
   :where(.flow-steps li:nth-child(3n+2) .dot) { background: var(--a2); }
   :where(.flow-steps li:nth-child(3n) .dot) { background: var(--a3); }
+  :where(.flow-steps .desc) { margin: -12px 0 0; max-width: 460px; font-size: 34px; font-weight: 400; line-height: 1.25; color: inherit; opacity: .78; }
   :where(.flow-steps li:not(:last-child))::after { content: "→"; position: absolute; right: -48px; top: 38px; transform: translateX(50%);
     font-size: 80px; line-height: 1; color: var(--muted); }
 </style>
@@ -100,15 +102,16 @@
 <section class="slide alt question-hook" id="pregunta">
   <p class="kicker">Pregunta</p>
   <h1 class="title q">¿Quién usa la CPU ahora?</h1>
+  <p class="lead">Hay decenas de procesos y una sola CPU.</p>
   <aside class="notes">Pregunta abierta al aula antes de explicar el planificador.</aside>
 </section>
 <section class="slide" id="idea">
   <p class="kicker">01 · Idea</p>
   <h1 class="title sm">¿Qué decide el planificador?</h1>
   <ul class="icon-row">
-    <li><svg class="icon"><use href="#i-log-in"/></svg>Quién entra</li>
-    <li><svg class="icon"><use href="#i-clock"/></svg>Cuánto dura</li>
-    <li><svg class="icon"><use href="#i-users"/></svg>Quién espera</li>
+    <li><svg class="icon"><use href="#i-log-in"/></svg>Quién entra<p class="desc">El próximo proceso en la CPU</p></li>
+    <li><svg class="icon"><use href="#i-clock"/></svg>Cuánto dura<p class="desc">El turno o quantum</p></li>
+    <li><svg class="icon"><use href="#i-users"/></svg>Quién espera<p class="desc">La cola de listos</p></li>
   </ul>
   <aside class="notes">El planificador elige el próximo proceso, cuánto tiempo corre y quién queda en la cola.</aside>
 </section>
@@ -116,23 +119,24 @@
   <p class="kicker">03 · Proceso</p>
   <h1 class="title sm">Ciclo de un proceso</h1>
   <ol class="flow-steps">
-    <li><span class="dot">1</span>Nuevo</li>
-    <li><span class="dot">2</span>Listo</li>
-    <li><span class="dot">3</span>Ejecución</li>
+    <li><span class="dot">1</span>Nuevo<p class="desc">Se crea el proceso</p></li>
+    <li><span class="dot">2</span>Listo<p class="desc">Espera turno de CPU</p></li>
+    <li><span class="dot">3</span>Ejecución<p class="desc">Usa la CPU</p></li>
   </ol>
   <aside class="notes">Se crea, espera CPU en la cola de listos y el planificador lo despacha.</aside>
 </section>
 <section class="slide" id="dato">
   <p class="kicker">02 · Dato</p>
   <div class="big-number"><span class="num">10–100 ms</span><p class="cap">quantum típico en Round Robin</p></div>
+  <p class="lead">Muy corto: muchos cambios · muy largo: poca respuesta</p>
   <aside class="notes">Qué significa el número y de dónde sale.</aside>
 </section>
 <section class="slide" id="cierre">
   <p class="kicker">Cierre</p>
   <h1 class="title sm">Para llevarse</h1>
   <ol class="recap">
-    <li><span class="dot">1</span>El planificador reparte la CPU</li>
-    <li><span class="dot">2</span>El quantum define el turno</li>
+    <li><span class="dot">1</span>El planificador reparte la CPU entre procesos</li>
+    <li><span class="dot">2</span>El quantum define cuánto dura cada turno</li>
     <li><span class="dot">3</span>Cada proceso cambia de estado</li>
   </ol>
   <aside class="notes">Repasar las tres ideas y abrir preguntas.</aside>
