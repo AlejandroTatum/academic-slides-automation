@@ -38,7 +38,91 @@ BODY_CLASSES = {"title", "what", "lead"}
 RULE = re.compile(r"([^{}]+)\{([^{}]*)\}", re.S)
 LENGTH = re.compile(r"(\d*\.?\d+)\s*(px|pt)\b", re.I)
 URL = re.compile(r"url\(\s*['\"]?([^)'\"]+)", re.I)
-USAGE = "usage: check_deck.py HTML --mode deck|guide (--expect N | --outline FILE) [--dom]"
+USAGE = (
+    "usage: check_deck.py HTML --mode deck|guide (--expect N | --outline FILE) [--dom]"
+    " [--max-items N] [--max-words N]"
+)
+MAX_ITEMS = 3
+MAX_WORDS = 20
+# Text inside these never counts toward slide density: it is spoken, chrome, or code.
+DENSITY_SKIP_CLASSES = {"notes", "kicker", "foot", "katex"}
+DENSITY_SKIP_TAGS = {"pre", "code", "script", "style", "svg", "math"}
+VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
+WORD = re.compile(r"\w+", re.U)
+
+
+class Density(HTMLParser):
+    """Visible items and words per deck slide. An item is an <li> or a .item element."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.slides: list[dict] = []
+        self._stack: list[tuple[str, bool, bool]] = []  # tag, opens slide, skipped
+
+    def _skipping(self) -> bool:
+        return any(skip for _, _, skip in self._stack)
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        ad = {key: value or "" for key, value in attrs}
+        classes = set(ad.get("class", "").split())
+        opens = "slide" in classes
+        if opens:
+            self.slides.append(
+                {"id": ad.get("id", ""), "dense": "data-dense" in ad, "items": 0, "words": 0}
+            )
+        skip = bool(classes & DENSITY_SKIP_CLASSES) or tag in DENSITY_SKIP_TAGS
+        if self.slides and self._in_slide(opens) and not skip and not self._skipping():
+            if tag == "li" or "item" in classes:
+                self.slides[-1]["items"] += 1
+        if tag not in VOID_TAGS:
+            self._stack.append((tag, opens, skip))
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag not in VOID_TAGS and self._stack:
+            self._stack.pop()
+
+    def _in_slide(self, opening: bool = False) -> bool:
+        return opening or any(opens for _, opens, _ in self._stack)
+
+    def handle_endtag(self, tag: str) -> None:
+        for index in range(len(self._stack) - 1, -1, -1):
+            if self._stack[index][0] == tag:
+                del self._stack[index:]
+                return
+
+    def handle_data(self, data: str) -> None:
+        if self.slides and self._in_slide() and not self._skipping():
+            self.slides[-1]["words"] += len(WORD.findall(data))
+
+
+def density_lines(html: str, max_items: int, max_words: int) -> list[str]:
+    parser = Density()
+    parser.feed(html)
+    failures: list[str] = []
+    dense = 0
+    for number, slide in enumerate(parser.slides, start=1):
+        if slide["dense"]:
+            dense += 1
+            continue
+        name = f"slide {number}" + (f" (#{slide['id']})" if slide["id"] else "")
+        if slide["items"] > max_items:
+            failures.append(f"density: {name} has {slide['items']} items (max {max_items})")
+        if slide["words"] > max_words:
+            failures.append(f"density: {name} has {slide['words']} words (max {max_words})")
+    if failures:
+        return failures
+    if dense:
+        plural = "slide" if dense == 1 else "slides"
+        return [f"density: pass ({dense} dense {plural} allowed)"]
+    return ["density: pass"]
+
+
+def positive(text: str) -> int:
+    value = int(text)
+    if value < 1:
+        raise ValueError(text)
+    return value
 
 
 class Collected(HTMLParser):
@@ -269,6 +353,8 @@ addEventListener('load', () => {
 
 
 def passing(line: str) -> bool:
+    if line.startswith("density: pass"):
+        return True
     return line in {
         "count: pass",
         "anchors: pass",
@@ -286,9 +372,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--expect", type=int)
     parser.add_argument("--outline")
     parser.add_argument("--dom", action="store_true")
+    parser.add_argument("--max-items")
+    parser.add_argument("--max-words")
     parser.add_argument("-h", "--help", action="store_true")
     args = parser.parse_args(argv)
     if args.help or not args.mode or (args.expect is None and not args.outline) or not args.html:
+        print(USAGE, file=sys.stderr)
+        return 2
+    limits_given = args.max_items is not None or args.max_words is not None
+    if limits_given and args.mode != "deck":
+        print(USAGE, file=sys.stderr)
+        return 2
+    try:
+        max_items = positive(args.max_items) if args.max_items is not None else MAX_ITEMS
+        max_words = positive(args.max_words) if args.max_words is not None else MAX_WORDS
+    except ValueError:
         print(USAGE, file=sys.stderr)
         return 2
     html_path = Path(args.html)
@@ -308,6 +406,8 @@ def main(argv: list[str] | None = None) -> int:
     css, file_findings = local_sheets(html_path, doc)
     lines.extend(font_lines(html + "\n" + css, file_findings))
     lines.extend(font_findings(css, args.mode))
+    if args.mode == "deck":
+        lines.extend(density_lines(html, max_items, max_words))
     lines.extend(dom_overflow(html_path) if args.dom else ["overflow: skipped"])
     sys.stdout.write("\n".join(lines) + "\n")
     return 0 if all(passing(line) for line in lines) else 1

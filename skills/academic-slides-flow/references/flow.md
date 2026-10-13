@@ -47,6 +47,8 @@ tools/render.sh destination/index.html
 python3 tools/check_deck.py destination/index.html --mode deck|guide --outline destination/outline.txt --dom
 ```
 
+In `deck` mode the checker also reports `density:` lines: a slide above 3 items or 20 words fails, naming the slide, unless it is marked `data-dense`. Add `--max-items N` / `--max-words N` only when the user asked for a denser deck.
+
 `check_deck.py` writes findings to stdout and does not modify the HTML. Exit 0 is required before showing the PDF. Then look at the thumbnails. Fix overflow and empty pages. A checker pass is not visual approval.
 
 ## Gate 2 — visual review

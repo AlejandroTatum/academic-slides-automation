@@ -18,6 +18,7 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, 2
 - Two human gates only: approved outline, then visual review of the PDF. Silence is not approval.
 - Themes are `deportivo` and `metro` only. Propose one with a reason. A new theme is an explicit experiment, never a silent invention.
 - Body text is ≥ 10.5 pt on guides and ≥ 28 px on decks. Every accent maps to a category the reader can name.
+- Decks are visual. Default: ≤ 3 items and ≤ 20 words per slide; spoken text goes in `.notes`. It is a default, not a limit: when the user or the content needs more, mark the slide `data-dense` or run the checker with `--max-items` / `--max-words` (`references/writing.md`).
 - Mark terms absent from the user's source list as `TIP`. Correct inaccurate source definitions before styling them, and list each correction.
 - Fonts are local files. Never use `fonts.googleapis.com`. Run `tools/render.sh` and `tools/check_deck.py` before showing work.
 - Do not overwrite an existing deck or guide unless the user explicitly asks.
