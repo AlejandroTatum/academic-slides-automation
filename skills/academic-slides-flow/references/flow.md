@@ -12,7 +12,21 @@ Do not overwrite an existing HTML or PDF in that folder unless the user explicit
 
 ## Theme
 
-`deck` defaults to `deportivo` (projected, high contrast, live demo). `guide` defaults to `metro` (read alone, category color, terminal block). Propose that default with one reason. If the user names the other theme, use it. Do not invent a third theme.
+`deck` defaults to `deportivo` (projected, high contrast, live demo). `guide` defaults to `metro` (read alone, category color, terminal block). Propose that default with one reason, or a better fit from the deck themes:
+
+| Deck theme | Status | Fits |
+|---|---|---|
+| `deportivo` | proven | energy, live demos |
+| `metro-deck` | proven | the metro guide look on a deck, category color |
+| `pizarra` | experimental | math, simulation, formulas |
+| `editorial` | experimental | theory, readings |
+| `terminal` | experimental | programming, commands, networks |
+| `bauhaus` | experimental | strong openings, key concepts |
+| `cuaderno` | experimental | reviews, intro classes |
+| `pop` | experimental | waking up the room, dynamics |
+| `retro` | experimental | operating systems, history of computing |
+
+Say when the proposal is experimental. If the user names a theme, use it. Do not invent another theme silently.
 
 ## Time budget
 
@@ -45,12 +59,13 @@ Copy into the destination, keeping this layout:
 ```
 destination/
 ├── index.html          # shells/deck.html or shells/guide.html
-├── themes/<theme>.css
+├── themes/             # deck: deck-base.css + <theme>.css; guide: metro.css
 ├── assets/fonts/       # the whole directory
-└── outline.txt         # one approved message per line
+├── assets/katex/       # only when formula-hero is used
+└── outline.txt         # the approved outline
 ```
 
-Change the stylesheet href to `themes/deportivo.css` or `themes/metro.css`. Font URLs inside the theme are relative to the CSS file (`../assets/fonts/`). Do not rewrite them if `themes/` and `assets/` stay siblings.
+A deck links `themes/deck-base.css` first, then `themes/<theme>.css`. A guide links `themes/metro.css`. Font URLs inside a theme are relative to the CSS file (`../assets/fonts/`). Do not rewrite them if `themes/` and `assets/` stay siblings. Deck components use the token contract in `deck-base.css`, so they work in every deck theme. Paste `icon-sprite.html` once after `<body>` when a slide uses icons.
 
 Paste the component `<style>` once and the markup per item. No ad-hoc CSS. A new visual pattern becomes a file in `components/` first.
 

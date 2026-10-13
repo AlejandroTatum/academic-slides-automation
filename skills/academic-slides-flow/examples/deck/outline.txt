@@ -1,1 +1,9 @@
-Una idea
+# Planificación de procesos
+# duration: 6 min
+# speakers: Ana, Luis, Sofía
+cover | Planificación de procesos | portada | Presentamos el tema y el grupo.
+question-hook | ¿Quién usa la CPU ahora? | pregunta grande | Pregunta abierta al aula.
+icon-row | Qué decide el planificador | 3 íconos | Entra, dura, espera.
+flow-steps | Ciclo de un proceso | 3 pasos | Nuevo, listo, ejecución.
+big-number | El quantum de Round Robin | número | Entre diez y cien milisegundos.
+recap | Para llevarse | 3 ideas | Repaso y preguntas.
