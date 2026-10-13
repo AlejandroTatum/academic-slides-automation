@@ -295,7 +295,8 @@ addEventListener('load', () => {
   const mode = document.documentElement.dataset.mode || '';
   const rootSel = mode === 'deck' ? '.slide' : '.page';
   const issues = [];
-  for (const root of document.querySelectorAll(rootSel)) {
+  const label = mode === 'deck' ? 'slide' : 'page';
+  document.querySelectorAll(rootSel).forEach((root, index) => {
     const box = root.getBoundingClientRect();
     for (const el of root.querySelectorAll('*')) {
       const rect = el.getBoundingClientRect();
@@ -303,10 +304,12 @@ addEventListener('load', () => {
       const dx = Math.max(box.left - rect.left, rect.right - box.right, 0);
       const dy = Math.max(box.top - rect.top, rect.bottom - box.bottom, 0);
       if (dx > 1 || dy > 1) {
-        issues.push((el.id || el.className || el.tagName) + ' exceeds page');
+        const cls = (el.getAttribute('class') || '').trim().split(/\\s+/).filter(Boolean).join('.');
+        const name = el.id ? '#' + el.id : el.tagName + (cls ? '.' + cls : '');
+        issues.push(label + ' ' + (index + 1) + ' ' + name + ' exceeds page');
       }
     }
-  }
+  });
   const pre = document.createElement('pre');
   pre.id = 'check-report';
   pre.textContent = JSON.stringify(issues);
@@ -315,6 +318,10 @@ addEventListener('load', () => {
 </script>
 """
     text = html_path.read_text(encoding="utf-8")
+    # The copy lives in a temp dir; <base> keeps relative stylesheets, fonts and images resolving.
+    base = f'<base href="{html_path.resolve().parent.as_uri()}/">'
+    head = re.search(r"<head[^>]*>", text, re.I)
+    text = text[: head.end()] + base + text[head.end():] if head else base + text
     if "</body>" in text:
         text = text.replace("</body>", script + "</body>", 1)
     else:

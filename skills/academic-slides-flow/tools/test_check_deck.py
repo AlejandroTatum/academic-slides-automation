@@ -265,6 +265,33 @@ html, body { font-size: 10.5pt; }"""
         self.assertEqual(proc.returncode, 1)
         self.assertIn("fonts: missing fonts/missing.woff2", proc.stdout)
 
+    def test_dom_overflow_uses_the_linked_stylesheet(self):
+        html = """<!DOCTYPE html><html data-mode="deck"><head>
+<link rel="stylesheet" href="themes/t.css">
+</head><body>
+<section class="slide" id="s1"><p class="wide">Ancho.</p></section>
+</body></html>"""
+        css = """p { font-size: 32px; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+.wide { width: 2600px; }"""
+        proc, same = run(html, "--mode", "deck", "--expect", "1", "--dom", files={"themes/t.css": css})
+        self.assertEqual(proc.returncode, 1, proc.stdout)
+        self.assertTrue(same)
+        self.assertIn("overflow: slide 1 P.wide exceeds page\n", proc.stdout)
+
+    def test_dom_overflow_passes_when_the_linked_stylesheet_fits(self):
+        html = """<!DOCTYPE html><html data-mode="deck"><head>
+<link rel="stylesheet" href="themes/t.css">
+</head><body>
+<section class="slide" id="s1"><svg class="icon" width="2600" height="10"></svg></section>
+</body></html>"""
+        css = """p { font-size: 32px; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+.icon { width: 200px; }"""
+        proc, _ = run(html, "--mode", "deck", "--expect", "1", "--dom", files={"themes/t.css": css})
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertIn("overflow: pass\n", proc.stdout)
+
     def test_usage_without_count(self):
         proc, _ = run(GUIDE_OK, "--mode", "guide")
         self.assertEqual(proc.returncode, 2)
