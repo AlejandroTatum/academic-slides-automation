@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="deck">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog · editorial</title>
+<!-- Two links: the shared deck base, then one deck theme:
+     deportivo, metro-deck, pizarra, editorial, terminal, bauhaus, cuaderno, pop, retro.
+     From this folder the links are ../themes/...; copied to a destination root, use themes/... -->
+<link rel="stylesheet" href="../themes/deck-base.css">
+<link rel="stylesheet" href="../themes/editorial.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<!-- question-hook -->
+<style>
+  .title.q { font-size: 136px; max-width: 1500px; }
+</style>
+<!-- icon-row -->
+<style>
+  :where(.icon-row) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 64px; }
+  :where(.icon-row li) { display: flex; flex-direction: column; align-items: center; gap: 32px; font-size: 46px; font-weight: 600; text-align: center; }
+  :where(.icon-row .icon) { width: 200px; height: 200px; fill: none; stroke: currentColor; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; color: var(--a1); }
+  :where(.icon-row li:nth-child(3n+2) .icon) { color: var(--a2); }
+  :where(.icon-row li:nth-child(3n) .icon) { color: var(--a3); }
+</style>
+<!-- big-number -->
+<style>
+  :where(.big-number) { display: flex; flex-direction: column; gap: 24px; }
+  :where(.big-number .num) { font-family: var(--display); font-weight: var(--dw); font-size: 280px; line-height: .9;
+    letter-spacing: var(--ls); color: var(--a1); }
+  :where(.big-number .cap) { font-size: 56px; max-width: 1400px; }
+</style>
+<!-- flow-steps -->
+<style>
+  :where(.flow-steps) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 96px; }
+  :where(.flow-steps li) { position: relative; display: flex; flex-direction: column; align-items: center; gap: 28px; font-size: 46px; font-weight: 600; text-align: center; }
+  :where(.flow-steps .dot) { width: 170px; height: 170px; border-radius: 50%; display: grid; place-items: center; background: var(--a1);
+    color: var(--dot-fg, var(--bg)); font-family: var(--display); font-weight: var(--dw); font-size: 80px; }
+  :where(.flow-steps li:nth-child(3n+2) .dot) { background: var(--a2); }
+  :where(.flow-steps li:nth-child(3n) .dot) { background: var(--a3); }
+  :where(.flow-steps li:not(:last-child))::after { content: "→"; position: absolute; right: -48px; top: 38px; transform: translateX(50%);
+    font-size: 80px; line-height: 1; color: var(--muted); }
+</style>
+<!-- figure-full -->
+<style>
+  :where(.figure-full) { justify-content: center; gap: 28px; }
+  :where(.figure-full figure) { margin: 0; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 24px; }
+  :where(.figure-full figure > img, .figure-full figure > svg) { flex: 1; min-height: 0; width: 100%; object-fit: contain; }
+  :where(.figure-full figcaption) { font-size: 34px; color: var(--muted); }
+</style>
+<!-- formula-hero -->
+<style>
+  :where(.formula-hero) { display: flex; flex-direction: column; align-items: center; gap: 64px; }
+  :where(.formula-hero .tex) { font-size: 150px; line-height: 1; }
+  :where(.formula-hero .tex .katex-display) { margin: 0; }
+  :where(.formula-hero .parts) { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 56px; }
+  :where(.formula-hero .parts li) { display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 40px; text-align: center; }
+  :where(.formula-hero .parts b) { font: italic 400 96px/1 KaTeX_Math, serif; }
+  :where(.formula-hero .p1) { color: var(--a1); }
+  :where(.formula-hero .p2) { color: var(--a2); }
+  :where(.formula-hero .p3) { color: var(--a3); }
+</style>
+<!-- recap -->
+<style>
+  :where(.recap) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 40px; }
+  :where(.recap li) { display: flex; align-items: center; gap: 40px; font-size: 52px; font-weight: 600; }
+  :where(.recap .dot) { flex: none; width: 110px; height: 110px; border-radius: 50%; display: grid; place-items: center; background: var(--a1);
+    color: var(--dot-fg, var(--bg)); font-family: var(--display); font-weight: var(--dw); font-size: 56px; }
+  :where(.recap li:nth-child(3n+2) .dot) { background: var(--a2); }
+  :where(.recap li:nth-child(3n) .dot) { background: var(--a3); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-enter" viewBox="0 0 64 64"><rect x="26" y="8" width="30" height="48" rx="3"/><path d="M6 32h30M26 22l10 10-10 10"/></symbol>
+  <symbol id="i-exit" viewBox="0 0 64 64"><rect x="8" y="8" width="30" height="48" rx="3"/><path d="M28 32h30M48 22l10 10-10 10"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24"/><path d="M32 18v15l10 6"/></symbol>
+  <symbol id="i-queue" viewBox="0 0 64 64"><circle cx="14" cy="22" r="6"/><circle cx="32" cy="22" r="6"/><circle cx="50" cy="22" r="6"/><path d="M5 46c0-7 4-12 9-12s9 5 9 12M23 46c0-7 4-12 9-12s9 5 9 12M41 46c0-7 4-12 9-12s9 5 9 12"/></symbol>
+  <symbol id="i-user" viewBox="0 0 64 64"><circle cx="32" cy="22" r="11"/><path d="M12 56c0-11 9-19 20-19s20 8 20 19"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 64 64"><rect x="16" y="16" width="32" height="32" rx="3"/><rect x="25" y="25" width="14" height="14"/><path d="M24 6v10M32 6v10M40 6v10M24 48v10M32 48v10M40 48v10M6 24h10M6 32h10M6 40h10M48 24h10M48 32h10M48 40h10"/></symbol>
+  <symbol id="i-memory" viewBox="0 0 64 64"><rect x="6" y="20" width="52" height="24" rx="2"/><path d="M14 28v8M22 28v8M30 28v8M38 28v8M46 28v8M12 44v6M52 44v6"/></symbol>
+  <symbol id="i-disk" viewBox="0 0 64 64"><ellipse cx="32" cy="14" rx="22" ry="7"/><path d="M10 14v36c0 4 10 7 22 7s22-3 22-7V14M10 32c0 4 10 7 22 7s22-3 22-7"/></symbol>
+  <symbol id="i-network" viewBox="0 0 64 64"><rect x="24" y="6" width="16" height="12" rx="2"/><rect x="6" y="46" width="16" height="12" rx="2"/><rect x="42" y="46" width="16" height="12" rx="2"/><path d="M32 18v12M14 46V36h36v10"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24"/><path d="M8 32h48M32 8c8 7 11 16 11 24s-3 17-11 24c-8-7-11-16-11-24s3-17 11-24z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 64 64"><rect x="12" y="28" width="40" height="28" rx="4"/><path d="M20 28v-8a12 12 0 0 1 24 0v8M32 38v8"/></symbol>
+  <symbol id="i-key" viewBox="0 0 64 64"><circle cx="20" cy="32" r="12"/><path d="M32 32h26M50 32v10M42 32v7"/></symbol>
+  <symbol id="i-code" viewBox="0 0 64 64"><path d="M22 18 8 32l14 14M42 18l14 14-14 14M36 12 28 52"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 64 64"><rect x="6" y="10" width="52" height="44" rx="4"/><path d="m16 26 8 6-8 6M30 40h14"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 64 64"><circle cx="32" cy="32" r="9"/><path d="M32 6v8M32 50v8M6 32h8M50 32h8M13.6 13.6l5.7 5.7M44.7 44.7l5.7 5.7M13.6 50.4l5.7-5.7M44.7 19.3l5.7-5.7"/><circle cx="32" cy="32" r="18"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 64 64"><path d="M50 26A20 20 0 0 0 14 22M14 38a20 20 0 0 0 36 4"/><path d="M14 10v12h12M50 54V42H38"/></symbol>
+  <symbol id="i-check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24"/><path d="m20 33 8 8 16-17"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24"/><path d="m23 23 18 18M41 23 23 41"/></symbol>
+  <symbol id="i-warning" viewBox="0 0 64 64"><path d="M32 8 58 54H6z"/><path d="M32 26v14M32 46v2"/></symbol>
+  <symbol id="i-idea" viewBox="0 0 64 64"><path d="M24 44c0-6-8-10-8-20a16 16 0 0 1 32 0c0 10-8 14-8 20z"/><path d="M24 50h16M27 56h10"/></symbol>
+  <symbol id="i-book" viewBox="0 0 64 64"><path d="M32 16c-6-5-14-6-24-6v40c10 0 18 1 24 6 6-5 14-6 24-6V10c-10 0-18 1-24 6zM32 16v40"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 64 64"><path d="M8 8v48h48"/><rect x="16" y="34" width="8" height="16"/><rect x="30" y="22" width="8" height="28"/><rect x="44" y="12" width="8" height="38"/></symbol>
+  <symbol id="i-dice" viewBox="0 0 64 64"><rect x="8" y="8" width="48" height="48" rx="8"/><circle cx="22" cy="22" r="2.5"/><circle cx="32" cy="32" r="2.5"/><circle cx="42" cy="42" r="2.5"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 64 64"><path d="M24 6h16M27 6v18L10 54a3 3 0 0 0 3 4h38a3 3 0 0 0 3-4L37 24V6M17 42h30"/></symbol>
+  <symbol id="i-search" viewBox="0 0 64 64"><circle cx="27" cy="27" r="17"/><path d="m40 40 16 16"/></symbol>
+  <symbol id="i-target" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="14"/><circle cx="32" cy="32" r="4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 64 64"><path d="M14 6h24l12 12v40H14z"/><path d="M38 6v12h12M22 32h20M22 42h20"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 64 64"><path d="M18 50a12 12 0 0 1-1-24 16 16 0 0 1 31 3 10 10 0 0 1-1 21z"/></symbol>
+</svg>
+<div id="stage">
+<section class="slide active alt cover" data-component="cover" data-window="COVER.EXE" id="portada">
+  <p class="kicker">Materia · Unidad</p>
+  <h1 class="title xl">Título con <span class="a">acento</span></h1>
+  <p class="lead">Grupo · duración</p>
+  <aside class="notes">Qué se dice en esta diapositiva, en una frase.</aside>
+</section>
+<section class="slide alt question-hook" data-component="question-hook" data-window="QUESTION-HOOK.EXE" id="pregunta">
+  <p class="kicker">Pregunta</p>
+  <h1 class="title q">¿Quién usa la CPU ahora?</h1>
+  <aside class="notes">Pregunta abierta al aula antes de explicar el planificador.</aside>
+</section>
+<section class="slide" data-component="icon-row" data-window="ICON-ROW.EXE" id="idea">
+  <p class="kicker">01 · Idea</p>
+  <h1 class="title sm">¿Qué decide el planificador?</h1>
+  <ul class="icon-row">
+    <li><svg class="icon"><use href="#i-enter"/></svg>Quién entra</li>
+    <li><svg class="icon"><use href="#i-clock"/></svg>Cuánto dura</li>
+    <li><svg class="icon"><use href="#i-queue"/></svg>Quién espera</li>
+  </ul>
+  <aside class="notes">El planificador elige el próximo proceso, cuánto tiempo corre y quién queda en la cola.</aside>
+</section>
+<section class="slide" data-component="big-number" data-window="BIG-NUMBER.EXE" id="dato">
+  <p class="kicker">02 · Dato</p>
+  <div class="big-number"><span class="num">10–100 ms</span><p class="cap">quantum típico en Round Robin</p></div>
+  <aside class="notes">Qué significa el número y de dónde sale.</aside>
+</section>
+<section class="slide" data-component="flow-steps" data-window="FLOW-STEPS.EXE" id="ciclo">
+  <p class="kicker">03 · Proceso</p>
+  <h1 class="title sm">Ciclo de un proceso</h1>
+  <ol class="flow-steps">
+    <li><span class="dot">1</span>Nuevo</li>
+    <li><span class="dot">2</span>Listo</li>
+    <li><span class="dot">3</span>Ejecución</li>
+  </ol>
+  <aside class="notes">Se crea, espera CPU en la cola de listos y el planificador lo despacha.</aside>
+</section>
+<section class="slide figure-full" data-component="figure-full" data-window="FIGURE-FULL.EXE" id="figura">
+  <p class="kicker">Figura</p>
+  <figure>
+    <svg viewBox="0 0 1400 520" role="img" aria-label="Cola de listos, CPU y bloqueados" style="font-family: var(--body)" fill="none" stroke="currentColor" stroke-width="6">
+      <rect x="20" y="180" width="360" height="160" rx="18" style="stroke: var(--a1)"/>
+      <rect x="560" y="160" width="280" height="200" rx="18" style="stroke: var(--a2)"/>
+      <rect x="1020" y="180" width="360" height="160" rx="18" style="stroke: var(--a3)"/>
+      <path d="M380 260h160m-30-24 30 24-30 24M840 260h160m-30-24 30 24-30 24M1200 340v110H200V360m-24 30 24-30 24 30"/>
+      <g fill="currentColor" stroke="none" font-size="56" font-weight="600" text-anchor="middle">
+        <text x="200" y="278">Listos</text><text x="700" y="278">CPU</text><text x="1200" y="278">E/S</text>
+      </g>
+    </svg>
+    <figcaption>El proceso vuelve a la cola al terminar su E/S</figcaption>
+  </figure>
+  <aside class="notes">Recorrer la figura de izquierda a derecha y volver por abajo.</aside>
+</section>
+<section class="slide" data-component="formula-hero" data-window="FORMULA-HERO.EXE" id="formula">
+  <p class="kicker">Ley de Little</p>
+  <div class="formula-hero">
+    <div class="tex" data-tex="\htmlClass{p1}{L} = \htmlClass{p2}{\lambda}\,\htmlClass{p3}{W}"></div>
+    <ul class="parts">
+      <li><b class="p1">L</b>clientes en el sistema</li>
+      <li><b class="p2">λ</b>tasa de llegada</li>
+      <li><b class="p3">W</b>tiempo en el sistema</li>
+    </ul>
+  </div>
+  <aside class="notes">En régimen estable, el promedio de clientes es la tasa de llegada por el tiempo medio en el sistema.</aside>
+</section>
+<section class="slide alt" data-component="section-divider" data-window="SECTION-DIVIDER.EXE" id="seccion-2">
+  <p class="kicker">Sección</p>
+  <h1 class="title">Una idea</h1>
+  <aside class="notes">Transición hablada.</aside>
+</section>
+<section class="slide" data-component="recap" data-window="RECAP.EXE" id="cierre">
+  <p class="kicker">Cierre</p>
+  <h1 class="title sm">Para llevarse</h1>
+  <ol class="recap">
+    <li><span class="dot">1</span>El planificador reparte la CPU</li>
+    <li><span class="dot">2</span>El quantum define el turno</li>
+    <li><span class="dot">3</span>Cada proceso cambia de estado</li>
+  </ol>
+  <aside class="notes">Repasar las tres ideas y abrir preguntas.</aside>
+</section>
+  <div id="notes"></div>
+</div>
+<script>
+"use strict";
+const PRINT = new URLSearchParams(location.search).has("print");
+const slides = [...document.querySelectorAll(".slide")];
+let current = 0;
+function show(i) {
+  current = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((slide, index) => slide.classList.toggle("active", index === current));
+  const notes = slides[current].querySelector(".notes");
+  document.getElementById("notes").textContent = notes ? notes.textContent : "";
+  history.replaceState(null, "", "#" + (current + 1));
+}
+function resize() {
+  const scale = Math.min(innerWidth / 1920, innerHeight / 1080);
+  document.getElementById("stage").style.transform = "translate(-50%, -50%) scale(" + scale + ")";
+}
+document.addEventListener("keydown", (event) => {
+  if (["ArrowRight", "PageDown", " ", "Enter"].includes(event.key)) { event.preventDefault(); show(current + 1); }
+  else if (["ArrowLeft", "PageUp", "Backspace"].includes(event.key)) { event.preventDefault(); show(current - 1); }
+  else if (event.key === "Home") show(0);
+  else if (event.key === "End") show(slides.length - 1);
+  else if (event.key === "f" || event.key === "F") document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  else if (event.key === "n" || event.key === "N") document.body.classList.toggle("show-notes");
+});
+if (PRINT) document.body.classList.add("print");
+else { addEventListener("resize", resize); resize(); show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1)); }
+</script>
+<script src="../assets/katex/katex.min.js"></script>
+<script>
+document.querySelectorAll("[data-tex]").forEach((el) => katex.render(el.dataset.tex, el, {
+  displayMode: true, throwOnError: false, trust: (ctx) => ctx.command === "\\htmlClass",
+}));
+</script>
+</body>
+</html>
