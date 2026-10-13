@@ -16,7 +16,7 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, 2
 ## Hard Rules
 
 - Two human gates only: approved outline, then visual review of the PDF. Silence is not approval.
-- Deck themes: proven `deportivo`, `metro-deck`; experimental `pizarra`, `editorial`, `terminal`, `bauhaus`, `cuaderno`, `pop`, `retro`. Guide theme: `metro`. Propose one with a reason; say when it is experimental. Any other theme is an explicit experiment, never a silent invention.
+- Deck themes: proven `deportivo`; `metro-deck` (proven metro look, new on decks); experimental `pizarra`, `editorial`, `terminal`, `bauhaus`, `cuaderno`, `pop`, `retro`. Guide theme: `metro`. Propose one with a reason; say when it is experimental. Any other theme is an explicit experiment, never a silent invention.
 - Body text is ≥ 10.5 pt on guides and ≥ 28 px on decks. Every accent maps to a category the reader can name.
 - Decks are visual. Default: ≤ 3 items and ≤ 20 words per slide; spoken text goes in `.notes`. It is a default, not a limit: when the user or the content needs more, mark the slide `data-dense` or run the checker with `--max-items` / `--max-words` (`references/writing.md`).
 - Mark terms absent from the user's source list as `TIP`. Correct inaccurate source definitions before styling them, and list each correction.
@@ -59,6 +59,6 @@ Return the mode, theme (and whether it is experimental), destination path, outli
 - `references/writing.md` — density, tone, `TIP`.
 - `references/fonts.md` — local font files.
 - `DESIGN.md` — themes, token contract, components, tools.
-- `catalog/` — every deck component in every deck theme (`tools/build_catalog.py` regenerates it).
+- `catalog/` — every shared deck component in every deck theme (`live-demo` stays deportivo-only) (`tools/build_catalog.py` regenerates it).
 - `tools/` — `check_deck.py`, `outline.py`, `speaker_guide.py`, `build_catalog.py`, `render.sh`.
 - `references/profiles/` — course profiles reused from `academic-report-flow`.

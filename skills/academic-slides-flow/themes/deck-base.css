@@ -6,7 +6,8 @@
      --a1 --a2 --a3             three named accents (category colors, never decoration)
      --alt-bg --alt-fg          inverse slide (.slide.alt) for covers, sections, questions
      --display --body --mono    font stacks
-     --dw --tt --ls             display weight, title text-transform, title letter-spacing */
+     --dw --tt --ls             display weight, title text-transform, title letter-spacing
+   Optional: --dot-fg           number color on filled step dots (default --bg) */
 
 :root {
   --bg: #F4F4F7; --fg: #17181C; --muted: #6B6E7A;

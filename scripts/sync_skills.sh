@@ -45,6 +45,15 @@ echo "==> Checking speaker guide fixture"
 "$PY" "$SRC/$SKILL/tools/outline.py" "$SRC/$SKILL/examples/deck/outline.txt" >/dev/null
 "$PY" "$SRC/$SKILL/tools/check_deck.py" "$SRC/$SKILL/examples/deck/guia-expositores.html" \
   --mode guide --expect 3 --dom
+GUIDE_TMP="$(mktemp -p "$SRC/$SKILL/examples/deck" .guide-check.XXXXXX.html)"
+PYTHONDONTWRITEBYTECODE=1 "$PY" "$SRC/$SKILL/tools/speaker_guide.py" "$SRC/$SKILL/examples/deck/index.html" \
+  "$SRC/$SKILL/examples/deck/outline.txt" --out "$GUIDE_TMP" --force >/dev/null
+if ! diff -q "$GUIDE_TMP" "$SRC/$SKILL/examples/deck/guia-expositores.html" >/dev/null; then
+  rm -f "$GUIDE_TMP"
+  echo "!! examples/deck/guia-expositores.html is stale — rerun tools/speaker_guide.py ... --force" >&2
+  exit 1
+fi
+rm -f "$GUIDE_TMP"
 echo "==> Checking the catalog is current"
 CATALOG_TMP="$(mktemp -d -p "$SRC/$SKILL" .catalog-check.XXXXXX)"
 trap 'rm -rf "$CATALOG_TMP"' EXIT
@@ -68,6 +77,7 @@ for target in "${TARGETS[@]}"; do
     --exclude '.pytest_cache/' \
     --exclude '*.bak-*' \
     --exclude '.catalog-check.*' \
+    --exclude '.guide-check.*' \
     "$SRC/$SKILL/" "$target/$SKILL/"
 done
 

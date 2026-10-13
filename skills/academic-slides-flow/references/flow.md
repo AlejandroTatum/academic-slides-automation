@@ -17,7 +17,7 @@ Do not overwrite an existing HTML or PDF in that folder unless the user explicit
 | Deck theme | Status | Fits |
 |---|---|---|
 | `deportivo` | proven | energy, live demos |
-| `metro-deck` | proven | the metro guide look on a deck, category color |
+| `metro-deck` | proven look, new on decks | the metro guide look on a deck, category color |
 | `pizarra` | experimental | math, simulation, formulas |
 | `editorial` | experimental | theory, readings |
 | `terminal` | experimental | programming, commands, networks |
@@ -34,7 +34,7 @@ For a `deck`, turn the duration into slides: about **one slide per minute**. A 1
 
 ## Gate 1 — outline
 
-Open `catalog/index.html` (every deck component in every deck theme) so the user picks components by sight.
+Open `catalog/index.html` (every shared deck component in every deck theme; `live-demo` is deportivo-only) so the user picks components by sight.
 
 One line per slide or page. Components live in `components/`. Deck outlines use four fields, plus an optional speaker and time:
 
