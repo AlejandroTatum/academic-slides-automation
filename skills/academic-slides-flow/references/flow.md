@@ -12,11 +12,43 @@ Do not overwrite an existing HTML or PDF in that folder unless the user explicit
 
 ## Theme
 
-`deck` defaults to `deportivo` (projected, high contrast, live demo). `guide` defaults to `metro` (read alone, category color, terminal block). Propose that default with one reason. If the user names the other theme, use it. Do not invent a third theme.
+`deck` defaults to `deportivo` (projected, high contrast, live demo). `guide` defaults to `metro` (read alone, category color, terminal block). Propose that default with one reason, or a better fit from the deck themes:
+
+| Deck theme | Status | Fits |
+|---|---|---|
+| `deportivo` | proven | energy, live demos |
+| `metro-deck` | proven look, new on decks | the metro guide look on a deck, category color |
+| `pizarra` | experimental | math, simulation, formulas |
+| `editorial` | experimental | theory, readings |
+| `terminal` | proven (Engram deck, 2026-10-13) | programming, commands, networks |
+| `bauhaus` | experimental | strong openings, key concepts |
+| `cuaderno` | experimental | reviews, intro classes |
+| `pop` | experimental | waking up the room, dynamics |
+| `retro` | experimental | operating systems, history of computing |
+
+Say when the proposal is experimental. If the user names a theme, use it. Do not invent another theme silently.
+
+## Time budget
+
+For a `deck`, turn the duration into slides: about **one slide per minute**. A 10-minute talk is about 10 slides. Note the speakers when it is a group talk.
 
 ## Gate 1 — outline
 
-One line per slide or page: component name + the one message. Components live in `components/`. Correct factual errors in the source here and list each correction before styling. Terms that are not in the user's list are `TIP`, on that line.
+Open `catalog/index.html` (every shared deck component in every deck theme; `live-demo` is deportivo-only) so the user picks components by sight.
+
+One line per slide or page. Components live in `components/`. Deck outlines use four fields, plus an optional speaker and time:
+
+```
+# Planificación de procesos
+# duration: 10 min
+# speakers: Ana, Luis
+cover | Planificación de procesos | portada | Presentamos el tema y el grupo.
+icon-row | Qué decide el planificador | 3 íconos | Entra, dura, espera. | Luis | 2:00
+```
+
+`component | message (≤ 8 words) | visual | spoken note [| speaker [| m:ss]]`. The spoken note becomes the slide `.notes` and the speaker guide. A line with no `|` is still a valid one-message line.
+
+Run `python3 tools/outline.py outline.txt`. It prints the plan (start, length, speaker per slide) and exits 1 on an unknown component, a bad time, an unknown speaker, or explicit times over the duration. `note:` lines (long message, slide count far from the duration) are advice. Show the plan with the outline at gate 1. Correct factual errors in the source here and list each correction before styling. Terms that are not in the user's list are `TIP`, on that line.
 
 Stop. Wait for an explicit approval. Silence is not approval.
 
@@ -27,12 +59,13 @@ Copy into the destination, keeping this layout:
 ```
 destination/
 ├── index.html          # shells/deck.html or shells/guide.html
-├── themes/<theme>.css
+├── themes/             # deck: deck-base.css + <theme>.css; guide: metro.css
 ├── assets/fonts/       # the whole directory
-└── outline.txt         # one approved message per line
+├── assets/katex/       # only when formula-hero is used
+└── outline.txt         # the approved outline
 ```
 
-Change the stylesheet href to `themes/deportivo.css` or `themes/metro.css`. Font URLs inside the theme are relative to the CSS file (`../assets/fonts/`). Do not rewrite them if `themes/` and `assets/` stay siblings.
+A deck links `themes/deck-base.css` first, then `themes/<theme>.css`. A guide links `themes/metro.css`. Font URLs inside a theme are relative to the CSS file (`../assets/fonts/`). Do not rewrite them if `themes/` and `assets/` stay siblings. Deck components use the token contract in `deck-base.css`, so they work in every deck theme. Icons are Lucide (ISC). Find the icon that names the idea with `python3 tools/icons.py search WORD`, then paste the output of `python3 tools/icons.py sprite NAME...` once after `<body>`, with exactly the icons the deck uses (`components/icon-sprite.html` is a ready default set). Never draw icons by hand.
 
 Paste the component `<style>` once and the markup per item. No ad-hoc CSS. A new visual pattern becomes a file in `components/` first.
 
@@ -47,11 +80,25 @@ tools/render.sh destination/index.html
 python3 tools/check_deck.py destination/index.html --mode deck|guide --outline destination/outline.txt --dom
 ```
 
+In `deck` mode the checker also reports `density:` lines: a slide above 3 items or 30 words fails, naming the slide, unless it is marked `data-dense`. Add `--max-items N` / `--max-words N` only when the user asked for a denser deck.
+
 `check_deck.py` writes findings to stdout and does not modify the HTML. Exit 0 is required before showing the PDF. Then look at the thumbnails. Fix overflow and empty pages. A checker pass is not visual approval.
 
 ## Gate 2 — visual review
 
 Show the PDF path and the checker stdout. Stop. Only an explicit review continues.
+
+## Speaker guide (guía de expositores)
+
+For a group talk, after gate 2, build the speaker guide as its own document, never as an overlay inside the deck:
+
+```
+python3 tools/speaker_guide.py destination/index.html destination/outline.txt
+tools/render.sh destination/guia-expositores.html
+python3 tools/check_deck.py destination/guia-expositores.html --mode guide --expect N --dom
+```
+
+It is a `guide` (theme `metro`, 297×167 mm): a cast page (who, how many slides, how long, linked) and one row per slide (number, start–end, speaker, message, what they say). What they say is the slide `.notes`; the outline note fills a slide without notes. N is the page count the tool prints. It refuses to overwrite an existing guide without `--force`.
 
 ## Harvest
 

@@ -1,0 +1,22 @@
+/* Theme pop — comic halftone, thick outlines, hard shadows. Waking up the room, dynamics.
+   Link after deck-base.css. a1 red, a2 blue, a3 ink. */
+@font-face { font-family: "Barlow"; src: url(../assets/fonts/barlow-600.woff2) format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+@font-face { font-family: "Barlow"; src: url(../assets/fonts/barlow-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "Barlow"; src: url(../assets/fonts/barlow-800.woff2) format("woff2"); font-weight: 800; font-style: normal; font-display: block; }
+
+:root {
+  --bg: #FFE14D; --fg: #111111; --muted: #3A3A3A;
+  --a1: #FF3B30; --a2: #0057FF; --a3: #111111;
+  --alt-bg: #FF3B30; --alt-fg: #FFFFFF;
+  --display: "Barlow", sans-serif; --body: "Barlow", sans-serif; --mono: "Barlow", sans-serif;
+  --dw: 800; --tt: uppercase;
+}
+.slide { background-image: radial-gradient(#00000026 3px, transparent 3.5px); background-size: 26px 26px; }
+p { font-weight: 700; }
+.kicker { align-self: flex-start; background: #111; color: #FFE14D; padding: 8px 22px; }
+.title { align-self: flex-start; background: #fff; color: #111; border: 8px solid #111; padding: 20px 44px;
+  box-shadow: 16px 16px 0 #111; transform: rotate(-1.5deg); }
+.icon-row li { background: #fff; color: #111; border: 7px solid #111; box-shadow: 12px 12px 0 #111; padding: 40px 20px; }
+.flow-steps .dot, .recap .dot { border: 7px solid #111; box-shadow: 10px 10px 0 #111; color: #fff !important; }
+.big-number .num { -webkit-text-stroke: 8px #111; text-shadow: 14px 14px 0 #111; }
+.icon-row .icon { background: none; padding: 20px; } /* the card is the tile */

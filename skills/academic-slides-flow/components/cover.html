@@ -1,14 +1,14 @@
-<!-- component: cover
-     deck: section.slide.dark inside #stage. guide: section.page.cover.
+<!-- component: cover | guide: metro · deck, every theme
+     deck: section.slide.alt.cover inside #stage, no extra style. guide: section.page.cover plus the style below (data-mode="guide").
      Paste only the variant for the chosen mode. -->
-<style>
-  .cover { background: var(--ink); color: var(--paper); }
-  .cover .kicker { color: #A9A396; }
-  .cover h1 { font-family: var(--head); font-weight: 700; font-size: 50pt; line-height: .92; letter-spacing: -0.035em; margin-top: 5mm; }
-  .cover h1 em { font-style: normal; color: var(--d); }
-  .cover .lead { max-width: 120mm; margin-top: 5mm; color: #D8D2C4; font-size: 11pt; }
-  .cover .howto { position: absolute; left: 16mm; bottom: 12mm; font-family: var(--mono); font-size: 8.6pt; color: #A9A396; max-width: 120mm; }
-  .cover .howto b { color: var(--paper); }
+<style data-mode="guide">
+  .page.cover { background: var(--ink); color: var(--paper); }
+  .page.cover .kicker { color: #A9A396; }
+  .page.cover h1 { font-family: var(--head); font-weight: 700; font-size: 50pt; line-height: .92; letter-spacing: -0.035em; margin-top: 5mm; }
+  .page.cover h1 em { font-style: normal; color: var(--d); }
+  .page.cover .lead { max-width: 120mm; margin-top: 5mm; color: #D8D2C4; font-size: 11pt; }
+  .page.cover .howto { position: absolute; left: 16mm; bottom: 12mm; font-family: var(--mono); font-size: 8.6pt; color: #A9A396; max-width: 120mm; }
+  .page.cover .howto b { color: var(--paper); }
 </style>
 
 <!-- guide -->
@@ -20,8 +20,9 @@
 </section>
 
 <!-- deck -->
-<section class="slide dark" id="portada">
-  <p class="kicker">Materia · Semana</p>
-  <h1 class="title xl">Título<br><span class="a">acento</span></h1>
+<section class="slide alt cover" id="portada">
+  <p class="kicker">Materia · Unidad</p>
+  <h1 class="title xl">Título con <span class="a">acento</span></h1>
+  <p class="lead">Grupo · duración</p>
   <aside class="notes">Qué se dice en esta diapositiva, en una frase.</aside>
 </section>

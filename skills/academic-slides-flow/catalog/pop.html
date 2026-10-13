@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="deck">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog · pop</title>
+<!-- Two links: the shared deck base, then one deck theme:
+     deportivo, metro-deck, pizarra, editorial, terminal, bauhaus, cuaderno, pop, retro.
+     From this folder the links are ../themes/...; copied to a destination root, use themes/... -->
+<link rel="stylesheet" href="../themes/deck-base.css">
+<link rel="stylesheet" href="../themes/pop.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<!-- question-hook -->
+<style>
+  .title.q { font-size: 136px; max-width: 1500px; }
+</style>
+<!-- icon-row -->
+<style>
+  :where(.icon-row) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 64px; }
+  :where(.icon-row li) { display: flex; flex-direction: column; align-items: center; gap: 36px; font-size: 46px; font-weight: 600; text-align: center; }
+  :where(.icon-row .icon) { box-sizing: content-box; width: 136px; height: 136px; padding: 48px; border-radius: 48px;
+    background: color-mix(in srgb, currentColor 14%, transparent); fill: none; stroke: currentColor; stroke-width: 1.75;
+    stroke-linecap: round; stroke-linejoin: round; color: var(--a1); }
+  :where(.icon-row li:nth-child(3n+2) .icon) { color: var(--a2); }
+  :where(.icon-row li:nth-child(3n) .icon) { color: var(--a3); }
+  :where(.icon-row .desc) { margin: -14px 0 0; max-width: 500px; font-size: 34px; font-weight: 400; line-height: 1.25; color: inherit; opacity: .78; }
+</style>
+<!-- big-number -->
+<style>
+  :where(.big-number) { display: flex; flex-direction: column; gap: 24px; }
+  :where(.big-number .num) { font-family: var(--display); font-weight: var(--dw); font-size: 280px; line-height: .9;
+    letter-spacing: var(--ls); color: var(--a1); }
+  :where(.big-number .cap) { font-size: 56px; max-width: 1400px; }
+</style>
+<!-- flow-steps -->
+<style>
+  :where(.flow-steps) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 96px; }
+  :where(.flow-steps li) { position: relative; display: flex; flex-direction: column; align-items: center; gap: 28px; font-size: 46px; font-weight: 600; text-align: center; }
+  :where(.flow-steps .dot) { width: 170px; height: 170px; border-radius: 50%; display: grid; place-items: center; background: var(--a1);
+    color: var(--dot-fg, var(--bg)); font-family: var(--display); font-weight: var(--dw); font-size: 80px; }
+  :where(.flow-steps li:nth-child(3n+2) .dot) { background: var(--a2); }
+  :where(.flow-steps li:nth-child(3n) .dot) { background: var(--a3); }
+  :where(.flow-steps .desc) { margin: -12px 0 0; max-width: 460px; font-size: 34px; font-weight: 400; line-height: 1.25; color: inherit; opacity: .78; }
+  :where(.flow-steps li:not(:last-child))::after { content: "→"; position: absolute; right: -48px; top: 38px; transform: translateX(50%);
+    font-size: 80px; line-height: 1; color: var(--muted); }
+</style>
+<!-- figure-full -->
+<style>
+  :where(.figure-full) { justify-content: center; gap: 28px; }
+  :where(.figure-full figure) { margin: 0; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 24px; }
+  :where(.figure-full figure > img, .figure-full figure > svg) { flex: 1; min-height: 0; width: 100%; object-fit: contain; }
+  :where(.figure-full figcaption) { font-size: 34px; color: var(--muted); }
+</style>
+<!-- formula-hero -->
+<style>
+  :where(.formula-hero) { display: flex; flex-direction: column; align-items: center; gap: 64px; }
+  :where(.formula-hero .tex) { font-size: 150px; line-height: 1; }
+  :where(.formula-hero .tex .katex-display) { margin: 0; }
+  :where(.formula-hero .parts) { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 56px; }
+  :where(.formula-hero .parts li) { display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 40px; text-align: center; }
+  :where(.formula-hero .parts b) { font: italic 400 96px/1 KaTeX_Math, serif; }
+  :where(.formula-hero .p1) { color: var(--a1); }
+  :where(.formula-hero .p2) { color: var(--a2); }
+  :where(.formula-hero .p3) { color: var(--a3); }
+</style>
+<!-- recap -->
+<style>
+  :where(.recap) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 40px; }
+  :where(.recap li) { display: flex; align-items: center; gap: 40px; font-size: 52px; font-weight: 600; }
+  :where(.recap .dot) { flex: none; width: 110px; height: 110px; border-radius: 50%; display: grid; place-items: center; background: var(--a1);
+    color: var(--dot-fg, var(--bg)); font-family: var(--display); font-weight: var(--dw); font-size: 56px; }
+  :where(.recap li:nth-child(3n+2) .dot) { background: var(--a2); }
+  :where(.recap li:nth-child(3n) .dot) { background: var(--a3); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-log-in" viewBox="0 0 24 24"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></symbol>
+  <symbol id="i-log-out" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect height="12" rx="2" width="16" x="4" y="8"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></symbol>
+  <symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect height="16" rx="2" width="16" x="4" y="4"/><rect height="8" rx="1" width="8" x="8" y="8"/></symbol>
+  <symbol id="i-memory-stick" viewBox="0 0 24 24"><path d="M12 12v-2"/><path d="M12 18v-2"/><path d="M16 12v-2"/><path d="M16 18v-2"/><path d="M2 11h1.5"/><path d="M20 18v-2"/><path d="M20.5 11H22"/><path d="M4 18v-2"/><path d="M8 12v-2"/><path d="M8 18v-2"/><rect height="10" rx="2" width="20" x="2" y="6"/></symbol>
+  <symbol id="i-hard-drive" viewBox="0 0 24 24"><path d="M10 16h.01"/><path d="M2.212 11.577a2 2 0 0 0-.212.896V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5.527a2 2 0 0 0-.212-.896L18.55 5.11A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><path d="M21.946 12.013H2.054"/><path d="M6 16h.01"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect height="8" rx="2" ry="2" width="20" x="2" y="2"/><rect height="8" rx="2" ry="2" width="20" x="2" y="14"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><rect height="6" rx="1" width="6" x="16" y="16"/><rect height="6" rx="1" width="6" x="2" y="16"/><rect height="6" rx="1" width="6" x="9" y="2"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-key-round" viewBox="0 0 24 24"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" fill="currentColor" r=".5"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+  <symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+  <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></symbol>
+  <symbol id="i-chart-column" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+  <symbol id="i-dices" viewBox="0 0 24 24"><rect height="12" rx="2" ry="2" width="12" x="2" y="10"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></symbol>
+  <symbol id="i-flask-conical" viewBox="0 0 24 24"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  <symbol id="i-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol>
+  <symbol id="i-shrink" viewBox="0 0 24 24"><path d="m15 15 6 6m-6-6v4.8m0-4.8h4.8"/><path d="M9 19.8V15m0 0H4.2M9 15l-6 6"/><path d="M15 4.2V9m0 0h4.8M15 9l6-6"/><path d="M9 4.2V9m0 0H4.2M9 9 3 3"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect height="5" rx="1" width="20" x="2" y="3"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><path d="M12 20v-9"/><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z"/><path d="M14.12 3.88 16 2"/><path d="M21 21a4 4 0 0 0-3.81-4"/><path d="M21 5a4 4 0 0 1-3.55 3.97"/><path d="M22 13h-4"/><path d="M3 21a4 4 0 0 1 3.81-4"/><path d="M3 5a4 4 0 0 0 3.55 3.97"/><path d="M6 13H2"/><path d="m8 2 1.88 1.88"/><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13"/></symbol>
+  <symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
+  <symbol id="i-message-square" viewBox="0 0 24 24"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></symbol>
+  <symbol id="i-list-checks" viewBox="0 0 24 24"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></symbol>
+</svg>
+<div id="stage">
+<section class="slide active alt cover" data-component="cover" data-window="COVER.EXE" id="portada">
+  <p class="kicker">Materia · Unidad</p>
+  <h1 class="title xl">Título con <span class="a">acento</span></h1>
+  <p class="lead">Grupo · duración</p>
+  <aside class="notes">Qué se dice en esta diapositiva, en una frase.</aside>
+</section>
+<section class="slide alt question-hook" data-component="question-hook" data-window="QUESTION-HOOK.EXE" id="pregunta">
+  <p class="kicker">Pregunta</p>
+  <h1 class="title q">¿Quién usa la CPU ahora?</h1>
+  <p class="lead">Hay decenas de procesos y una sola CPU.</p>
+  <aside class="notes">Pregunta abierta al aula antes de explicar el planificador.</aside>
+</section>
+<section class="slide" data-component="icon-row" data-window="ICON-ROW.EXE" id="idea">
+  <p class="kicker">01 · Idea</p>
+  <h1 class="title sm">¿Qué decide el planificador?</h1>
+  <ul class="icon-row">
+    <li><svg class="icon"><use href="#i-log-in"/></svg>Quién entra<p class="desc">El próximo proceso en la CPU</p></li>
+    <li><svg class="icon"><use href="#i-clock"/></svg>Cuánto dura<p class="desc">El turno o quantum</p></li>
+    <li><svg class="icon"><use href="#i-users"/></svg>Quién espera<p class="desc">La cola de listos</p></li>
+  </ul>
+  <aside class="notes">El planificador elige el próximo proceso, cuánto tiempo corre y quién queda en la cola.</aside>
+</section>
+<section class="slide" data-component="big-number" data-window="BIG-NUMBER.EXE" id="dato">
+  <p class="kicker">02 · Dato</p>
+  <div class="big-number"><span class="num">10–100 ms</span><p class="cap">quantum típico en Round Robin</p></div>
+  <p class="lead">Muy corto: muchos cambios · muy largo: poca respuesta</p>
+  <aside class="notes">Qué significa el número y de dónde sale.</aside>
+</section>
+<section class="slide" data-component="flow-steps" data-window="FLOW-STEPS.EXE" id="ciclo">
+  <p class="kicker">03 · Proceso</p>
+  <h1 class="title sm">Ciclo de un proceso</h1>
+  <ol class="flow-steps">
+    <li><span class="dot">1</span>Nuevo<p class="desc">Se crea el proceso</p></li>
+    <li><span class="dot">2</span>Listo<p class="desc">Espera turno de CPU</p></li>
+    <li><span class="dot">3</span>Ejecución<p class="desc">Usa la CPU</p></li>
+  </ol>
+  <aside class="notes">Se crea, espera CPU en la cola de listos y el planificador lo despacha.</aside>
+</section>
+<section class="slide figure-full" data-component="figure-full" data-window="FIGURE-FULL.EXE" id="figura">
+  <p class="kicker">Figura</p>
+  <figure>
+    <svg viewBox="0 0 1400 520" role="img" aria-label="Cola de listos, CPU y bloqueados" style="font-family: var(--body)" fill="none" stroke="currentColor" stroke-width="6">
+      <rect x="20" y="180" width="360" height="160" rx="18" style="stroke: var(--a1)"/>
+      <rect x="560" y="160" width="280" height="200" rx="18" style="stroke: var(--a2)"/>
+      <rect x="1020" y="180" width="360" height="160" rx="18" style="stroke: var(--a3)"/>
+      <path d="M380 260h160m-30-24 30 24-30 24M840 260h160m-30-24 30 24-30 24M1200 340v110H200V360m-24 30 24-30 24 30"/>
+      <g fill="currentColor" stroke="none" font-size="56" font-weight="600" text-anchor="middle">
+        <text x="200" y="278">Listos</text><text x="700" y="278">CPU</text><text x="1200" y="278">E/S</text>
+      </g>
+    </svg>
+    <figcaption>El proceso vuelve a la cola al terminar su E/S</figcaption>
+  </figure>
+  <aside class="notes">Recorrer la figura de izquierda a derecha y volver por abajo.</aside>
+</section>
+<section class="slide" data-component="formula-hero" data-window="FORMULA-HERO.EXE" id="formula">
+  <p class="kicker">Ley de Little</p>
+  <div class="formula-hero">
+    <div class="tex" data-tex="\htmlClass{p1}{L} = \htmlClass{p2}{\lambda}\,\htmlClass{p3}{W}"></div>
+    <ul class="parts">
+      <li><b class="p1">L</b>clientes en el sistema</li>
+      <li><b class="p2">λ</b>tasa de llegada</li>
+      <li><b class="p3">W</b>tiempo en el sistema</li>
+    </ul>
+  </div>
+  <aside class="notes">En régimen estable, el promedio de clientes es la tasa de llegada por el tiempo medio en el sistema.</aside>
+</section>
+<section class="slide alt" data-component="section-divider" data-window="SECTION-DIVIDER.EXE" id="seccion-2">
+  <p class="kicker">Sección</p>
+  <h1 class="title">Una idea</h1>
+  <aside class="notes">Transición hablada.</aside>
+</section>
+<section class="slide" data-component="recap" data-window="RECAP.EXE" id="cierre">
+  <p class="kicker">Cierre</p>
+  <h1 class="title sm">Para llevarse</h1>
+  <ol class="recap">
+    <li><span class="dot">1</span>El planificador reparte la CPU entre procesos</li>
+    <li><span class="dot">2</span>El quantum define cuánto dura cada turno</li>
+    <li><span class="dot">3</span>Cada proceso cambia de estado</li>
+  </ol>
+  <aside class="notes">Repasar las tres ideas y abrir preguntas.</aside>
+</section>
+  <div id="notes"></div>
+</div>
+<script>
+"use strict";
+const PRINT = new URLSearchParams(location.search).has("print");
+const slides = [...document.querySelectorAll(".slide")];
+let current = 0;
+function show(i) {
+  current = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((slide, index) => slide.classList.toggle("active", index === current));
+  const notes = slides[current].querySelector(".notes");
+  document.getElementById("notes").textContent = notes ? notes.textContent : "";
+  history.replaceState(null, "", "#" + (current + 1));
+}
+function resize() {
+  const scale = Math.min(innerWidth / 1920, innerHeight / 1080);
+  document.getElementById("stage").style.transform = "translate(-50%, -50%) scale(" + scale + ")";
+}
+document.addEventListener("keydown", (event) => {
+  if (["ArrowRight", "PageDown", " ", "Enter"].includes(event.key)) { event.preventDefault(); show(current + 1); }
+  else if (["ArrowLeft", "PageUp", "Backspace"].includes(event.key)) { event.preventDefault(); show(current - 1); }
+  else if (event.key === "Home") show(0);
+  else if (event.key === "End") show(slides.length - 1);
+  else if (event.key === "f" || event.key === "F") document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  else if (event.key === "n" || event.key === "N") document.body.classList.toggle("show-notes");
+});
+if (PRINT) document.body.classList.add("print");
+else { addEventListener("resize", resize); resize(); show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1)); }
+</script>
+<script src="../assets/katex/katex.min.js"></script>
+<script>
+document.querySelectorAll("[data-tex]").forEach((el) => katex.render(el.dataset.tex, el, {
+  displayMode: true, throwOnError: false, trust: (ctx) => ctx.command === "\\htmlClass",
+}));
+</script>
+</body>
+</html>

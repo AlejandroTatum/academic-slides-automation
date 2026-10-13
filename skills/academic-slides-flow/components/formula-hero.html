@@ -1,0 +1,34 @@
+<!-- component: formula-hero | deck, every theme | needs assets/katex
+     One large formula and up to 3 annotated symbols. The symbol color links the formula to its meaning.
+     Paths are relative to the deck root; copy assets/katex/ with the deck.
+     Write TeX in data-tex. \htmlClass{p1}{x} colors a symbol with --a1 (p2 -> --a2, p3 -> --a3). -->
+<style>
+  :where(.formula-hero) { display: flex; flex-direction: column; align-items: center; gap: 64px; }
+  :where(.formula-hero .tex) { font-size: 150px; line-height: 1; }
+  :where(.formula-hero .tex .katex-display) { margin: 0; }
+  :where(.formula-hero .parts) { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 56px; }
+  :where(.formula-hero .parts li) { display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 40px; text-align: center; }
+  :where(.formula-hero .parts b) { font: italic 400 96px/1 KaTeX_Math, serif; }
+  :where(.formula-hero .p1) { color: var(--a1); }
+  :where(.formula-hero .p2) { color: var(--a2); }
+  :where(.formula-hero .p3) { color: var(--a3); }
+</style>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<script src="assets/katex/katex.min.js"></script>
+<section class="slide" id="formula">
+  <p class="kicker">Ley de Little</p>
+  <div class="formula-hero">
+    <div class="tex" data-tex="\htmlClass{p1}{L} = \htmlClass{p2}{\lambda}\,\htmlClass{p3}{W}"></div>
+    <ul class="parts">
+      <li><b class="p1">L</b>clientes en el sistema</li>
+      <li><b class="p2">λ</b>tasa de llegada</li>
+      <li><b class="p3">W</b>tiempo en el sistema</li>
+    </ul>
+  </div>
+  <aside class="notes">En régimen estable, el promedio de clientes es la tasa de llegada por el tiempo medio en el sistema.</aside>
+</section>
+<script>
+document.querySelectorAll("[data-tex]").forEach((el) => katex.render(el.dataset.tex, el, {
+  displayMode: true, throwOnError: false, trust: (ctx) => ctx.command === "\\htmlClass",
+}));
+</script>

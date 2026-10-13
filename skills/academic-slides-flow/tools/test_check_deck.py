@@ -50,6 +50,122 @@ p { font-size: 32px; }
 """
 
 
+def deck(*slides: str) -> str:
+    body = "\n".join(slides)
+    return DECK_OK.replace(
+        '<section class="slide" id="s1"><p class="kicker">SEMANA</p><h1 class="title">Título</h1><p>Una idea.</p></section>',
+        body,
+    )
+
+
+FOUR_ITEMS = '<section class="slide" id="s1"><h1 class="title">Lista</h1><ul><li>uno</li><li>dos</li><li>tres</li><li>cuatro</li></ul></section>'
+WORDY = (
+    '<section class="slide" id="s1"><h1 class="title">Título</h1><p>'
+    + " ".join(f"palabra{i}" for i in range(34))
+    + "</p></section>"
+)
+
+
+class DensityTests(unittest.TestCase):
+    def test_too_many_items_fails_and_names_slide(self):
+        proc, same = run(deck(FOUR_ITEMS), "--mode", "deck", "--expect", "1")
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(proc.stderr, "")
+        self.assertTrue(same)
+        self.assertIn("density: slide 1 (#s1) has 4 items (max 3)\n", proc.stdout)
+        self.assertNotIn("density: pass", proc.stdout)
+
+    def test_too_many_words_fails(self):
+        proc, same = run(deck(WORDY), "--mode", "deck", "--expect", "1")
+        self.assertEqual(proc.returncode, 1)
+        self.assertTrue(same)
+        self.assertIn("density: slide 1 (#s1) has 35 words (max 30)\n", proc.stdout)
+
+    def test_three_items_thirty_words_pass(self):
+        slide = (
+            '<section class="slide"><h1 class="title">Tres cosas</h1>'
+            "<ul><li>uno</li><li>dos</li><li>tres</li></ul>"
+            "<p>" + " ".join(["w"] * 25) + "</p></section>"
+        )
+        proc, _ = run(deck(slide), "--mode", "deck", "--expect", "1")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertIn("density: pass\n", proc.stdout)
+
+    def test_guiding_text_of_the_ideal_slide_passes_by_default(self):
+        slide = (
+            '<section class="slide" id="s1"><p class="kicker">01 · Problema</p>'
+            '<h1 class="title">Dónde se pierde la memoria</h1><ul class="icon-row">'
+            '<li>Sesión nueva<p class="desc">Arranca sin contexto previo</p></li>'
+            '<li>Compactación<p class="desc">El resumen pierde detalles</p></li>'
+            '<li>Otro agente<p class="desc">No sabe lo que aprendió el otro</p></li></ul></section>'
+        )
+        proc, _ = run(deck(slide), "--mode", "deck", "--expect", "1")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertIn("density: pass\n", proc.stdout)
+
+    def test_unnamed_slide_uses_position_only(self):
+        slide = FOUR_ITEMS.replace(' id="s1"', "")
+        ok = '<section class="slide"><h1 class="title">Ok</h1></section>'
+        proc, _ = run(deck(ok, slide), "--mode", "deck", "--expect", "2")
+        self.assertIn("density: slide 2 has 4 items (max 3)\n", proc.stdout)
+
+    def test_item_class_counts_as_item(self):
+        slide = '<section class="slide"><div class="item">a</div><div class="item">b</div><div class="item">c</div><div class="item">d</div></section>'
+        proc, _ = run(deck(slide), "--mode", "deck", "--expect", "1")
+        self.assertIn("density: slide 1 has 4 items (max 3)", proc.stdout)
+
+    def test_notes_kicker_foot_and_code_do_not_count(self):
+        many = " ".join(["x"] * 40)
+        slide = (
+            '<section class="slide"><p class="kicker">' + many + "</p>"
+            '<h1 class="title">Idea</h1><pre>' + many + "</pre><code>" + many + "</code>"
+            '<aside class="notes">' + many + "<ul><li>a</li><li>b</li><li>c</li><li>d</li></ul></aside>"
+            '<div class="foot"><span>' + many + "</span></div></section>"
+        )
+        proc, _ = run(deck(slide), "--mode", "deck", "--expect", "1")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertIn("density: pass\n", proc.stdout)
+
+    def test_dense_slide_is_allowed(self):
+        slide = FOUR_ITEMS.replace('class="slide"', 'class="slide" data-dense')
+        proc, same = run(deck(slide, WORDY.replace('id="s1"', 'id="s2" data-dense')), "--mode", "deck", "--expect", "2")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertTrue(same)
+        self.assertIn("density: pass (2 dense slides allowed)\n", proc.stdout)
+
+    def test_max_items_and_words_raise_the_default(self):
+        proc, _ = run(deck(FOUR_ITEMS), "--mode", "deck", "--expect", "1", "--max-items", "4")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertIn("density: pass\n", proc.stdout)
+        proc, _ = run(deck(WORDY), "--mode", "deck", "--expect", "1", "--max-words", "35")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        proc, _ = run(deck(FOUR_ITEMS), "--mode", "deck", "--expect", "1", "--max-items", "2")
+        self.assertIn("density: slide 1 (#s1) has 4 items (max 2)", proc.stdout)
+
+    def test_raised_limit_still_fails_above_it(self):
+        proc, _ = run(deck(WORDY), "--mode", "deck", "--expect", "1", "--max-words", "34")
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn("density: slide 1 (#s1) has 35 words (max 34)", proc.stdout)
+
+    def test_limits_are_deck_only_and_positive(self):
+        for args in (
+            ("--mode", "guide", "--expect", "1", "--max-items", "5"),
+            ("--mode", "deck", "--expect", "1", "--max-items", "0"),
+            ("--mode", "deck", "--expect", "1", "--max-words", "-3"),
+            ("--mode", "deck", "--expect", "1", "--max-words", "x"),
+        ):
+            proc, same = run(GUIDE_OK if "guide" in args else DECK_OK, *args)
+            self.assertEqual(proc.returncode, 2, args)
+            self.assertEqual(proc.stdout, "", args)
+            self.assertIn("usage:", proc.stderr)
+            self.assertTrue(same)
+
+    def test_guide_output_has_no_density_line(self):
+        proc, _ = run(GUIDE_OK.replace("Texto.", " ".join(["t"] * 80)), "--mode", "guide", "--expect", "1")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertNotIn("density", proc.stdout)
+
+
 class CheckDeckTests(unittest.TestCase):
     def test_guide_pass_leaves_file_unchanged(self):
         proc, same = run(GUIDE_OK, "--mode", "guide", "--expect", "1")
@@ -65,6 +181,14 @@ class CheckDeckTests(unittest.TestCase):
         proc, _ = run(DECK_OK, "--mode", "deck", "--expect", "1")
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
         self.assertIn("font-size: pass", proc.stdout)
+
+    def test_deck_pass_output_order(self):
+        proc, same = run(DECK_OK, "--mode", "deck", "--expect", "1")
+        self.assertTrue(same)
+        self.assertEqual(
+            proc.stdout,
+            "count: pass\nanchors: pass\nfonts: local\nfont-size: pass\ndensity: pass\noverflow: skipped\n",
+        )
 
     def test_count_mismatch(self):
         proc, same = run(GUIDE_OK, "--mode", "guide", "--expect", "2")
@@ -152,6 +276,33 @@ html, body { font-size: 10.5pt; }"""
         proc, _ = run(html, "--mode", "guide", "--expect", "1", files={"theme.css": css})
         self.assertEqual(proc.returncode, 1)
         self.assertIn("fonts: missing fonts/missing.woff2", proc.stdout)
+
+    def test_dom_overflow_uses_the_linked_stylesheet(self):
+        html = """<!DOCTYPE html><html data-mode="deck"><head>
+<link rel="stylesheet" href="themes/t.css">
+</head><body>
+<section class="slide" id="s1"><p class="wide">Ancho.</p></section>
+</body></html>"""
+        css = """p { font-size: 32px; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+.wide { width: 2600px; }"""
+        proc, same = run(html, "--mode", "deck", "--expect", "1", "--dom", files={"themes/t.css": css})
+        self.assertEqual(proc.returncode, 1, proc.stdout)
+        self.assertTrue(same)
+        self.assertIn("overflow: slide 1 P.wide exceeds page\n", proc.stdout)
+
+    def test_dom_overflow_passes_when_the_linked_stylesheet_fits(self):
+        html = """<!DOCTYPE html><html data-mode="deck"><head>
+<link rel="stylesheet" href="themes/t.css">
+</head><body>
+<section class="slide" id="s1"><svg class="icon" width="2600" height="10"></svg></section>
+</body></html>"""
+        css = """p { font-size: 32px; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+.icon { width: 200px; }"""
+        proc, _ = run(html, "--mode", "deck", "--expect", "1", "--dom", files={"themes/t.css": css})
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+        self.assertIn("overflow: pass\n", proc.stdout)
 
     def test_usage_without_count(self):
         proc, _ = run(GUIDE_OK, "--mode", "guide")

@@ -1,0 +1,21 @@
+/* Theme editorial — magazine page. Theory-heavy courses, readings, essays.
+   Link after deck-base.css. One red accent; a2 is ink, a3 is a warm grey. */
+@font-face { font-family: "C059"; src: url(../assets/fonts/c059-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "C059"; src: url(../assets/fonts/c059-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "C059"; src: url(../assets/fonts/c059-400-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
+@font-face { font-family: "Inter"; src: url(../assets/fonts/inter-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Inter"; src: url(../assets/fonts/inter-600.woff2) format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+
+:root {
+  --bg: #F7F3EC; --fg: #141414; --muted: #6E665B;
+  --a1: #C8102E; --a2: #141414; --a3: #8C7B62;
+  --alt-bg: #141414; --alt-fg: #F7F3EC;
+  --display: "C059", Georgia, serif; --body: "Inter", system-ui, sans-serif; --mono: "Inter", system-ui, sans-serif;
+  --dw: 700; --ls: -0.01em;
+}
+.slide { border-top: 22px solid #141414; padding-top: 150px; }
+.slide::before { content: ""; position: absolute; left: 140px; right: 140px; top: 100px; height: 3px; background: currentColor; }
+.kicker { letter-spacing: .3em; }
+.title { font-size: 120px; }
+.flow-steps .dot, .recap .dot { border-radius: 0 !important; background: transparent !important; color: inherit !important;
+  border-top: 8px solid var(--a1); font-style: italic; }

@@ -1,0 +1,20 @@
+/* Theme metro (deck) — the metro study-guide look on the 1920x1080 deck canvas.
+   Link after deck-base.css. a1 a2 a3 are three named lines; keep the color = meaning rule. */
+@font-face { font-family: "Space Grotesk"; src: url(../assets/fonts/space-grotesk-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Space Grotesk"; src: url(../assets/fonts/space-grotesk-500.woff2) format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "Space Grotesk"; src: url(../assets/fonts/space-grotesk-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "IBM Plex Sans"; src: url(../assets/fonts/ibm-plex-sans-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "IBM Plex Sans"; src: url(../assets/fonts/ibm-plex-sans-600.woff2) format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+@font-face { font-family: "IBM Plex Mono"; src: url(../assets/fonts/ibm-plex-mono-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "IBM Plex Mono"; src: url(../assets/fonts/ibm-plex-mono-600.woff2) format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+
+:root {
+  --bg: #F3EFE6; --fg: #1B1B1F; --muted: #6A665E;
+  --a1: #E4572E; --a2: #1F9E8F; --a3: #6C4FD1;
+  --alt-bg: #1B1B1F; --alt-fg: #F3EFE6;
+  --display: "Space Grotesk", sans-serif; --body: "IBM Plex Sans", sans-serif; --mono: "IBM Plex Mono", monospace;
+  --dw: 700; --ls: -0.02em;
+}
+.slide::after { content: ""; position: absolute; left: 140px; right: 140px; bottom: 96px; height: 12px; border-radius: 6px; z-index: 0;
+  background: linear-gradient(90deg, #E4572E 0 25%, #1F9E8F 25% 50%, #6C4FD1 50% 75%, #E9A21B 75%); }
+.alt .kicker { color: #E9A21B; }

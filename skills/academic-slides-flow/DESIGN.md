@@ -1,7 +1,9 @@
-# academic-slides-flow — MVP design (not yet implemented)
+# academic-slides-flow — design record
 
-Status: MVP implemented 2026-10-09. `SKILL.md` is the runtime contract.
-Pi loads it on the next session start. This file stays the design record.
+Status: MVP implemented 2026-10-09. Visual components, nine deck themes,
+outline time budget and speaker guide added 2026-10-13
+(`odd/tasks/visual-components-and-flow.md` in the repo). `SKILL.md` is the
+runtime contract; this file stays the design record.
 
 ## Goal
 
@@ -42,7 +44,53 @@ messy or inconsistent, not by lacking citations. No rubric TDD, no judge loop.
      `--c #6C4FD1`, `--d #E9A21B`.
    - Wins: category color = meaning, metro-map index, mono kickers, numbered steps.
 
-## Folder layout (target)
+## Deck themes and the token contract (2026-10-13)
+
+Deck themes sit on `themes/deck-base.css`, which owns the deck chrome (stage,
+slide, notes, print) and reads only tokens:
+
+| Token | Meaning |
+|---|---|
+| `--bg` `--fg` `--muted` | slide surface, text, secondary text |
+| `--a1` `--a2` `--a3` | three named accents (category colors) |
+| `--alt-bg` `--alt-fg` | inverse slide (`.slide.alt`): cover, section, question |
+| `--display` `--body` `--mono` | font stacks |
+| `--dw` `--tt` `--ls` | display weight, title transform, title tracking |
+
+A theme file sets the tokens and its decoration. Deck components style
+themselves with `:where(...)` selectors (specificity 0) and tokens only, so any
+theme can override them and every component works in every deck theme.
+
+| Theme | Status | Source |
+|---|---|---|
+| `deportivo` | proven | Simulación Semana 2 deck (self-contained; maps its tokens to the contract) |
+| `metro-deck` | proven look | the metro guide palette on the deck canvas |
+| `terminal` | proven | Engram deck, approved at gate 2 on 2026-10-13 |
+| `pizarra`, `editorial`, `bauhaus`, `cuaderno`, `pop`, `retro` | experimental | picked by the user from `proposals/slide-themes.html` (repo) |
+
+An experimental theme becomes proven when a real deck in it passes gate 2.
+`metro.css` stays the guide theme.
+
+## Visual deck components (2026-10-13)
+
+Default density: 3 items and 30 words per slide (raised from 20 after the Engram deck: guiding text, not bare labels), checked by `check_deck.py`;
+`data-dense` or `--max-items` / `--max-words` lift it when the user or the
+content needs more. New components, all deck, all themes: `big-number`,
+`icon-row` (Lucide icons in color tiles; `icon-sprite` default set, `tools/icons.py` for any of 1,879 icons), `flow-steps`, `question-hook`,
+`recap`, `figure-full`, `formula-hero` (local KaTeX). `cover` and
+`section-divider` gained a token-based deck variant.
+
+## Flow tools (2026-10-13)
+
+- `tools/build_catalog.py` → `catalog/<theme>.html` + `catalog/index.html`, so
+  components are picked by sight at gate 1.
+- `tools/outline.py` → reads `component | message | visual | spoken note
+  [| speaker [| m:ss]]` plus `# duration:` / `# speakers:` and prints the
+  time and speaker plan (about one slide per minute).
+- `tools/speaker_guide.py` → the guía de expositores as a separate guide
+  document (theme `metro`): who speaks, which slide, how long, what they say.
+
+## Folder layout (original MVP target)
 
 ```
 academic-slides-flow/
@@ -115,9 +163,9 @@ academic-slides-flow/
 
 - PPTX export (add later via a separate converter if a teacher demands it).
 - Automatic image generation; use `academic-visual-builder` when figures are needed.
-- New themes beyond the two proven ones.
+- New themes beyond the nine deck themes and the metro guide theme.
 
-## Implementation order (next week)
+## MVP implementation order (done 2026-10-09)
 
 1. Extract `deportivo.css` and `metro.css` from the two source files.
 2. Extract components, starting with `terminal-block`, `concept-card`, `vs-pair`.
