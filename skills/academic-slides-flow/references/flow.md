@@ -14,9 +14,27 @@ Do not overwrite an existing HTML or PDF in that folder unless the user explicit
 
 `deck` defaults to `deportivo` (projected, high contrast, live demo). `guide` defaults to `metro` (read alone, category color, terminal block). Propose that default with one reason. If the user names the other theme, use it. Do not invent a third theme.
 
+## Time budget
+
+For a `deck`, turn the duration into slides: about **one slide per minute**. A 10-minute talk is about 10 slides. Note the speakers when it is a group talk.
+
 ## Gate 1 — outline
 
-One line per slide or page: component name + the one message. Components live in `components/`. Correct factual errors in the source here and list each correction before styling. Terms that are not in the user's list are `TIP`, on that line.
+Open `catalog/index.html` (every deck component in every deck theme) so the user picks components by sight.
+
+One line per slide or page. Components live in `components/`. Deck outlines use four fields, plus an optional speaker and time:
+
+```
+# Planificación de procesos
+# duration: 10 min
+# speakers: Ana, Luis
+cover | Planificación de procesos | portada | Presentamos el tema y el grupo.
+icon-row | Qué decide el planificador | 3 íconos | Entra, dura, espera. | Luis | 2:00
+```
+
+`component | message (≤ 8 words) | visual | spoken note [| speaker [| m:ss]]`. The spoken note becomes the slide `.notes` and the speaker guide. A line with no `|` is still a valid one-message line.
+
+Run `python3 tools/outline.py outline.txt`. It prints the plan (start, length, speaker per slide) and exits 1 on an unknown component, a bad time, an unknown speaker, or explicit times over the duration. `note:` lines (long message, slide count far from the duration) are advice. Show the plan with the outline at gate 1. Correct factual errors in the source here and list each correction before styling. Terms that are not in the user's list are `TIP`, on that line.
 
 Stop. Wait for an explicit approval. Silence is not approval.
 
@@ -54,6 +72,18 @@ In `deck` mode the checker also reports `density:` lines: a slide above 3 items 
 ## Gate 2 — visual review
 
 Show the PDF path and the checker stdout. Stop. Only an explicit review continues.
+
+## Speaker guide (guía de expositores)
+
+For a group talk, after gate 2, build the speaker guide as its own document, never as an overlay inside the deck:
+
+```
+python3 tools/speaker_guide.py destination/index.html destination/outline.txt
+tools/render.sh destination/guia-expositores.html
+python3 tools/check_deck.py destination/guia-expositores.html --mode guide --expect N --dom
+```
+
+It is a `guide` (theme `metro`, 297×167 mm): a cast page (who, how many slides, how long, linked) and one row per slide (number, start–end, speaker, message, what they say). What they say is the slide `.notes`; the outline note fills a slide without notes. N is the page count the tool prints. It refuses to overwrite an existing guide without `--force`.
 
 ## Harvest
 
