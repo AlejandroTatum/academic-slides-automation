@@ -1,0 +1,39 @@
+<!-- component: reveal-steps | deck, every theme
+     Source: chair-line deck "Cuellos de botella en una línea de sillas" (2026-10-28).
+     Item-by-item builds: any element with data-step stays hidden until the presenter presses
+     →, Space or PageDown; each press reveals the next one in document order, and only then
+     does the deck advance. ← hides the last revealed item. ?print shows every item.
+     Paste the style once, and add revealStep() to the shell keydown handler as shown below. -->
+<style>
+  :where(.slide [data-step]) { opacity: 0; transform: translateY(28px); transition: opacity .45s ease, transform .45s ease; }
+  :where(.slide [data-step].on) { opacity: 1; transform: none; }
+  body.print .slide [data-step] { opacity: 1; transform: none; }
+  @media print { .slide [data-step] { opacity: 1; transform: none; } }
+</style>
+<script>
+/* Shell integration: replace the next/prev branches of the keydown handler with
+     if (next) { event.preventDefault(); if (!revealStep(1)) show(current + 1); }
+     else if (prev) { event.preventDefault(); if (!revealStep(-1)) show(current - 1, true); }
+   and make show(i, revealAll) mark every step .on when revealAll is true (going back). */
+function revealStep(direction) {
+  const steps = [...slides[current].querySelectorAll("[data-step]")];
+  if (direction > 0) {
+    const next = steps.find((step) => !step.classList.contains("on"));
+    if (!next) return false;
+    next.classList.add("on");
+    return true;
+  }
+  const shown = steps.filter((step) => step.classList.contains("on"));
+  if (!shown.length) return false;
+  shown[shown.length - 1].classList.remove("on");
+  return true;
+}
+</script>
+
+<section class="slide" id="ejemplo">
+  <h1 class="title sm">Aparece de a uno</h1>
+  <ul class="icon-row">
+    <li data-step>Primero</li>
+    <li data-step>Después</li>
+  </ul>
+</section>

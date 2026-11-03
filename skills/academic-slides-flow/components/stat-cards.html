@@ -1,0 +1,20 @@
+<!-- component: stat-cards | deck, every theme
+     Source: chair-line deck "Cuellos de botella en una línea de sillas" (2026-10-28).
+     Two to four cards, each one big figure (.big), a 1-3 word label (.lbl) and an optional
+     guiding line (.desc, up to 6 words). Cards are neutral; .k1/.k2/.k3 color the figure and
+     the top edge with --a1/--a2/--a3 only when the card belongs to that named category. -->
+<style>
+  :where(.stat-cards) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 48px; }
+  :where(.stat-cards li) { display: flex; flex-direction: column; gap: 14px; padding: 44px 48px 48px; border-radius: 28px;
+    background: color-mix(in srgb, var(--fg) 6%, transparent); border-top: 12px solid color-mix(in srgb, var(--fg) 35%, transparent); }
+  :where(.stat-cards .big) { font-family: var(--display); font-weight: var(--dw); font-size: 112px; line-height: 1; letter-spacing: var(--ls); }
+  :where(.stat-cards .lbl) { font-size: 44px; font-weight: 600; }
+  :where(.stat-cards .desc) { font-size: 32px; line-height: 1.3; opacity: .8; }
+  :where(.stat-cards .k1) { border-top-color: var(--a1); } :where(.stat-cards .k1 .big) { color: var(--a1); }
+  :where(.stat-cards .k2) { border-top-color: var(--a2); } :where(.stat-cards .k2 .big) { color: var(--a2); }
+  :where(.stat-cards .k3) { border-top-color: var(--a3); } :where(.stat-cards .k3 .big) { color: var(--a3); }
+</style>
+<ul class="stat-cards">
+  <li class="k1"><span class="big">30</span><span class="lbl">Réplicas</span><p class="desc">Independientes, semilla distinta</p></li>
+  <li><span class="big">1 000 h</span><span class="lbl">Por réplica</span></li>
+</ul>
