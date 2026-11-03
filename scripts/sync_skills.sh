@@ -14,6 +14,8 @@ SRC="$REPO_ROOT/skills"
 SKILL=academic-slides-flow
 
 TARGETS=(
+  "$HOME/.claude/skills"
+  "$HOME/.codex/skills"
   "$HOME/.pi/agent/skills"
 )
 
