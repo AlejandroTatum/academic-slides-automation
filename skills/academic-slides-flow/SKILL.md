@@ -35,7 +35,7 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, 2
 | Outline not approved | Stop at gate 1. |
 | Checker fails | Fix before showing the PDF. |
 | PDF not reviewed | Stop at gate 2. |
-| User praises an element | Harvest it into `components/` and note the source. |
+| User praises an element | Harvest it into `components/` of the source repo (`~/devwork/apps/academic-slides-automation`), note the source, then run `scripts/sync_skills.sh --apply`; never into a runtime copy, which the sync overwrites. |
 
 ## Execution Steps
 

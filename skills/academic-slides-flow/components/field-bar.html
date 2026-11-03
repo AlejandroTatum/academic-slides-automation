@@ -1,0 +1,23 @@
+<!-- component: field-bar | theme: metro
+     Source: Redes guide "El viaje de un Hola mundo" (2026-10-22).
+     A horizontal row of protocol fields: frames, headers, nested encapsulation, layer maps.
+     --w is the relative width (flex-grow). Color is the layer category of the field.
+     .fl is the field name (body size), .fs the size or value in mono (chrome size). -->
+<style>
+  .bars { display: flex; flex-direction: column; gap: 2.2mm; }
+  .bar-row { display: flex; align-items: stretch; gap: 0; }
+  .bar-row .rl { width: 30mm; flex: none; font-family: var(--mono); font-size: 7.6pt; color: var(--muted); display: flex; align-items: center; padding-right: 2mm; }
+  .fld { flex: var(--w, 1) 1 0; min-width: 0; border: 0.3mm solid var(--paper); border-radius: 1.4mm; padding: 1.4mm 1.8mm; color: #fff; display: flex; flex-direction: column; justify-content: center; }
+  .fld .fl { font-family: var(--head); font-weight: 600; font-size: 10.5pt; line-height: 1.1; }
+  .fld .fs { font-family: var(--mono); font-size: 7.2pt; opacity: .92; }
+  .fld.ghost { background: var(--paper-2); color: var(--muted); border: 0.3mm dashed var(--rule); }
+  .fld.load { background: #FBF9F4; color: var(--ink); border: 0.3mm solid var(--rule); }
+</style>
+<div class="bars">
+  <div class="bar-row">
+    <span class="rl">Capa 2 · trama</span>
+    <div class="fld bg-d" style="--w:2"><span class="fl">MAC destino</span><span class="fs">6 B</span></div>
+    <div class="fld load" style="--w:6"><span class="fl">Carga</span><span class="fs">46–1500 B</span></div>
+    <div class="fld bg-d" style="--w:1"><span class="fl">FCS</span><span class="fs">4 B</span></div>
+  </div>
+</div>

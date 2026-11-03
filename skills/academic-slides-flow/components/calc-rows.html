@@ -1,0 +1,20 @@
+<!-- component: calc-rows | deck, every theme | needs assets/katex (see formula-hero for the render script)
+     Source: furniture-line deck "Cuellos de botella en una línea de muebles" (2026-10-28).
+     A worked calculation, one row per step: formula | substitution | result.
+     Write TeX in data-tex. The result (.res) takes --a1 when the row is the point of the slide (.key).
+     With reveal-steps, put data-step on each row so the calculation builds line by line. -->
+<style>
+  :where(.calc-rows) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  :where(.calc-rows li) { display: grid; grid-template-columns: 620px 1fr 300px; align-items: center; gap: 40px;
+    padding: 10px 36px; border-radius: 18px; background: color-mix(in srgb, var(--fg) 6%, transparent); }
+  :where(.calc-rows .f) { font-size: 50px; }
+  :where(.calc-rows .s) { font-size: 44px; color: var(--muted); }
+  /* katex.min.css centers display math with a 1em margin; a row needs it flush left. */
+  .calc-rows .katex-display { margin: 0; text-align: left; }
+  .calc-rows .katex-display > .katex { text-align: left; }
+  :where(.calc-rows .res) { font-family: var(--display); font-weight: var(--dw); font-size: 60px; text-align: right; }
+  :where(.calc-rows li.key .res) { color: var(--a1); }
+</style>
+<ul class="calc-rows">
+  <li data-step><span class="f" data-tex="\rho = \lambda/\mu"></span><span class="s" data-tex="3/4"></span><span class="res">75 %</span></li>
+</ul>

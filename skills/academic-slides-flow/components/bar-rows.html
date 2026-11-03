@@ -1,0 +1,20 @@
+<!-- component: bar-rows | deck, every theme
+     Source: chair-line deck "Cuellos de botella en una línea de sillas" (2026-10-28).
+     Horizontal labelled bars for a percentage per category (utilization, share, load).
+     --v is the value from 0 to 100. Bars are neutral; .key marks the one under study in --a1.
+     With reveal-steps, put data-step on each row: the bar grows when the row appears. -->
+<style>
+  :where(.bar-rows) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 26px; }
+  :where(.bar-rows li) { display: grid; grid-template-columns: 330px 1fr 180px; align-items: center; gap: 36px; font-size: 44px; font-weight: 600; }
+  :where(.bar-rows .track) { height: 58px; border-radius: 12px; background: color-mix(in srgb, var(--fg) 10%, transparent); overflow: hidden; }
+  :where(.bar-rows .fill) { display: block; height: 100%; width: calc(var(--v) * 1%); border-radius: 12px; background: color-mix(in srgb, var(--fg) 55%, transparent); transition: width .8s ease .15s; }
+  :where(.bar-rows li[data-step]:not(.on) .fill) { width: 0; }
+  :where(.bar-rows .val) { font-family: var(--display); font-weight: var(--dw); font-size: 54px; text-align: right; }
+  :where(.bar-rows li.key) { color: var(--a1); }
+  :where(.bar-rows li.key .fill) { background: var(--a1); }
+  body.print .bar-rows .fill { width: calc(var(--v) * 1%) !important; }
+</style>
+<ul class="bar-rows">
+  <li data-step style="--v: 40">Corte<span class="track"><span class="fill"></span></span><span class="val">40 %</span></li>
+  <li data-step class="key" style="--v: 75">Ensamblaje<span class="track"><span class="fill"></span></span><span class="val">75 %</span></li>
+</ul>
