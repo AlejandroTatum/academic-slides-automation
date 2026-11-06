@@ -1,0 +1,70 @@
+name: Docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Render Quarto
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.11.9
+      - uses: quarto-dev/quarto-actions/render@v2
+      # Fail closed rather than publishing incidental source files or course data.
+      - name: Check portal artifact
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          root = Path('_site')
+          pages = {
+              'index.html', 'docs/portal.html',
+              'docs/portal/calidad.html', 'docs/portal/contexto.html',
+              'docs/portal/flujo.html', 'docs/portal/herramientas.html',
+              'docs/portal/temas-y-componentes.html',
+              'search.json', 'sitemap.xml', 'robots.txt',
+          }
+          asset_types = {'.css', '.js', '.woff', '.woff2', '.ttf', '.svg', '.png', '.jpg', '.jpeg', '.gif', '.webp'}
+          if not root.is_dir() or not all((root / page).is_file() for page in pages):
+              raise SystemExit('Portal artifact is missing expected files')
+          for path in root.rglob('*'):
+              rel = path.relative_to(root).as_posix()
+              if path.is_symlink():
+                  raise SystemExit(f'Unexpected symlink in portal artifact: {rel}')
+              if path.is_dir():
+                  continue
+              if rel not in pages and not (rel.startswith('site_libs/') and path.suffix.lower() in asset_types):
+                  raise SystemExit(f'Unexpected file in portal artifact: {rel}')
+          PY
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        with:
+          path: _site
+
+  deploy:
+    name: Publish to GitHub Pages
+    needs: build
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -4,6 +4,16 @@ Source of truth for the `academic-slides-flow` agent skill: university slide
 decks (`deck` mode) and study guides (`guide` mode) built from nine deck themes
 (`deportivo`, `metro-deck`, and seven experimental ones) and the `metro` guide theme.
 
+## Documentation portal
+
+The Spanish skill documentation is a Quarto website, following the reports
+portal's structure. From the repository root, run `quarto preview` to browse it
+locally, or `quarto render` to build `_site/index.html` (verified with Quarto
+1.11.9). Start at `index.qmd`; see [portal operations](docs/portal.md) for the
+explicit render scope, maintenance instructions, and GitHub Pages deployment.
+The site is configured for https://alejandrotatum.github.io/academic-slides-automation/;
+publication requires GitHub Pages to be enabled with GitHub Actions as its source.
+
 ## Layout
 
 - `skills/academic-slides-flow/` — the skill itself (`SKILL.md`, `DESIGN.md`,
