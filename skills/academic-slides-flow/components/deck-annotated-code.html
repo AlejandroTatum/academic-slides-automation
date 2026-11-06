@@ -1,18 +1,28 @@
 <!-- component: deck-annotated-code | deck, every theme
-     Pair each short code line with a visible explanation. Accent 1 identifies
-     the code; neutral annotations explain behavior rather than decorate syntax. -->
+     One numbered code block beside the lines that matter. Each <span> is one code
+     line (numbered by CSS); span.hl highlights a line a note explains. Each
+     .code-note points at its line with data-line. Accent 1 identifies the code;
+     notes explain behavior rather than decorate syntax. Keep lines under ~32 chars. -->
 <style>
-  :where(.deck-annotated-code .code-example) { display: grid; gap: 20px; }
-  :where(.deck-annotated-code .code-line) { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 48px; }
-  :where(.deck-annotated-code .code-line code) { display: block; padding: 26px 32px; border-left: 8px solid var(--a1); background: color-mix(in srgb, var(--fg) 8%, transparent); font: 500 38px/1.3 var(--mono); white-space: pre; }
-  :where(.deck-annotated-code .code-note) { font-size: 38px; }
+  :where(.deck-annotated-code .code-example) { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.25fr 1fr; gap: 64px; }
+  :where(.deck-annotated-code .code-block) { margin: 0; padding: 44px 48px; display: flex; flex-direction: column; justify-content: center; border-left: 10px solid var(--a1); background: color-mix(in srgb, var(--fg) 7%, transparent); font: 500 36px/1.6 var(--mono); white-space: pre; overflow: hidden; counter-reset: ln; }
+  :where(.deck-annotated-code .code-block span) { display: block; counter-increment: ln; }
+  :where(.deck-annotated-code .code-block span)::before { content: counter(ln); display: inline-block; width: 2ch; margin-right: 1.4ch; text-align: right; color: var(--muted); }
+  :where(.deck-annotated-code .code-block .hl) { margin: 0 -48px; padding: 0 48px; background: color-mix(in srgb, var(--a1) 16%, transparent); }
+  :where(.deck-annotated-code .code-notes) { display: flex; flex-direction: column; justify-content: center; gap: 44px; }
+  :where(.deck-annotated-code .code-note) { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 28px; font-size: 44px; }
+  :where(.deck-annotated-code .code-note)::before { content: attr(data-line); width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--a1); color: var(--dot-fg, var(--bg)); font: 700 32px/1 var(--mono); }
 </style>
 <section class="slide deck-annotated-code" id="codigo">
   <p class="kicker">Ejemplo ilustrativo · Python</p>
   <h1 class="title sm">El filtro conserva solo valores positivos</h1>
   <div class="code-example">
-    <div class="code-line"><code>valores = [-1, 2, 3]</code><p class="code-note">Datos de entrada</p></div>
-    <div class="code-line"><code>[x for x in valores if x &gt; 0]</code><p class="code-note">Selecciona los positivos</p></div>
+<pre class="code-block"><code><span class="hl">valores = [-1, 2, 0, 3]</span><span>positivos = []</span><span>for x in valores:</span><span class="hl">    if x &gt; 0:</span><span>        positivos.append(x)</span><span class="hl">print(positivos)  # [2, 3]</span></code></pre>
+    <div class="code-notes">
+      <p class="code-note" data-line="1">Entrada con negativo y cero</p>
+      <p class="code-note" data-line="4">La condición excluye el cero</p>
+      <p class="code-note" data-line="6">Resultado: [2, 3]</p>
+    </div>
   </div>
-  <aside class="notes">Ejemplo ilustrativo: la comprensión produce [2, 3] sin modificar la lista original. El cero no cumple la condición.</aside>
+  <aside class="notes">Ejemplo ilustrativo: el recorrido produce [2, 3] sin modificar la lista original. El cero no cumple la condición estricta.</aside>
 </section>

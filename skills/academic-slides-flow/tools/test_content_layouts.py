@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Public outline and checker contracts for reusable content layouts."""
+import re
 import subprocess
 import sys
 import tempfile
@@ -53,21 +54,31 @@ class ContentLayouts(unittest.TestCase):
             self.assertIn("fonts: local\n", check.stdout)
             return parsed, text
 
-    def test_comparison(self):
-        parsed, text = self.check_layout("deck-compare", {"compare-side": 2, "compare-criterion": 1})
-        self.assertIn("Ejemplo ilustrativo", text)
-        self.assertTrue(parsed.classes("compare-side"))
+    def assert_body_fills(self, text, body):
+        """The body region grows into the space under the title instead of leaving a bottom band."""
+        rule = re.search(r"\." + re.escape(body) + r"\)?\s*\{([^}]*)\}", text)
+        self.assertIsNotNone(rule, body)
+        self.assertRegex(rule.group(1), r"flex:\s*1\b", body)
 
-    def test_case_map(self):
-        parsed, text = self.check_layout("deck-case-map", {"case-node": 3, "case-link": 2})
+    def test_comparison(self):
+        parsed, text = self.check_layout("deck-compare", {"compare-side": 2, "compare-criterion": 1, "compare-takeaway": 1, "compare-trait": 4})
+        self.assertIn("Ejemplo ilustrativo", text)
+        self.assert_body_fills(text, "compare-pair")
+
+    def test_case_relationship(self):
+        parsed, text = self.check_layout("deck-case-map", {"case-node": 3, "case-link": 2, "case-role": 3})
         self.assertIn("Ejemplo ilustrativo", text)
         self.assertTrue(all(tag != "svg" for tag, _ in parsed.classes("case-node")))
+        self.assert_body_fills(text, "case-map")
 
     def test_annotated_code(self):
-        parsed, text = self.check_layout("deck-annotated-code", {"code-line": 2, "code-note": 2})
+        parsed, text = self.check_layout("deck-annotated-code", {"code-block": 1, "code-note": 3})
         self.assertIn("Ejemplo ilustrativo", text)
-        self.assertTrue(any(tag == "code" for tag, _ in parsed.elements))
-        self.assertTrue(all(tag != "code" for tag, _ in parsed.classes("code-note")))
+        self.assertEqual(parsed.classes("code-block")[0][0], "pre")
+        lines = [attrs.get("data-line") for _, attrs in parsed.classes("code-note")]
+        self.assertTrue(all(line and line.isdigit() for line in lines), lines)
+        self.assertGreaterEqual(len([t for t, _ in parsed.elements if t == "span" ]), 5)
+        self.assert_body_fills(text, "code-example")
 
 
 if __name__ == "__main__":

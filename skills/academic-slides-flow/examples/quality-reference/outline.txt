@@ -1,0 +1,6 @@
+# Referencia ilustrativa: préstamo bibliotecario
+# duration: 4 min
+deck-case-map | El préstamo relaciona al lector con un ejemplar | Mapa de actores y relaciones | Caso ilustrativo adaptado de components/deck-case-map.html; no representa datos medidos.
+deck-compare | Una obra puede tener varios ejemplares | Contraste entre contenido y copia | El préstamo identifica una copia concreta; distinción ilustrativa derivada del caso.
+flow-steps | El registro sigue la solicitud | Secuencia de solicitud, identificación y registro | Secuencia ilustrativa adaptada de components/flow-steps.html.
+deck-annotated-code | El filtro conserva las copias disponibles | Código y explicación por línea | Ejemplo Python ilustrativo con dos estados, no un sistema completo.
