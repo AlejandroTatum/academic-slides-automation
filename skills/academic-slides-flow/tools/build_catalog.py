@@ -20,7 +20,8 @@ USAGE = "usage: build_catalog.py [--out DIR]"
 # Catalog order: how a short talk usually flows.
 COMPONENTS = [
     "cover", "question-hook", "icon-row", "big-number", "flow-steps",
-    "figure-full", "formula-hero", "section-divider", "recap",
+    "deck-case-map", "deck-compare", "figure-full", "formula-hero",
+    "deck-annotated-code", "section-divider", "recap",
 ]
 FIRST_THEMES = ["deportivo", "metro-deck"]
 STYLE = re.compile(r"<style>.*?</style>", re.S)
