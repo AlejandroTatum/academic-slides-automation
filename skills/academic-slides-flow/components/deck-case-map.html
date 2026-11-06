@@ -1,0 +1,25 @@
+<!-- component: deck-case-map | deck, every theme
+     A concrete case shown as three related actors, not a generic process sequence.
+     Link labels state each relationship; accents identify the actors. -->
+<style>
+  :where(.deck-case-map .case-map) { display: grid; grid-template-columns: 1fr 210px 1fr 210px 1fr; align-items: center; gap: 18px; }
+  :where(.deck-case-map .case-node) { min-height: 230px; padding: 32px; border: 5px solid var(--a1); display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+  :where(.deck-case-map .case-node:nth-child(3)) { border-color: var(--a2); }
+  :where(.deck-case-map .case-node:nth-child(5)) { border-color: var(--a3); }
+  :where(.deck-case-map .case-node strong) { font: var(--dw) 48px/1.1 var(--display); }
+  :where(.deck-case-map .case-node p) { font-size: 34px; }
+  :where(.deck-case-map .case-link) { text-align: center; font-size: 30px; line-height: 1.2; }
+  :where(.deck-case-map .case-link::after) { content: '→'; display: block; font-size: 64px; color: var(--muted); }
+</style>
+<section class="slide deck-case-map" id="caso">
+  <p class="kicker">Ejemplo ilustrativo · Biblioteca</p>
+  <h1 class="title sm">El préstamo relaciona al lector con un ejemplar</h1>
+  <div class="case-map" aria-label="Relaciones del préstamo en una biblioteca">
+    <div class="case-node"><strong>Lector</strong><p>Solicita un libro</p></div>
+    <div class="case-link">realiza</div>
+    <div class="case-node"><strong>Préstamo</strong><p>Registra la salida</p></div>
+    <div class="case-link">vincula</div>
+    <div class="case-node"><strong>Ejemplar</strong><p>Copia prestada</p></div>
+  </div>
+  <aside class="notes">Caso ilustrativo sin datos medidos. El préstamo conecta a un lector con una copia concreta; no confundir el título de una obra con cada ejemplar físico.</aside>
+</section>

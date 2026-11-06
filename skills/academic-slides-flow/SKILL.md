@@ -18,7 +18,7 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, 2
 - Two human gates only: approved outline, then visual review of the PDF. Silence is not approval.
 - Deck themes: proven `deportivo`, `terminal`; `metro-deck` (proven metro look, new on decks); experimental `pizarra`, `editorial`, `bauhaus`, `cuaderno`, `pop`, `retro`. Guide theme: `metro`. Propose one with a reason; say when it is experimental. Any other theme is an explicit experiment, never a silent invention.
 - Body text is ≥ 10.5 pt on guides and ≥ 28 px on decks. Every accent maps to a category the reader can name.
-- Decks are visual. Default: ≤ 3 items and ≤ 30 words per slide, as guiding text (title, one `.lead` line, a short `.desc` per item); the full speech goes in `.notes`. It is a default, not a limit: when the user or the content needs more, mark the slide `data-dense` or run the checker with `--max-items` / `--max-words` (`references/writing.md`).
+- Decks are visual. On content slides, make the title a specific source-grounded point, support it with relevant evidence or an example, and choose a visual and composition for what they explain. Covers, section pauses and conclusions have different jobs; see `references/writing.md`. Default: ≤ 3 items and ≤ 30 words per slide, as guiding text (title, one `.lead` line, a short `.desc` per item); the full speech goes in `.notes`. It is a default, not a limit: when the user or the content needs more, mark the slide `data-dense` or run the checker with `--max-items` / `--max-words` (`references/writing.md`).
 - Mark terms absent from the user's source list as `TIP`. Correct inaccurate source definitions before styling them, and list each correction.
 - Fonts are local files. Never use `fonts.googleapis.com`. Run `tools/render.sh` and `tools/check_deck.py` before showing work.
 - Do not overwrite an existing deck or guide unless the user explicitly asks.
@@ -44,7 +44,7 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, 2
 3. Deck: turn the duration into slides (about 1 per minute). Propose the theme. Show `catalog/index.html` so the user picks components by sight.
 4. Draft the outline (`component | message | visual | spoken note [| speaker [| m:ss]]`), run `tools/outline.py`, show outline + plan. Stop for gate 1.
 5. Copy the shell, `themes/deck-base.css` + the theme (or `metro.css` for a guide), `assets/fonts/`, `assets/katex/` if a formula is used, and the components into the destination. No ad-hoc CSS unless it becomes a component.
-6. Run `tools/render.sh` and `tools/check_deck.py --mode … --outline … --dom`. Inspect thumbnails. Fix overflow, empty pages, and density.
+6. Run `tools/render.sh` and `tools/check_deck.py --mode … --outline … --dom`. Inspect thumbnails for hierarchy, purposeful whitespace and content fit; fix accidental emptiness, overflow, empty pages, and density without filling space for its own sake.
 7. Show the PDF. Stop for gate 2.
 8. Group talk: build the speaker guide with `tools/speaker_guide.py` as a separate guide, render and check it.
 9. If praised, harvest the element; a praised experimental theme becomes proven.
