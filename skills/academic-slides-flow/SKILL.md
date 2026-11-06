@@ -16,7 +16,7 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, 2
 ## Hard Rules
 
 - Two human gates only: approved outline, then visual review of the PDF. Silence is not approval.
-- Deck themes: proven `deportivo`, `terminal`; `metro-deck` (proven metro look, new on decks); experimental `pizarra`, `editorial`, `bauhaus`, `cuaderno`, `pop`, `retro`. Guide theme: `metro`. Propose one with a reason; say when it is experimental. Any other theme is an explicit experiment, never a silent invention.
+- Deck themes: proven `deportivo`, `terminal`; `metro-deck` (proven metro look, new on decks); experimental `pizarra`, `editorial`, `bauhaus`, `cuaderno`, `pop`, `retro`, `plano-lavanda`, `plano-durazno`, `plano-menta`. Guide theme: `metro`. Propose one with a reason; say when it is experimental. Any other theme is an explicit experiment, never a silent invention.
 - Body text is ≥ 10.5 pt on guides and ≥ 28 px on decks. Every accent maps to a category the reader can name.
 - Decks are visual. On content slides, make the title a specific source-grounded point, support it with relevant evidence or an example, and choose a visual and composition for what they explain. Covers, section pauses and conclusions have different jobs; see `references/writing.md`. Default: ≤ 3 items and ≤ 30 words per slide, as guiding text (title, one `.lead` line, a short `.desc` per item); the full speech goes in `.notes`. It is a default, not a limit: when the user or the content needs more, mark the slide `data-dense` or run the checker with `--max-items` / `--max-words` (`references/writing.md`).
 - Mark terms absent from the user's source list as `TIP`. Correct inaccurate source definitions before styling them, and list each correction.

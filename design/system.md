@@ -1,6 +1,6 @@
 # Sistema de diseño observado · diapositivas
 
-Inventario de la familia de diapositivas, no una propuesta de tema nuevo. Los 80 valores siguientes son 8 roles de color por cada una de 10 fuentes; los alias repetidos se cuentan por rol, no como colores únicos. Cada fila sigue el orden `--bg`, `--fg`, `--muted`, `--a1`, `--a2`, `--a3`, `--alt-bg`, `--alt-fg`. Los acentos identifican categorías, no decoración. Las combinaciones deben comprobarse para contraste: no todas las parejas de tokens existentes son accesibles.
+Inventario de la familia de diapositivas, no una propuesta de tema nuevo. Los 104 valores siguientes son 8 roles de color por cada una de 13 fuentes; los alias repetidos se cuentan por rol, no como colores únicos. Cada fila sigue el orden `--bg`, `--fg`, `--muted`, `--a1`, `--a2`, `--a3`, `--alt-bg`, `--alt-fg`. Los acentos identifican categorías, no decoración. Las combinaciones deben comprobarse para contraste: no todas las parejas de tokens existentes son accesibles.
 
 | Fuente | 8 roles de color, en el orden anterior |
 |---|---|
@@ -14,12 +14,15 @@ Inventario de la familia de diapositivas, no una propuesta de tema nuevo. Los 80
 | `skills/academic-slides-flow/themes/pop.css` | #FFE14D, #111111, #3A3A3A, #FF3B30, #0057FF, #111111, #FF3B30, #FFFFFF |
 | `skills/academic-slides-flow/themes/retro.css` | #C0C0C0, #000000, #222222, #000080, #800000, #006400, #0000AA, #FFFFFF |
 | `skills/academic-slides-flow/themes/terminal.css` | #0B0F0C, #D7FFD9, #6FA77A, #39FF88, #FF4FD8, #5CC8FF, #39FF88, #0B0F0C |
+| `skills/academic-slides-flow/themes/plano-lavanda.css` | #F3F0FA, #4E4670, #6A6388, #6E4BB8, #B84A33, #237365, #6E4BB8, #FFFFFF |
+| `skills/academic-slides-flow/themes/plano-durazno.css` | #FBF0EA, #6A4A44, #80635B, #B23F56, #3767A3, #437835, #B23F56, #FFFFFF |
+| `skills/academic-slides-flow/themes/plano-menta.css` | #ECF6F3, #365E58, #557570, #1A7566, #B04A34, #5256B5, #1A7566, #FFFFFF |
 
 `skills/academic-slides-flow/themes/metro.css` es la variante de guía, no otro tema de diapositiva: 9 roles de color: `--paper` #F3EFE6, `--paper-2` #E9E3D6, `--ink` #1B1B1F, `--muted` #6A665E, `--rule` #CFC7B6, `--a` #E4572E, `--b` #1F9E8F, `--c` #6C4FD1, `--d` #E9A21B.
 
 ## Tipografía
 
-Tres roles de familia en cada tema: `--display`, `--body`, `--mono`. `skills/academic-slides-flow/themes/deck-base.css`: Georgia/serif, system-ui/sans-serif, ui-monospace/monospace. Los temas declaran fuentes locales: Space Grotesk y IBM Plex (`metro-deck.css`); C059 e Inter (`editorial.css`); Graduate y Barlow (`deportivo.css`); Caladea (`cuaderno.css`); C059 y Caladea (`pizarra.css`); Barlow (`pop.css`); Iosevka Term y DejaVu Sans (`retro.css`); Fira Code (`terminal.css`); Space Grotesk (`bauhaus.css`). Las vistas usan solo los stacks de sistema de deck-base: aproximan esas fuentes locales y no reproducen exactamente sus métricas. `deck-base.css` establece título 104px (variantes 86 y 128), entradilla 40px, cuerpo 32px, kicker 26px y pie 22px: 6 tamaños observados.
+Tres roles de familia en cada tema: `--display`, `--body`, `--mono`. `skills/academic-slides-flow/themes/deck-base.css`: Georgia/serif, system-ui/sans-serif, ui-monospace/monospace. Los temas declaran fuentes locales: Space Grotesk y IBM Plex (`metro-deck.css`); C059 e Inter (`editorial.css`); Graduate y Barlow (`deportivo.css`); Caladea (`cuaderno.css`); C059 y Caladea (`pizarra.css`); Barlow (`pop.css`); Iosevka Term y DejaVu Sans (`retro.css`); Fira Code (`terminal.css`); Space Grotesk (`bauhaus.css`); Nimbus Sans Narrow y Noto Sans Mono (`plano-lavanda.css`, `plano-durazno.css`, `plano-menta.css`). Las vistas usan solo los stacks de sistema de deck-base: aproximan esas fuentes locales y no reproducen exactamente sus métricas. `deck-base.css` establece título 104px (variantes 86 y 128), entradilla 40px, cuerpo 32px, kicker 26px y pie 22px: 6 tamaños observados.
 
 ## Espaciado, radios y sombras
 
@@ -32,4 +35,4 @@ Tres roles de familia en cada tema: `--display`, `--body`, `--mono`. `skills/aca
 - `skills/academic-slides-flow/components/figure-full.html`: figura principal y pie; identificar ilustraciones y fuentes.
 - `skills/academic-slides-flow/components/bar-rows.html`: barras para valores reales con categoría y unidad; no inventar mediciones.
 
-Las tres vistas son composiciones propuestas, no componentes ni temas implementados. Comparten contenido ilustrativo; no representan evidencia medida.
+Las tres vistas de `design/slides-quality-themes/` son composiciones propuestas, no componentes ni temas implementados. La dirección Plano de `design/slides-theme-directions/01-plano.html` sí está implementada: tres temas `plano-*` que comparten riel lateral, marco con marcas de corte y tinta suave sin casi-negro; también tienen `--panel` y `--edge`, que no forman parte del contrato de 8 roles. Comparten contenido ilustrativo; no representan evidencia medida.

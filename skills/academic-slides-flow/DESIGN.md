@@ -67,6 +67,7 @@ theme can override them and every component works in every deck theme.
 | `metro-deck` | proven look | the metro guide palette on the deck canvas |
 | `terminal` | proven | Engram deck, approved at gate 2 on 2026-10-13 |
 | `pizarra`, `editorial`, `bauhaus`, `cuaderno`, `pop`, `retro` | experimental | picked by the user from `proposals/slide-themes.html` (repo) |
+| `plano-lavanda`, `plano-durazno`, `plano-menta` | experimental | the Plano technical-sheet direction (`design/slides-theme-directions/01-plano.html`, repo) in three soft palettes; no grid, no near-black ink |
 
 An experimental theme becomes proven when a real deck in it passes gate 2.
 `metro.css` stays the guide theme.

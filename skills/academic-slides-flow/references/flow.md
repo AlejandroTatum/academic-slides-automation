@@ -25,6 +25,7 @@ Do not overwrite an existing HTML or PDF in that folder unless the user explicit
 | `cuaderno` | experimental | reviews, intro classes |
 | `pop` | experimental | waking up the room, dynamics |
 | `retro` | experimental | operating systems, history of computing |
+| `plano-lavanda`, `plano-durazno`, `plano-menta` | experimental | diagrams, data models, systems; one technical-sheet look, pick the palette |
 
 Say when the proposal is experimental. If the user names a theme, use it. Do not invent another theme silently.
 
