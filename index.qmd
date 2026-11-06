@@ -1,0 +1,30 @@
+---
+title: "Documentación de academic-slides-flow"
+---
+
+La skill **academic-slides-flow** permite preparar diapositivas universitarias y guías de estudio con temas reutilizables, un outline aprobado y controles antes de la revisión visual. Este portal explica cómo usarla y mantenerla; no reemplaza las instrucciones que ejecuta el agente.
+
+## Por dónde empezar
+
+| Si necesitás… | Leé… |
+|---|---|
+| Entender qué produce la skill | [Contexto y alcance](docs/portal/contexto.qmd) |
+| Preparar una presentación o guía | [Flujo y aprobaciones](docs/portal/flujo.qmd) |
+| Elegir una dirección visual | [Temas y componentes](docs/portal/temas-y-componentes.qmd) |
+| Renderizar o validar un documento | [Herramientas](docs/portal/herramientas.qmd) |
+| Saber qué se comprueba | [Calidad](docs/portal/calidad.qmd) |
+| Previsualizar este portal | [Operación del portal](docs/portal.md) |
+
+## Recorrido mínimo
+
+1. Indicá el modo (`deck` o `guide`), el tema académico, las fuentes y la carpeta de destino.
+2. Elegí un tema visual y aprobá el outline con su plan.
+3. Revisá el PDF después del render, el checker y la inspección de miniaturas.
+
+::: {.callout-important}
+El agente no elige el modo por vos. Hay dos aprobaciones humanas: **outline** y **revisión visual del PDF**. Un checker exitoso no equivale a una aprobación visual.
+:::
+
+## Fuente de verdad
+
+El código y las reglas se mantienen en `skills/academic-slides-flow/`. Las páginas de este portal resumen `SKILL.md`, `references/flow.md` y las herramientas del repositorio. Ante cambios de comportamiento, actualizá esas fuentes y la documentación correspondiente; no edites una copia instalada de la skill.

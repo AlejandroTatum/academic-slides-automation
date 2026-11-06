@@ -1,0 +1,85 @@
+---
+title: "Flujo y aprobaciones"
+---
+
+## Del pedido al PDF
+
+El flujo tiene dos pausas humanas: aprobar el outline antes de armar y revisar explícitamente el PDF antes de continuar. Las correcciones regresan a la etapa correspondiente.
+
+```{mermaid}
+flowchart TD
+    A["Intake: modo, audiencia, fuentes, duración o términos y destino"] --> B["Proponer o elegir tema"]
+    B --> C["Preparar outline y validar plan"]
+    C --> D{"¿Outline válido?"}
+    D -- "No: corregir" --> C
+    D -- Sí --> E{"Aprobación humana 1: ¿outline aprobado?"}
+    E -- "Cambios solicitados" --> C
+    E -- "Sí, explícitamente" --> F["Armar HTML y recursos"]
+    F --> G["Renderizar PDF, ejecutar checker y revisar miniaturas"]
+    G --> H{"¿Controles y miniaturas correctos?"}
+    H -- "No: corregir" --> F
+    H -- Sí --> I["Mostrar PDF y salida del checker"]
+    I --> J{"Aprobación humana 2: ¿revisión visual explícita?"}
+    J -- "Cambios solicitados" --> F
+    J -- "Sí" --> K{"¿Exposición grupal?"}
+    K -- Sí --> L["Crear, renderizar y comprobar guía de expositores separada"]
+    K -- No --> M["Fin"]
+    L --> M
+```
+
+| Etapa | Resultado | Condición para avanzar |
+|---|---|---|
+| Intake | Modo, audiencia, fuentes, duración o términos y destino | Datos necesarios completos |
+| Tema | Propuesta visual y catálogo de componentes | Tema elegido o aceptado |
+| Outline | Mensaje, visual, nota oral y plan por página | **Aprobación humana 1** |
+| Armado | HTML, temas y recursos locales | Respeta el outline aprobado |
+| Control | PDF, checker y miniaturas revisadas | Errores corregidos |
+| Revisión visual | PDF mostrado al usuario | **Aprobación humana 2** |
+| Trabajo grupal | Guía de expositores separada | Se construye después de la revisión visual |
+
+Elegir el tema forma parte de la preparación: no reemplaza ninguna de las dos aprobaciones. El silencio tampoco cuenta como aprobación.
+
+## Outline antes de armar
+
+Para un deck se estima aproximadamente una diapositiva por minuto. El catálogo `skills/academic-slides-flow/catalog/index.html` permite elegir componentes por su aspecto.
+
+Cada línea del outline usa este formato:
+
+```text
+component | message | visual | spoken note [| speaker [| m:ss]]
+```
+
+Ejemplo de la referencia de flujo:
+
+```text
+# Planificación de procesos
+# duration: 10 min
+# speakers: Ana, Luis
+cover | Planificación de procesos | portada | Presentamos el tema y el grupo.
+icon-row | Qué decide el planificador | 3 íconos | Entra, dura, espera. | Luis | 2:00
+```
+
+Este fragmento ilustra el formato, no un outline completo para diez minutos. Se valida con `outline.py` y se muestra junto con su plan antes de pedir la primera aprobación. Una línea sin `|` también es válida como un solo mensaje.
+
+Antes del estilo, se corrigen errores factuales de las fuentes y se enumeran las correcciones. Los términos que no estaban en la lista del usuario se identifican como `TIP`.
+
+## Armado y recursos
+
+La carpeta de destino conserva esta estructura:
+
+```text
+destination/
+├── index.html
+├── themes/
+├── assets/fonts/
+├── assets/katex/    # solo si hay fórmulas
+└── outline.txt
+```
+
+En decks se carga `deck-base.css` antes del tema. Las guías usan `metro.css`. Las fuentes son archivos locales; no se usa `fonts.googleapis.com`. Un patrón visual nuevo se convierte primero en un componente reutilizable, no en CSS ad hoc del documento final.
+
+## Después de los controles
+
+El checker debe terminar con código 0 y las miniaturas deben inspeccionarse para detectar desbordes o páginas vacías. Recién entonces se muestra el PDF y la salida del checker. La guía de expositores de un trabajo grupal se crea como documento independiente, no como una capa dentro del deck.
+
+Si el usuario elogia un elemento, se recupera en los componentes o tokens del repositorio fuente con una nota de procedencia. La sincronización a las copias instaladas se hace desde ese repositorio.

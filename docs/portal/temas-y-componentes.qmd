@@ -1,0 +1,42 @@
+---
+title: "Temas y componentes"
+---
+
+## Elegir un tema
+
+Si el usuario nombra un tema, se usa ese. Si no, se propone uno con una razón y se espera su aceptación o cambio. No se inventa silenciosamente otra dirección visual.
+
+| Tema de deck | Estado | Uso orientativo |
+|---|---|---|
+| `deportivo` | Probado | Energía, alto contraste, demos en vivo |
+| `terminal` | Probado | Programación, comandos y redes |
+| `metro-deck` | Apariencia probada en guías, nueva en decks | Categorías por color |
+| `pizarra` | Experimental | Matemática, simulación y fórmulas |
+| `editorial` | Experimental | Teoría y lecturas |
+| `bauhaus` | Experimental | Aperturas y conceptos clave |
+| `cuaderno` | Experimental | Repasos e introducciones |
+| `pop` | Experimental | Dinámicas y atención del grupo |
+| `retro` | Experimental | Sistemas operativos e historia de la computación |
+
+Para `deck`, la referencia propone `deportivo` como punto de partida; para `guide`, `metro`. Un tema experimental se presenta como tal. La aprobación explícita de un resultado experimental permite incorporarlo como probado según el flujo de la skill.
+
+## Componentes reutilizables
+
+El catálogo local `skills/academic-slides-flow/catalog/index.html` muestra los componentes compartidos con los temas de deck. `live-demo` permanece exclusivo de `deportivo`.
+
+- Los componentes viven en `components/` y usan los tokens de `themes/deck-base.css`.
+- El estilo de cada componente se pega una vez; su markup se repite por elemento.
+- Los íconos son Lucide: se buscan por significado y se genera un sprite con los que se usan. No se dibujan a mano.
+- KaTeX se copia cuando se usan fórmulas; las fuentes se mantienen locales.
+
+Después de modificar componentes, temas o shells, se regenera el catálogo:
+
+```sh
+python3 skills/academic-slides-flow/tools/build_catalog.py
+```
+
+## Perfiles y mantenimiento
+
+Las reglas por materia están en `references/profiles/` y prevalecen sobre las reglas generales cuando el perfil corresponde. Su contenido se mantiene primero en el proyecto de reportes.
+
+Los elementos recuperados de trabajos aprobados se incorporan en este repositorio, nunca directamente en la copia instalada: una sincronización posterior sobrescribe esa copia.

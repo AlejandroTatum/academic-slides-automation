@@ -1,0 +1,60 @@
+---
+title: "Herramientas"
+---
+
+## Qué hace cada herramienta
+
+Las rutas de esta tabla son relativas a `skills/academic-slides-flow/`.
+
+| Herramienta | Función |
+|---|---|
+| `tools/outline.py` | Valida componentes, tiempos y expositores; imprime el plan |
+| `tools/render.sh` | Renderiza el HTML del documento a PDF |
+| `tools/check_deck.py` | Comprueba requisitos del deck o guía y comunica hallazgos por stdout |
+| `tools/speaker_guide.py` | Construye una guía de expositores a partir del deck y el outline |
+| `tools/icons.py` | Busca íconos Lucide y genera el sprite |
+| `tools/build_catalog.py` | Regenera el catálogo de componentes y temas |
+
+Los comandos siguientes se ejecutan **desde el directorio de la skill**. `destination/` es un marcador: reemplazalo por la carpeta real del documento.
+
+## Validar el outline
+
+```sh
+python3 tools/outline.py destination/outline.txt
+```
+
+Devuelve código 1 ante un componente desconocido, un tiempo inválido, un expositor desconocido o tiempos explícitos que exceden la duración. Las líneas `note:` son advertencias orientativas, no una aprobación humana.
+
+## Renderizar y comprobar
+
+Para un deck:
+
+```sh
+tools/render.sh destination/index.html
+python3 tools/check_deck.py destination/index.html \
+  --mode deck --outline destination/outline.txt --dom
+```
+
+Para una guía, el checker usa `--mode guide`. No escribas literalmente `deck|guide` como argumento del shell: elegí un modo.
+
+El checker no modifica el HTML. Sus resultados se muestran al usuario junto con el PDF después de corregir los errores.
+
+## Preparar una guía de expositores
+
+Después de la revisión visual de una exposición grupal:
+
+```sh
+python3 tools/speaker_guide.py destination/index.html destination/outline.txt
+tools/render.sh destination/guia-expositores.html
+```
+
+Luego se valida con `check_deck.py`, modo `guide`, `--dom` y `--expect N`, reemplazando `N` por la cantidad de páginas informada por la herramienta. Las notas `.notes` alimentan lo que dice cada expositor; la nota del outline se usa si la diapositiva no tiene notas. La herramienta rechaza sobrescribir una guía existente sin `--force`.
+
+## Buscar íconos
+
+```sh
+python3 tools/icons.py search network
+python3 tools/icons.py sprite network
+```
+
+El sprite se incorpora una sola vez después de `<body>`, con los íconos que realmente se usan.

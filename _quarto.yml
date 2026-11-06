@@ -1,0 +1,56 @@
+# Documentation portal. See docs/portal.md.
+project:
+  type: website
+  output-dir: _site
+  # Do not render course profiles, proposals, fixtures or internal task logs.
+  render:
+    - index.qmd
+    - docs/portal.md
+    - docs/portal/*.qmd
+
+lang: es
+execute:
+  enabled: false
+
+website:
+  title: Academic Slides Automation
+  site-url: https://alejandrotatum.github.io/academic-slides-automation/
+  repo-url: https://github.com/AlejandroTatum/academic-slides-automation
+  page-navigation: true
+  search:
+    location: sidebar
+  navbar:
+    left:
+      - href: index.qmd
+        text: Inicio
+      - href: docs/portal/flujo.qmd
+        text: Flujo
+      - href: docs/portal/herramientas.qmd
+        text: Herramientas
+  sidebar:
+    style: docked
+    contents:
+      - index.qmd
+      - section: Contexto
+        contents:
+          - docs/portal/contexto.qmd
+      - section: Modelado
+        contents:
+          - docs/portal/flujo.qmd
+      - section: Arquitectura
+        contents:
+          - docs/portal/temas-y-componentes.qmd
+          - docs/portal/herramientas.qmd
+      - section: Calidad
+        contents:
+          - docs/portal/calidad.qmd
+      - section: Operación
+        contents:
+          - docs/portal.md
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-copy: true
+    lightbox: true

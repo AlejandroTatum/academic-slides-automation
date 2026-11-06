@@ -1,0 +1,43 @@
+---
+title: "Calidad y límites de la validación"
+---
+
+## Qué debe cumplir un documento
+
+| Regla | Deck | Guía |
+|---|---|---|
+| Texto de cuerpo | Al menos 28 px | Al menos 10,5 pt |
+| Densidad orientativa | Hasta 3 elementos y 30 palabras por diapositiva | Priorizar lectura autónoma |
+| Explicación oral | En `.notes` | El contenido debe entenderse sin exposición |
+| Fuentes | Archivos locales | Archivos locales |
+| Aprobación | Outline y revisión visual | Outline y revisión visual |
+
+Los límites de densidad son el punto de partida, no una prohibición de contenido más denso. Cuando el usuario o el contenido requieren una excepción, se marca `data-dense` o se usan `--max-items` y `--max-words` de manera deliberada. No se debilita el chequeo para ocultar un problema.
+
+Cada color de acento debe corresponder a una categoría que el lector pueda nombrar. Los términos agregados a la lista fuente se marcan como `TIP` y las correcciones factuales se explicitan antes de aplicar estilo.
+
+## Validación automática y revisión humana
+
+1. Validar el outline y mostrar su plan antes de la primera aprobación.
+2. Renderizar el documento y ejecutar el checker con `--dom`.
+3. Corregir errores y examinar las miniaturas: desbordes y páginas vacías también importan.
+4. Mostrar el PDF y stdout del checker para la segunda aprobación.
+
+::: {.callout-warning}
+Código 0 significa que el checker pasó. No demuestra que el PDF haya sido revisado ni que el usuario lo haya aprobado.
+:::
+
+## Pruebas del repositorio
+
+Desde la raíz, el README indica preparar un entorno y ejecutar:
+
+```sh
+python3 -m venv .venv
+.venv/bin/pip install pytest
+.venv/bin/python -m pytest -q skills/academic-slides-flow/tools
+.venv/bin/python skills/academic-slides-flow/tools/check_deck.py \
+  skills/academic-slides-flow/examples/deck/index.html \
+  --mode deck --outline skills/academic-slides-flow/examples/deck/outline.txt --dom
+```
+
+Son comprobaciones de la skill, no del sitio Quarto. Las instrucciones para construir este portal están en [Operación del portal](../portal.md).

@@ -1,0 +1,38 @@
+---
+title: "Contexto y alcance"
+---
+
+## Dos modos, dos usos
+
+| Modo | Propósito | Formato | Tema |
+|---|---|---|---|
+| `deck` | Exposición oral con apoyo visual | 1920 × 1080 | Tema de deck elegido por el usuario |
+| `guide` | Lectura autónoma y estudio | 297 × 167 mm | `metro` |
+
+Un deck muestra una idea por diapositiva; la explicación completa va en `.notes`. Una guía debe poder entenderse sin una exposición oral. El modo lo elige el usuario, nunca se infiere.
+
+La skill se activa para crear o revisar presentaciones universitarias y guías de estudio. Para informes o ejercicios corresponde `academic-report-flow`; para figuras aisladas, `academic-visual-builder`.
+
+## Datos necesarios
+
+- Modo y carpeta de destino: si faltan, se consulta antes de avanzar.
+- Tema académico, audiencia y archivos fuente.
+- Duración para una exposición, o lista de términos para una guía.
+- Expositores cuando el trabajo es grupal.
+
+Los perfiles de `references/profiles/` agregan reglas por materia y tienen prioridad cuando corresponden. Se reutilizan desde el proyecto de reportes: los cambios se hacen primero allí. Este portal no publica su contenido.
+
+## Qué se entrega
+
+La salida informa modo, tema y condición experimental, destino, estado del outline y plan, stdout del checker y ruta del PDF. Si se construye una guía de expositores, se informa su ruta por separado. También se indica si la revisión visual sigue pendiente.
+
+No se sobrescribe un deck o una guía existente sin un pedido explícito. No se anuncia una aprobación que el usuario no dio.
+
+## Referencias mantenidas en el repositorio
+
+| Archivo | Responsabilidad |
+|---|---|
+| `skills/academic-slides-flow/SKILL.md` | Activación, reglas y contrato de salida |
+| `skills/academic-slides-flow/references/flow.md` | Proceso operativo y aprobaciones |
+| `skills/academic-slides-flow/references/writing.md` | Redacción, densidad y términos adicionales |
+| `skills/academic-slides-flow/DESIGN.md` | Temas, componentes y contrato de tokens |

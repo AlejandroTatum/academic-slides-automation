@@ -5,3 +5,9 @@ __pycache__/
 .codegraph/
 *-thumb-*.png
 examples/**/*.pdf
+
+# Local Quarto documentation builds
+/.quarto/
+/_site/
+
+**/*.quarto_ipynb
