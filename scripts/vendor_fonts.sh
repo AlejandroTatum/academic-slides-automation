@@ -6,7 +6,7 @@
 #
 # Needs pyftsubset (fonttools) and woff2_compress. Sources are the Arch
 # packages gsfonts (C059, URW), ttf-caladea, inter-font, ttf-fira-code,
-# ttf-iosevkaterm-nerd and ttf-dejavu. All are OFL, Apache, or URW
+# ttf-iosevkaterm-nerd, ttf-dejavu and noto-fonts. All are OFL, Apache, or URW
 # font-exception licensed and allow embedding.
 
 set -euo pipefail
@@ -35,6 +35,9 @@ FONTS=(
   "iosevka-term-700 /usr/share/fonts/TTF/IosevkaTermNerdFontPropo-Bold.ttf"
   "dejavu-sans-400 /usr/share/fonts/TTF/DejaVuSans.ttf"
   "dejavu-sans-700 /usr/share/fonts/TTF/DejaVuSans-Bold.ttf"
+  "nimbus-sans-narrow-700 /usr/share/fonts/gsfonts/NimbusSansNarrow-Bold.otf"
+  "noto-sans-mono-400 /usr/share/fonts/noto/NotoSansMono-Regular.ttf"
+  "noto-sans-mono-700 /usr/share/fonts/noto/NotoSansMono-Bold.ttf"
 )
 
 for entry in "${FONTS[@]}"; do

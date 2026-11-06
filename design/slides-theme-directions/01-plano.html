@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plano técnico · cuatro diapositivas</title>
+<style>
+:root{--display:"Arial Narrow","Roboto Condensed","Helvetica Neue",Arial,sans-serif;--mono:ui-monospace,"DejaVu Sans Mono",Menlo,monospace}
+/* Palettes: data-palette on <body>. Soft ink, no near-black; text stays >= 4.5:1 on --bg. */
+body,body[data-palette="papel"]{--bg:#F5F1E8;--panel:#FFFDF8;--edge:#DDD5C4;--fg:#544C43;--muted:#6B6358;--a1:#C8402A;--a2:#2D5BC4;--a3:#2D7D4F}
+body[data-palette="cielo"]{--bg:#EEF3F9;--panel:#FFFFFF;--edge:#CCD8E6;--fg:#3A5574;--muted:#55687F;--a1:#2F6FD6;--a2:#D9603B;--a3:#1E8C73}
+body[data-palette="salvia"]{--bg:#EFF3EC;--panel:#FAFCF8;--edge:#CFDACA;--fg:#41584A;--muted:#5A6B60;--a1:#3E7D5A;--a2:#C0602F;--a3:#3C6FA8}
+body[data-palette="lavanda"]{--bg:#F3F0FA;--panel:#FCFBFF;--edge:#DCD5EE;--fg:#4E4670;--muted:#6A6388;--a1:#6E4BB8;--a2:#B84A33;--a3:#237365}
+body[data-palette="durazno"]{--bg:#FBF0EA;--panel:#FFF9F5;--edge:#EED8CC;--fg:#6A4A44;--muted:#80635B;--a1:#B23F56;--a2:#3767A3;--a3:#437835}
+body[data-palette="menta"]{--bg:#ECF6F3;--panel:#FAFEFD;--edge:#CBE3DC;--fg:#365E58;--muted:#557570;--a1:#1A7566;--a2:#B04A34;--a3:#5256B5}
+body[data-palette="arena"]{--bg:#F7EEDF;--panel:#FFFAF2;--edge:#E2D3BA;--fg:#5A4A39;--muted:#7A6A57;--a1:#B5532E;--a2:#2F7A8C;--a3:#8A6D1E}
+*{box-sizing:border-box}
+body{margin:0;background:var(--edge);font-family:var(--mono);color:var(--fg)}
+main{display:grid;grid-template-columns:repeat(2,960px);grid-auto-rows:540px;width:1920px}
+p{margin:0}
+h1,h2{margin:0;font-family:var(--display);font-stretch:condensed;text-transform:uppercase;letter-spacing:.01em;line-height:.98;font-weight:700}
+h1{font-size:84px}
+h2{font-size:40px;max-width:640px}
+
+/* Sheet: grid paper, inner frame with crop marks, side rail and title block */
+.s{position:relative;overflow:hidden;background:var(--bg);border:1px solid var(--edge)}
+.frame{position:absolute;inset:18px 18px 18px 82px;border:1px solid color-mix(in srgb,var(--fg) 30%,transparent);pointer-events:none}
+.frame::before,.frame::after{content:"";position:absolute;width:18px;height:18px;border:2px solid var(--a1)}
+.frame::before{left:-6px;top:-6px;border-right:0;border-bottom:0}
+.frame::after{right:-6px;bottom:-6px;border-left:0;border-top:0}
+.rail{position:absolute;left:0;top:0;bottom:0;width:64px;background:var(--panel);border-right:2px solid var(--a1);
+  display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:26px 0;font-size:13px;color:var(--a1);letter-spacing:.12em}
+.rail b{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:600}
+.body{position:absolute;inset:40px 44px 78px 108px;display:flex;flex-direction:column;gap:16px}
+.tag{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--a1)}
+.block{position:absolute;right:18px;bottom:18px;display:grid;grid-template-columns:auto auto auto;border:1px solid color-mix(in srgb,var(--fg) 30%,transparent);border-right:0;border-bottom:0;background:var(--panel);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.block span{padding:7px 12px;border-right:1px solid color-mix(in srgb,var(--fg) 30%,transparent);color:var(--muted)}
+.block b{color:var(--fg);font-weight:600}
+
+/* 01 cover */
+.cover .body{justify-content:center;gap:22px}
+.stamp{align-self:flex-start;border:2px solid var(--a2);color:var(--a2);padding:8px 14px;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.meta{display:flex;gap:36px;border-top:2px solid color-mix(in srgb,var(--fg) 60%,var(--bg));padding-top:12px;font-size:14px;color:var(--muted);max-width:560px}
+.meta b{display:block;color:var(--fg);font-size:18px;margin-top:2px}
+.sketch{position:absolute;right:44px;top:40px;width:300px;opacity:.9}
+.sketch rect{fill:none;stroke:var(--a1);stroke-width:1.5}
+.sketch path{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 4}
+.sketch text{fill:var(--muted);font:11px var(--mono);letter-spacing:.1em}
+
+/* 02 map: drawn connectors, cardinality, leader callout, dimension line */
+.map{position:relative;flex:1}
+.map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.wire{stroke:color-mix(in srgb,var(--fg) 75%,var(--bg));stroke-width:2;fill:none}
+.lead{stroke:var(--a2);stroke-width:1.5;fill:none;stroke-dasharray:5 4}
+.dim{stroke:var(--muted);stroke-width:1;fill:none}
+.map text{font:13px var(--mono);fill:var(--a2);letter-spacing:.06em}
+.map text.card{fill:var(--a1);font-size:15px;font-weight:700}
+.map text.dimt{fill:var(--muted);font-size:12px;letter-spacing:.14em}
+.node{position:absolute;top:24px;width:220px;height:148px;padding:16px 18px;border:2px solid var(--a1);background:var(--panel);display:flex;flex-direction:column;justify-content:space-between}
+.node small{font-size:12px;color:var(--muted);letter-spacing:.16em}
+.node strong{font:700 28px/1 var(--display);text-transform:uppercase}
+.node p{font-size:15px}
+.n2{border-color:var(--a2)}.n3{border-color:var(--a3)}
+.callout{position:absolute;left:330px;top:226px;width:330px;padding:10px 14px;border:1px solid var(--a2);background:var(--panel);font-size:15px;line-height:1.4}
+.callout b{color:var(--a2);font-weight:600}
+
+/* 03 compare: spec table plus 1:n schematic */
+.cmp{flex:1;display:grid;grid-template-columns:1fr 220px;gap:20px;min-height:0}
+table{border-collapse:collapse;width:100%;font-size:17px;align-self:start}
+th,td{text-align:left;padding:13px 14px;border:1px solid color-mix(in srgb,var(--fg) 30%,transparent)}
+thead th{font:700 26px/1 var(--display);text-transform:uppercase;letter-spacing:.02em;background:var(--panel)}
+thead th:nth-child(2){color:var(--a1)}thead th:nth-child(3){color:var(--a2)}
+tbody th{font-weight:400;color:var(--muted);font-size:14px;letter-spacing:.12em;text-transform:uppercase;width:130px}
+.yes{color:var(--a3)}.no{color:var(--a2)}
+.schem{border:1px dashed color-mix(in srgb,var(--fg) 30%,transparent);background:var(--panel);position:relative}
+.schem svg{width:100%;height:100%}
+.schem rect{fill:var(--bg);stroke-width:2}
+.schem text{font:13px var(--mono);fill:var(--fg);letter-spacing:.06em}
+.note{font-size:17px;border-left:4px solid var(--a2);padding-left:14px}
+
+/* 04 annotated code: notes aligned to their line with leader lines */
+.code{flex:1;border:2px solid var(--a1);background:var(--panel);display:grid;grid-template-columns:auto 1fr;align-content:center;padding:14px 0;min-height:0}
+.ln,.src,.ann{height:34px;display:flex;align-items:center;font-size:16px;white-space:pre}
+.ln{justify-content:flex-end;padding:0 14px 0 18px;color:var(--muted)}
+.row{display:grid;grid-template-columns:400px 1fr;align-items:center}
+.src.hl{color:var(--a2)}
+.ann{gap:10px;font-size:15px;color:var(--fg);white-space:normal}
+.ann::before{content:"";width:40px;border-top:1px dashed var(--a2)}
+.ann b{flex:none;width:28px;height:28px;border:2px solid var(--a2);color:var(--a2);display:grid;place-items:center;font-size:13px}
+.out{color:var(--a3)}
+
+.pal{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:10;display:flex;gap:6px;align-items:center;padding:8px 10px;background:#FFFFFF;color:#544C43;border:1px solid #CFC8BA;border-radius:8px;font:13px system-ui,sans-serif;box-shadow:0 6px 20px rgba(60,50,40,.18)}
+.pal button{font:inherit;padding:6px 10px;border:1px solid #CFC8BA;border-radius:6px;background:#F7F4EE;color:#544C43;cursor:pointer}
+.pal button[aria-pressed="true"]{background:#2D5BC4;border-color:#2D5BC4;color:#FFFFFF}
+.pal button:focus-visible{outline:2px solid #C8402A;outline-offset:2px}
+:focus-visible{outline:3px solid var(--a2);outline-offset:3px}
+@media (max-width:1000px){main{grid-template-columns:1fr;width:auto}.s{min-height:540px;width:960px;transform-origin:0 0}}
+</style></head><body data-palette="lavanda">
+<main aria-label="Dirección Plano técnico">
+
+<section class="s cover" aria-label="Portada">
+  <div class="rail" aria-hidden="true"><span>01</span><b>BASES DE DATOS · U2</b><span>A1</span></div>
+  <div class="frame" aria-hidden="true"></div>
+  <svg class="sketch" viewBox="0 0 300 150" aria-hidden="true">
+    <rect x="0" y="20" width="76" height="40"/><rect x="112" y="20" width="76" height="40"/><rect x="224" y="20" width="76" height="40"/>
+    <path d="M76 40 H112 M188 40 H224"/><path d="M0 92 H300 M0 86 V98 M300 86 V98"/>
+    <text x="8" y="44">LECTOR</text><text x="118" y="44">PRÉSTAMO</text><text x="230" y="44">EJEMPLAR</text><text x="104" y="114">ESQUEMA E-R</text>
+  </svg>
+  <div class="body">
+    <p class="stamp">Ejemplo ilustrativo</p>
+    <p class="tag">Bases de datos · Unidad 2</p>
+    <h1>Modelar un préstamo bibliotecario</h1>
+    <div class="meta"><span>Tema<b>Entidades y relaciones</b></span><span>Duración<b>12 min</b></span><span>Hojas<b>04</b></span></div>
+  </div>
+  <div class="block"><span>Hoja <b>01/04</b></span><span><b>Portada</b></span><span>Rev <b>A</b></span></div>
+</section>
+
+<section class="s" aria-label="Mapa del caso">
+  <div class="rail" aria-hidden="true"><span>02</span><b>MAPA DEL CASO</b><span>B1</span></div>
+  <div class="frame" aria-hidden="true"></div>
+  <div class="body">
+    <p class="tag">Relaciones · Biblioteca</p>
+    <h2>El préstamo une al lector con un ejemplar</h2>
+    <div class="map" role="img" aria-label="Lector realiza Préstamo; Préstamo vincula exactamente un Ejemplar">
+      <svg aria-hidden="true">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill:var(--fg)"/></marker></defs>
+        <path class="wire" d="M220 98 H294" marker-end="url(#ar)"/>
+        <path class="wire" d="M514 98 H588" marker-end="url(#ar)"/>
+        <text x="226" y="86">realiza</text><text x="520" y="86">vincula</text>
+        <text class="card" x="226" y="120">1</text><text class="card" x="278" y="120">n</text>
+        <text class="card" x="520" y="120">n</text><text class="card" x="572" y="120">1</text>
+        <path class="lead" d="M551 104 V226"/><circle cx="551" cy="104" r="4" style="fill:var(--a2)"/>
+        <path class="dim" d="M0 210 H300 M0 202 V218 M300 202 V218"/><text class="dimt" x="66" y="200">ORIGEN DE LA SOLICITUD</text>
+      </svg>
+      <div class="node" style="left:0"><small>PERSONA</small><strong>Lector</strong><p>Solicita un libro</p></div>
+      <div class="node n2" style="left:294px"><small>REGISTRO</small><strong>Préstamo</strong><p>Fecha y plazo</p></div>
+      <div class="node n3" style="left:588px"><small>OBJETO</small><strong>Ejemplar</strong><p>Copia con código</p></div>
+      <p class="callout" style="left:386px"><b>Cota ·</b> cada préstamo apunta a una sola copia, nunca a la obra.</p>
+    </div>
+  </div>
+  <div class="block"><span>Hoja <b>02/04</b></span><span><b>Mapa</b></span><span>Rev <b>A</b></span></div>
+</section>
+
+<section class="s" aria-label="Comparación">
+  <div class="rail" aria-hidden="true"><span>03</span><b>COMPARACIÓN</b><span>C1</span></div>
+  <div class="frame" aria-hidden="true"></div>
+  <div class="body">
+    <p class="tag">Criterio · ¿qué identifica?</p>
+    <h2>Una obra puede tener varios ejemplares</h2>
+    <div class="cmp">
+      <table>
+        <thead><tr><th scope="col"><span class="tag" style="font-size:12px">Atributo</span></th><th scope="col">Obra</th><th scope="col">Ejemplar</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Clave</th><td>Título y autor</td><td>Código de inventario</td></tr>
+          <tr><th scope="row">Cantidad</th><td>Una</td><td>Muchos</td></tr>
+          <tr><th scope="row">Se presta</th><td class="no">✕ No</td><td class="yes">✓ Sí</td></tr>
+        </tbody>
+      </table>
+      <div class="schem" role="img" aria-label="Una obra se relaciona con tres ejemplares: uno a muchos">
+        <svg viewBox="0 0 250 240" aria-hidden="true">
+          <rect x="75" y="22" width="100" height="40" style="stroke:var(--a1)"/><text x="100" y="47">OBRA</text>
+          <path d="M125 62 V96 M40 96 H210 M40 96 V140 M125 96 V140 M210 96 V140" style="stroke:var(--fg);stroke-width:1.5;fill:none"/>
+          <rect x="12" y="140" width="56" height="34" style="stroke:var(--a2)"/><text x="28" y="162">A1</text>
+          <rect x="97" y="140" width="56" height="34" style="stroke:var(--a2)"/><text x="113" y="162">A2</text>
+          <rect x="182" y="140" width="56" height="34" style="stroke:var(--a2)"/><text x="198" y="162">A3</text>
+          <text x="132" y="84" style="fill:var(--a1)">1</text><text x="218" y="132" style="fill:var(--a2)">n</text>
+          <text x="58" y="214" style="fill:var(--muted)">RELACIÓN 1 : n</text>
+        </svg>
+      </div>
+    </div>
+    <p class="note">El préstamo registra el ejemplar, no la obra.</p>
+  </div>
+  <div class="block"><span>Hoja <b>03/04</b></span><span><b>Comparación</b></span><span>Rev <b>A</b></span></div>
+</section>
+
+<section class="s" aria-label="Código anotado">
+  <div class="rail" aria-hidden="true"><span>04</span><b>CÓDIGO ANOTADO</b><span>D1</span></div>
+  <div class="frame" aria-hidden="true"></div>
+  <div class="body">
+    <p class="tag">Python · Filtro</p>
+    <h2>El filtro conserva las copias disponibles</h2>
+    <div class="code">
+      <span class="ln">1</span><div class="row"><span class="src hl">estado = {"A1": True,</span><span class="ann"><b>1</b>Cada copia tiene un estado</span></div>
+      <span class="ln">2</span><div class="row"><span class="src">          "A2": False,</span></div>
+      <span class="ln">3</span><div class="row"><span class="src">          "A3": True}</span></div>
+      <span class="ln">4</span><div class="row"><span class="src">libres = []</span></div>
+      <span class="ln">5</span><div class="row"><span class="src hl">for copia, ok in estado.items():</span><span class="ann"><b>5</b>Recorre copias, no obras</span></div>
+      <span class="ln">6</span><div class="row"><span class="src hl">    if ok:</span><span class="ann"><b>6</b>Solo pasan las disponibles</span></div>
+      <span class="ln">7</span><div class="row"><span class="src">        libres.append(copia)</span></div>
+      <span class="ln">8</span><div class="row"><span class="src">print(libres)  <span class="out"># ['A1', 'A3']</span></span></div>
+    </div>
+  </div>
+  <div class="block"><span>Hoja <b>04/04</b></span><span><b>Código</b></span><span>Rev <b>A</b></span></div>
+</section>
+
+</main><div class="pal" role="group" aria-label="Paleta de color">
+  <span>Paleta</span>
+  <button type="button" data-p="lavanda" aria-pressed="true">Lavanda</button>
+  <button type="button" data-p="durazno" aria-pressed="false">Durazno</button>
+  <button type="button" data-p="menta" aria-pressed="false">Menta</button>
+  <button type="button" data-p="papel" aria-pressed="false">Papel</button>
+  <button type="button" data-p="cielo" aria-pressed="false">Cielo</button>
+  <button type="button" data-p="salvia" aria-pressed="false">Salvia</button>
+  <button type="button" data-p="arena" aria-pressed="false">Arena</button>
+  <button type="button" id="copy">Copiar como prompt</button>
+</div>
+<script>
+const btns=[...document.querySelectorAll('.pal [data-p]')];
+btns.forEach(b=>b.addEventListener('click',()=>{document.body.dataset.palette=b.dataset.p;btns.forEach(x=>x.setAttribute('aria-pressed',x===b));}));
+document.getElementById('copy').addEventListener('click',e=>{const cs=getComputedStyle(document.body);const v=['--bg','--fg','--muted','--a1','--a2','--a3'].map(k=>k+': '+cs.getPropertyValue(k).trim()).join(', ');
+navigator.clipboard.writeText('Usar la paleta "'+(document.body.dataset.palette||'lavanda')+'" para el tema Plano: '+v).then(()=>{e.target.textContent='Copiado';setTimeout(()=>e.target.textContent='Copiar como prompt',1500)});});
+</script>
+</body></html>
