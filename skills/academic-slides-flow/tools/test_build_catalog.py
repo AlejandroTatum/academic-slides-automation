@@ -16,7 +16,8 @@ CHECK = TOOLS / "check_deck.py"
 DECK_THEMES = {"deportivo", "metro-deck", "pizarra", "editorial", "terminal", "bauhaus", "cuaderno", "pop", "retro", "plano-lavanda", "plano-durazno", "plano-menta"}
 COMPONENTS = [
     "cover", "question-hook", "icon-row", "big-number", "flow-steps",
-    "figure-full", "formula-hero", "section-divider", "recap",
+    "deck-case-map", "deck-compare", "figure-full", "formula-hero",
+    "deck-annotated-code", "section-divider", "recap",
 ]
 
 
