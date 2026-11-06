@@ -1,0 +1,18 @@
+<!-- component: deck-annotated-code | deck, every theme
+     Pair each short code line with a visible explanation. Accent 1 identifies
+     the code; neutral annotations explain behavior rather than decorate syntax. -->
+<style>
+  :where(.deck-annotated-code .code-example) { display: grid; gap: 20px; }
+  :where(.deck-annotated-code .code-line) { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 48px; }
+  :where(.deck-annotated-code .code-line code) { display: block; padding: 26px 32px; border-left: 8px solid var(--a1); background: color-mix(in srgb, var(--fg) 8%, transparent); font: 500 38px/1.3 var(--mono); white-space: pre; }
+  :where(.deck-annotated-code .code-note) { font-size: 38px; }
+</style>
+<section class="slide deck-annotated-code" id="codigo">
+  <p class="kicker">Ejemplo ilustrativo · Python</p>
+  <h1 class="title sm">El filtro conserva solo valores positivos</h1>
+  <div class="code-example">
+    <div class="code-line"><code>valores = [-1, 2, 3]</code><p class="code-note">Datos de entrada</p></div>
+    <div class="code-line"><code>[x for x in valores if x &gt; 0]</code><p class="code-note">Selecciona los positivos</p></div>
+  </div>
+  <aside class="notes">Ejemplo ilustrativo: la comprensión produce [2, 3] sin modificar la lista original. El cero no cumple la condición.</aside>
+</section>
