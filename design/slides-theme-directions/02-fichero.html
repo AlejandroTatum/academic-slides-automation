@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fichero · cuatro diapositivas</title>
+<style>
+:root{--bg:#E9DFC9;--card:#FBF7EC;--fg:#2A2118;--muted:#6E604C;--a1:#B23A2E;--a2:#2F5D8A;--a3:#4F7A3A;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;--mono:"Courier New",Courier,ui-monospace,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:#CBBE9F;font-family:var(--serif);color:var(--fg)}
+main{display:grid;grid-template-columns:repeat(2,960px);grid-auto-rows:540px;width:1920px}
+.s{position:relative;overflow:hidden;background:var(--bg);padding:44px 56px;border:1px solid #CBBE9F;display:flex;flex-direction:column;gap:18px}
+.s::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(42,33,24,.025) 0 2px,transparent 2px 5px);pointer-events:none}
+.kick{font:700 14px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--a1)}
+h1,h2{margin:0;font-weight:700;line-height:1.05}
+h1{font-size:64px;font-style:italic}
+h2{font-size:38px}
+p{margin:0}
+.card{position:relative;background:var(--card);box-shadow:0 2px 0 rgba(42,33,24,.18),0 10px 22px rgba(42,33,24,.14);padding:22px 26px 20px;border-top:28px solid var(--card)}
+.card::before{content:"";position:absolute;left:0;right:0;top:-6px;height:1px;background:var(--a1);opacity:.6}
+.card .hole{position:absolute;top:-22px;left:50%;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--bg);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+.lines{background-image:repeating-linear-gradient(transparent 0 33px,rgba(47,93,138,.25) 33px 34px)}
+.tab{position:absolute;top:-30px;left:0;padding:6px 16px 4px;font:700 13px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--card);background:var(--a2)}
+.stamp{position:absolute;right:48px;top:40px;transform:rotate(-8deg);border:3px double var(--a1);color:var(--a1);padding:8px 16px;font:700 16px var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.cover{justify-content:center}
+.cover .card{max-width:640px}
+.cover dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:14px 0 0;font:15px/1.4 var(--mono)}
+.cover dt{color:var(--muted)}.cover dd{margin:0}
+.trio{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:center;padding-top:30px}
+.trio .card:nth-child(2){transform:translateY(-18px)}
+.trio .card strong{display:block;font-size:30px;margin:4px 0 8px}
+.trio small{font:700 12px var(--mono);letter-spacing:.12em;color:var(--muted)}
+.trio p{font-size:17px}
+.trio .tab{background:var(--a1)}.trio .card:nth-child(2) .tab{background:var(--a2)}.trio .card:nth-child(3) .tab{background:var(--a3)}
+.arrowline{font:15px var(--mono);color:var(--muted)}
+.pair{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:28px;padding-top:28px}
+.pair .card:first-child{transform:rotate(-1.2deg)}.pair .card:last-child{transform:rotate(1deg)}
+.pair ul{list-style:none;margin:10px 0 0;padding:0;font:16px/34px var(--mono)}
+.pair li b{color:var(--a1)}.pair li .ok{color:var(--a3)}
+.margin{font-style:italic;font-size:19px;border-left:3px solid var(--a1);padding-left:12px}
+.code{flex:1;display:grid;grid-template-columns:1.35fr 1fr;gap:26px;padding-top:28px}
+pre{margin:0;font:14px/34px var(--mono);counter-reset:l;padding-top:2px}
+pre span{display:block;counter-increment:l}pre span::before{content:counter(l);display:inline-block;width:2.4ch;color:var(--a1)}
+pre .hl{background:rgba(178,58,46,.12)}
+.anno{display:flex;flex-direction:column;justify-content:center;gap:16px;font-style:italic;font-size:18px}
+.anno p{position:relative;padding-left:40px}
+.anno p b{position:absolute;left:0;top:-2px;width:28px;height:28px;border-radius:50%;border:2px solid var(--a1);color:var(--a1);font:700 13px/24px var(--mono);text-align:center;font-style:normal}
+@media (max-width:1000px){main{grid-template-columns:1fr;width:auto}.s{min-height:540px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<main aria-label="Dirección Fichero">
+<section class="s cover" aria-label="Portada">
+  <p class="stamp">Ejemplo ilustrativo</p>
+  <div class="card lines"><span class="hole"></span><span class="tab">Ficha 01</span>
+    <p class="kick">Bases de datos · Unidad 2</p>
+    <h1>Modelar un préstamo bibliotecario</h1>
+    <dl><dt>Tema</dt><dd>Entidades y relaciones</dd><dt>Duración</dt><dd>12 minutos</dd></dl>
+  </div>
+</section>
+<section class="s" aria-label="Mapa del caso">
+  <p class="kick">Ficha 02 · Relaciones</p>
+  <h2>El préstamo une al lector con un ejemplar</h2>
+  <div class="trio">
+    <div class="card"><span class="hole"></span><span class="tab">Persona</span><strong>Lector</strong><p>Solicita un libro</p></div>
+    <div class="card"><span class="hole"></span><span class="tab">Registro</span><strong>Préstamo</strong><p>Fecha y plazo</p></div>
+    <div class="card"><span class="hole"></span><span class="tab">Objeto</span><strong>Ejemplar</strong><p>Copia con código</p></div>
+  </div>
+  <p class="arrowline">Lector — realiza → Préstamo — vincula → Ejemplar</p>
+</section>
+<section class="s" aria-label="Comparación">
+  <p class="kick">Ficha 03 · ¿Qué identifica?</p>
+  <h2>Una obra puede tener varios ejemplares</h2>
+  <div class="pair">
+    <div class="card lines"><span class="tab">Obra</span><ul><li>Título y autor</li><li>Una por catálogo</li><li><b>✕</b> No se presta</li></ul></div>
+    <div class="card lines"><span class="tab" style="background:var(--a3)">Ejemplar</span><ul><li>Código de inventario</li><li>Muchos por obra</li><li><b class="ok">✓</b> Se presta</li></ul></div>
+  </div>
+  <p class="margin">Nota al margen: el préstamo registra el ejemplar.</p>
+</section>
+<section class="s" aria-label="Código anotado">
+  <p class="kick">Ficha 04 · Python</p>
+  <h2>El filtro conserva las copias disponibles</h2>
+  <div class="code">
+    <div class="card lines"><span class="tab">filtro.py</span>
+<pre><span class="hl">estado = {"A1": True,</span><span>          "A2": False,</span><span>          "A3": True}</span><span>libres = []</span><span class="hl">for copia, ok in estado.items():</span><span class="hl">    if ok:</span><span>        libres.append(copia)</span></pre></div>
+    <div class="anno"><p><b>1</b>Cada copia tiene un estado</p><p><b>5</b>Recorre copias, no obras</p><p><b>6</b>Solo pasan las disponibles</p></div>
+  </div>
+</section>
+</main></body></html>

@@ -1,0 +1,26 @@
+/* Theme plano-durazno — technical sheet: side rail, inner frame with crop marks, no grid.
+   Peach paper, rosewood ink; soft ink, never near-black. Diagrams, models, systems.
+   Link after deck-base.css. a1 raspberry, a2 blue, a3 green. Siblings: plano-lavanda, plano-durazno, plano-menta. */
+@font-face { font-family: "Nimbus Sans Narrow"; src: url(../assets/fonts/nimbus-sans-narrow-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "Noto Sans Mono"; src: url(../assets/fonts/noto-sans-mono-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Noto Sans Mono"; src: url(../assets/fonts/noto-sans-mono-700.woff2) format("woff2"); font-weight: 600 700; font-style: normal; font-display: block; }
+
+:root {
+  --bg: #FBF0EA; --fg: #6A4A44; --muted: #80635B;
+  --a1: #B23F56; --a2: #3767A3; --a3: #437835;
+  --alt-bg: #B23F56; --alt-fg: #FFFFFF;
+  --display: "Nimbus Sans Narrow", "Arial Narrow", sans-serif; --body: "Noto Sans Mono", monospace; --mono: "Noto Sans Mono", monospace;
+  --dw: 700; --tt: uppercase; --ls: .01em;
+  --panel: #FFF9F5; --edge: #EED8CC;
+  --surface: var(--bg); --rail: color-mix(in srgb, var(--a1) 10%, var(--panel)); --mark: var(--a1); --line: color-mix(in srgb, var(--fg) 30%, transparent);
+}
+.slide, .slide.alt { padding-left: 200px;
+  background: linear-gradient(to right, var(--rail) 0 104px, var(--mark) 104px 108px, transparent 108px), var(--surface); }
+.slide.alt { --surface: var(--alt-bg); --rail: color-mix(in srgb, var(--alt-fg) 14%, var(--alt-bg)); --mark: var(--alt-fg);
+  --line: color-mix(in srgb, var(--alt-fg) 45%, transparent); --a1: var(--alt-fg); --muted: var(--alt-fg); }
+.slide::before { content: ""; position: absolute; inset: 32px 32px 32px 140px; border: 2px solid var(--line); z-index: 0; pointer-events: none; }
+.slide::after { content: ""; position: absolute; inset: 22px 22px 22px 130px; z-index: 0; pointer-events: none; background:
+  linear-gradient(var(--mark), var(--mark)) left top / 36px 4px no-repeat, linear-gradient(var(--mark), var(--mark)) left top / 4px 36px no-repeat,
+  linear-gradient(var(--mark), var(--mark)) right bottom / 36px 4px no-repeat, linear-gradient(var(--mark), var(--mark)) right bottom / 4px 36px no-repeat; }
+.title { line-height: .98; }
+.foot { left: 200px; right: 80px; bottom: 54px; }

@@ -17,6 +17,7 @@ Si el usuario nombra un tema, se usa ese. Si no, se propone uno con una razón y
 | `cuaderno` | Experimental | Repasos e introducciones |
 | `pop` | Experimental | Dinámicas y atención del grupo |
 | `retro` | Experimental | Sistemas operativos e historia de la computación |
+| `plano-lavanda`, `plano-durazno`, `plano-menta` | Experimental | Diagramas, modelos de datos y sistemas; una misma hoja técnica en tres paletas suaves |
 
 Para `deck`, la referencia propone `deportivo` como punto de partida; para `guide`, `metro`. Un tema experimental se presenta como tal. La aprobación explícita de un resultado experimental permite incorporarlo como probado según el flujo de la skill.
 
@@ -25,6 +26,7 @@ Para `deck`, la referencia propone `deportivo` como punto de partida; para `guid
 El catálogo local `skills/academic-slides-flow/catalog/index.html` muestra los componentes compartidos con los temas de deck. `live-demo` permanece exclusivo de `deportivo`.
 
 - Los componentes viven en `components/` y usan los tokens de `themes/deck-base.css`.
+- `deck-case-map` relaciona actores de un caso, `deck-compare` contrasta dos opciones por criterio y `deck-annotated-code` explica código línea por línea con notas numeradas.
 - El estilo de cada componente se pega una vez; su markup se repite por elemento.
 - Los íconos son Lucide: se buscan por significado y se genera un sprite con los que se usan. No se dibujan a mano.
 - KaTeX se copia cuando se usan fórmulas; las fuentes se mantienen locales.

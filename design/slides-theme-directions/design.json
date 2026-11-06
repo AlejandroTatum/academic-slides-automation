@@ -1,0 +1,28 @@
+{
+  "title": "Direcciones de tema claramente distintas",
+  "brief": "Tres temas nuevos para la skill de diapositivas académicas que difieran en estructura y estrategia visual, no solo en color. Cada artboard muestra las mismas cuatro diapositivas (portada, mapa del caso, comparación, código anotado) con el caso ilustrativo del préstamo bibliotecario.",
+  "feature": "odd/tasks/slides-quality-variety.md",
+  "artboards": [
+    {
+      "file": "01-plano.html",
+      "title": "Plano · hoja técnica",
+      "tradeoff": "Estructura de hoja técnica (marco con marcas de corte, rótulo de hoja, conectores con cardinalidad, cotas) sobre fondo liso, sin cuadrícula; tipografía condensada + monoespaciada. Selector con cuatro paletas (Grafito, Papel, Tinta, Bosque) y botón Copiar como prompt. Necesita un diagrama real detrás de cada slide.",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "02-fichero.html",
+      "title": "Fichero · fichas de archivo",
+      "tradeoff": "Papel cálido, fichas con pestaña y notas al margen: cercano y narrativo para humanidades y casos; las fichas inclinadas restan precisión a datos y tablas.",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "03-bloque.html",
+      "title": "Bloque · afiche suizo",
+      "tradeoff": "Campos de color a sangre, números gigantes y tipografía negra: máximo impacto y jerarquía para exposiciones; exige mensajes muy cortos y castiga el exceso de texto.",
+      "width": 1920,
+      "height": 1080
+    }
+  ]
+}

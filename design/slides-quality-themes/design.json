@@ -1,0 +1,10 @@
+{
+  "title": "Tres enfoques para un caso académico",
+  "brief": "Previsualizaciones comparables del mismo préstamo bibliotecario ilustrativo, sin datos medidos ni selección implícita de tema.",
+  "feature": "odd/tasks/slides-quality-variety.md",
+  "artboards": [
+    {"file": "01-atlas.html", "title": "Atlas · mapa de relaciones", "tradeoff": "Hace explícitos los vínculos; ofrece menos espacio para contexto narrativo.", "width": 1920, "height": 1080},
+    {"file": "02-laboratorio.html", "title": "Laboratorio · análisis del caso", "tradeoff": "Prioriza la distinción conceptual y la lectura ordenada; reduce el impacto visual.", "width": 1920, "height": 1080},
+    {"file": "03-documental.html", "title": "Documental · caso visual", "tradeoff": "Da protagonismo a la ilustración; dedica menos espacio a las relaciones.", "width": 1920, "height": 1080}
+  ]
+}

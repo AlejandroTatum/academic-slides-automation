@@ -25,6 +25,7 @@ Do not overwrite an existing HTML or PDF in that folder unless the user explicit
 | `cuaderno` | experimental | reviews, intro classes |
 | `pop` | experimental | waking up the room, dynamics |
 | `retro` | experimental | operating systems, history of computing |
+| `plano-lavanda`, `plano-durazno`, `plano-menta` | experimental | diagrams, data models, systems; one technical-sheet look, pick the palette |
 
 Say when the proposal is experimental. If the user names a theme, use it. Do not invent another theme silently.
 
@@ -39,14 +40,16 @@ Open `catalog/index.html` (every shared deck component in every deck theme; `liv
 One line per slide or page. Components live in `components/`. Deck outlines use four fields, plus an optional speaker and time:
 
 ```
-# Planificación de procesos
+# Estados de un proceso
 # duration: 10 min
 # speakers: Ana, Luis
-cover | Planificación de procesos | portada | Presentamos el tema y el grupo.
-icon-row | Qué decide el planificador | 3 íconos | Entra, dura, espera. | Luis | 2:00
+cover | Estados de un proceso | portada | Presentamos el tema y el grupo.
+flow-steps | Un proceso listo espera turno de CPU | Secuencia: creación → espera → ejecución | Ejemplo ilustrativo; fuente: components/flow-steps.html, #ciclo; contrastar con diapositivas de la unidad. | Luis | 2:00
 ```
 
-`component | message (≤ 8 words) | visual | spoken note [| speaker [| m:ss]]`. The spoken note becomes the slide `.notes` and the speaker guide. A line with no `|` is still a valid one-message line.
+`component | message (≤ 8 words) | visual | spoken note [| speaker [| m:ss]]`. The spoken note becomes the slide `.notes` and the speaker guide. A line with no `|` is still a valid one-message line. The example's source path is relative to `skills/academic-slides-flow/`: it supports the illustration, not course alignment; replace or supplement it with the actual unit source and locator.
+
+For each content slide, draft a specific sourced point, a supporting example or evidence, and the visual's explanatory purpose. Put the source file and page/section or other locator in the outline or notes without adding fields; distinguish an illustration from evidence. Choose the existing component for that purpose, not a default icon or card. If sources are insufficient, narrow the claim, mark the gap or request evidence. Covers, section pauses and conclusions serve different roles; see `writing.md` for examples and composition review.
 
 Run `python3 tools/outline.py outline.txt`. It prints the plan (start, length, speaker per slide) and exits 1 on an unknown component, a bad time, an unknown speaker, or explicit times over the duration. `note:` lines (long message, slide count far from the duration) are advice. Show the plan with the outline at gate 1. Correct factual errors in the source here and list each correction before styling. Terms that are not in the user's list are `TIP`, on that line.
 
@@ -82,7 +85,7 @@ python3 tools/check_deck.py destination/index.html --mode deck|guide --outline d
 
 In `deck` mode the checker also reports `density:` lines: a slide above 3 items or 30 words fails, naming the slide, unless it is marked `data-dense`. Add `--max-items N` / `--max-words N` only when the user asked for a denser deck.
 
-`check_deck.py` writes findings to stdout and does not modify the HTML. Exit 0 is required before showing the PDF. Then look at the thumbnails. Fix overflow and empty pages. A checker pass is not visual approval.
+`check_deck.py` writes findings to stdout and does not modify the HTML. Exit 0 is required before showing the PDF. Then inspect thumbnails for hierarchy, legibility, evidence and visual fit. Keep whitespace that focuses or separates; fix content that looks stranded or unsupported, overflow and empty pages. Do not fill space with decoration or enforce occupancy or word minima. A checker pass is neither a composition judgment nor visual approval.
 
 ## Gate 2 — visual review
 

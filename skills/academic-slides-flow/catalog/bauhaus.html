@@ -44,6 +44,32 @@
   :where(.flow-steps li:not(:last-child))::after { content: "→"; position: absolute; right: -48px; top: 38px; transform: translateX(50%);
     font-size: 80px; line-height: 1; color: var(--muted); }
 </style>
+<!-- deck-case-map -->
+<style>
+  :where(.deck-case-map .case-map) { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 160px minmax(0, 1fr) 160px minmax(0, 1fr); align-items: stretch; gap: 16px; }
+  :where(.deck-case-map .case-node) { --node: var(--a1); display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 44px 40px; border-top: 14px solid var(--node); background: color-mix(in srgb, var(--node) 10%, transparent); }
+  :where(.deck-case-map .case-node:nth-child(3)) { --node: var(--a2); }
+  :where(.deck-case-map .case-node:nth-child(5)) { --node: var(--a3); }
+  :where(.deck-case-map .case-role) { font: 600 26px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  :where(.deck-case-map .case-node strong) { font: var(--dw) 58px/1.05 var(--display); overflow-wrap: anywhere; }
+  :where(.deck-case-map .case-node p:last-child) { font-size: 38px; }
+  :where(.deck-case-map .case-link) { align-self: center; text-align: center; font-size: 32px; font-weight: 600; line-height: 1.2; }
+  :where(.deck-case-map .case-link)::after { content: '⟶'; display: block; font-size: 88px; line-height: 1; color: var(--muted); }
+</style>
+<!-- deck-compare -->
+<style>
+  :where(.deck-compare .compare-criterion) { font-size: 34px; color: var(--muted); }
+  :where(.deck-compare .compare-pair) { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  :where(.deck-compare .compare-side) { --side: var(--a1); display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 32px 48px; border-top: 12px solid var(--side); background: color-mix(in srgb, var(--side) 9%, transparent); }
+  :where(.deck-compare .compare-side + .compare-side) { --side: var(--a2); }
+  :where(.deck-compare .compare-side h2) { margin: 0 0 8px; font: var(--dw) 72px/1.05 var(--display); }
+  :where(.deck-compare .compare-trait) { display: flex; align-items: center; gap: 28px; padding: 16px 0; border-top: 2px solid color-mix(in srgb, var(--fg) 14%, transparent); font-size: 42px; }
+  :where(.deck-compare .compare-trait)::before { content: ''; flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--side); }
+  :where(.deck-compare .compare-trait[data-mark])::before { width: 64px; height: 64px; display: grid; place-items: center; font: 700 36px/1 var(--body); color: var(--dot-fg, var(--bg)); }
+  :where(.deck-compare .compare-trait[data-mark="yes"])::before { content: '✓'; }
+  :where(.deck-compare .compare-trait[data-mark="no"])::before { content: '✕'; background: var(--muted); }
+  :where(.deck-compare .compare-takeaway) { border-left: 10px solid var(--fg); padding: 6px 0 6px 32px; font-size: 42px; font-weight: 600; }
+</style>
 <!-- figure-full -->
 <style>
   :where(.figure-full) { justify-content: center; gap: 28px; }
@@ -62,6 +88,17 @@
   :where(.formula-hero .p1) { color: var(--a1); }
   :where(.formula-hero .p2) { color: var(--a2); }
   :where(.formula-hero .p3) { color: var(--a3); }
+</style>
+<!-- deck-annotated-code -->
+<style>
+  :where(.deck-annotated-code .code-example) { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.25fr 1fr; gap: 64px; }
+  :where(.deck-annotated-code .code-block) { margin: 0; padding: 44px 48px; display: flex; flex-direction: column; justify-content: center; border-left: 10px solid var(--a1); background: color-mix(in srgb, var(--fg) 7%, transparent); font: 500 36px/1.6 var(--mono); white-space: pre; overflow: hidden; counter-reset: ln; }
+  :where(.deck-annotated-code .code-block span) { display: block; counter-increment: ln; }
+  :where(.deck-annotated-code .code-block span)::before { content: counter(ln); display: inline-block; width: 2ch; margin-right: 1.4ch; text-align: right; color: var(--muted); }
+  :where(.deck-annotated-code .code-block .hl) { margin: 0 -48px; padding: 0 48px; background: color-mix(in srgb, var(--a1) 16%, transparent); }
+  :where(.deck-annotated-code .code-notes) { display: flex; flex-direction: column; justify-content: center; gap: 44px; }
+  :where(.deck-annotated-code .code-note) { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 28px; font-size: 44px; }
+  :where(.deck-annotated-code .code-note)::before { content: attr(data-line); width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--a1); color: var(--dot-fg, var(--bg)); font: 700 32px/1 var(--mono); }
 </style>
 <!-- recap -->
 <style>
@@ -159,6 +196,33 @@
   </ol>
   <aside class="notes">Se crea, espera CPU en la cola de listos y el planificador lo despacha.</aside>
 </section>
+<section class="slide deck-case-map" data-component="deck-case-map" data-window="DECK-CASE-MAP.EXE" id="caso">
+  <p class="kicker">Ejemplo ilustrativo · Biblioteca</p>
+  <h1 class="title sm">El préstamo relaciona al lector con un ejemplar</h1>
+  <div class="case-map" aria-label="Relaciones del préstamo en una biblioteca">
+    <div class="case-node"><p class="case-role">Persona</p><strong>Lector</strong><p>Solicita un libro</p></div>
+    <div class="case-link">realiza</div>
+    <div class="case-node"><p class="case-role">Registro</p><strong>Préstamo</strong><p>Fecha y plazo</p></div>
+    <div class="case-link">vincula</div>
+    <div class="case-node"><p class="case-role">Objeto</p><strong>Ejemplar</strong><p>Copia con código</p></div>
+  </div>
+  <aside class="notes">Caso ilustrativo sin datos medidos. El préstamo conecta a un lector con una copia concreta; no confundir el título de una obra con cada ejemplar físico.</aside>
+</section>
+<section class="slide deck-compare" data-component="deck-compare" data-window="DECK-COMPARE.EXE" id="comparacion">
+  <p class="kicker">Ejemplo ilustrativo · Planificación</p>
+  <h1 class="title sm">La interrupción cambia el reparto</h1>
+  <p class="compare-criterion">Criterio: ¿se puede interrumpir?</p>
+  <div class="compare-pair">
+    <div class="compare-side"><h2>FCFS</h2>
+      <p class="compare-trait" data-mark="no">Interrupción</p>
+      <p class="compare-trait">Espera detrás del largo</p></div>
+    <div class="compare-side"><h2>Round robin</h2>
+      <p class="compare-trait" data-mark="yes">Interrupción por turno</p>
+      <p class="compare-trait">Cuanto fijo</p></div>
+  </div>
+  <p class="compare-takeaway">El turno limita la espera.</p>
+  <aside class="notes">Ejemplo ilustrativo, no medición: FCFS no expropia, así que un proceso corto espera detrás de uno largo; round robin interrumpe al agotar el cuanto. La espera real depende de la carga y de la duración del turno.</aside>
+</section>
 <section class="slide figure-full" data-component="figure-full" data-window="FIGURE-FULL.EXE" id="figura">
   <p class="kicker">Figura</p>
   <figure>
@@ -186,6 +250,19 @@
     </ul>
   </div>
   <aside class="notes">En régimen estable, el promedio de clientes es la tasa de llegada por el tiempo medio en el sistema.</aside>
+</section>
+<section class="slide deck-annotated-code" data-component="deck-annotated-code" data-window="DECK-ANNOTATED-CODE.EXE" id="codigo">
+  <p class="kicker">Ejemplo ilustrativo · Python</p>
+  <h1 class="title sm">El filtro conserva solo valores positivos</h1>
+  <div class="code-example">
+<pre class="code-block"><code><span class="hl">valores = [-1, 2, 0, 3]</span><span>positivos = []</span><span>for x in valores:</span><span class="hl">    if x &gt; 0:</span><span>        positivos.append(x)</span><span class="hl">print(positivos)  # [2, 3]</span></code></pre>
+    <div class="code-notes">
+      <p class="code-note" data-line="1">Entrada con negativo y cero</p>
+      <p class="code-note" data-line="4">La condición excluye el cero</p>
+      <p class="code-note" data-line="6">Resultado: [2, 3]</p>
+    </div>
+  </div>
+  <aside class="notes">Ejemplo ilustrativo: el recorrido produce [2, 3] sin modificar la lista original. El cero no cumple la condición estricta.</aside>
 </section>
 <section class="slide alt" data-component="section-divider" data-window="SECTION-DIVIDER.EXE" id="seccion-2">
   <p class="kicker">Sección</p>

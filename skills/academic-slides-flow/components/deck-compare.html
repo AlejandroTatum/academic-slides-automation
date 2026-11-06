@@ -1,0 +1,33 @@
+<!-- component: deck-compare | deck, every theme
+     Compare two alternatives on one explicit criterion, then state the distinction.
+     Each side is a panel that fills the slide body; .compare-trait rows carry the
+     contrast, with optional data-mark="yes|no" drawing a check or cross badge.
+     Accent 1 marks the first alternative; accent 2 marks the second. -->
+<style>
+  :where(.deck-compare .compare-criterion) { font-size: 34px; color: var(--muted); }
+  :where(.deck-compare .compare-pair) { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  :where(.deck-compare .compare-side) { --side: var(--a1); display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 32px 48px; border-top: 12px solid var(--side); background: color-mix(in srgb, var(--side) 9%, transparent); }
+  :where(.deck-compare .compare-side + .compare-side) { --side: var(--a2); }
+  :where(.deck-compare .compare-side h2) { margin: 0 0 8px; font: var(--dw) 72px/1.05 var(--display); }
+  :where(.deck-compare .compare-trait) { display: flex; align-items: center; gap: 28px; padding: 16px 0; border-top: 2px solid color-mix(in srgb, var(--fg) 14%, transparent); font-size: 42px; }
+  :where(.deck-compare .compare-trait)::before { content: ''; flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--side); }
+  :where(.deck-compare .compare-trait[data-mark])::before { width: 64px; height: 64px; display: grid; place-items: center; font: 700 36px/1 var(--body); color: var(--dot-fg, var(--bg)); }
+  :where(.deck-compare .compare-trait[data-mark="yes"])::before { content: '✓'; }
+  :where(.deck-compare .compare-trait[data-mark="no"])::before { content: '✕'; background: var(--muted); }
+  :where(.deck-compare .compare-takeaway) { border-left: 10px solid var(--fg); padding: 6px 0 6px 32px; font-size: 42px; font-weight: 600; }
+</style>
+<section class="slide deck-compare" id="comparacion">
+  <p class="kicker">Ejemplo ilustrativo · Planificación</p>
+  <h1 class="title sm">La interrupción cambia el reparto</h1>
+  <p class="compare-criterion">Criterio: ¿se puede interrumpir?</p>
+  <div class="compare-pair">
+    <div class="compare-side"><h2>FCFS</h2>
+      <p class="compare-trait" data-mark="no">Interrupción</p>
+      <p class="compare-trait">Espera detrás del largo</p></div>
+    <div class="compare-side"><h2>Round robin</h2>
+      <p class="compare-trait" data-mark="yes">Interrupción por turno</p>
+      <p class="compare-trait">Cuanto fijo</p></div>
+  </div>
+  <p class="compare-takeaway">El turno limita la espera.</p>
+  <aside class="notes">Ejemplo ilustrativo, no medición: FCFS no expropia, así que un proceso corto espera detrás de uno largo; round robin interrumpe al agotar el cuanto. La espera real depende de la carga y de la duración del turno.</aside>
+</section>
