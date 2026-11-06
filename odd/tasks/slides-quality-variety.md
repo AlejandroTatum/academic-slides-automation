@@ -13,8 +13,8 @@ T2 | S1,S2,S3 | Audit existing components and fill missing comparison/process/ca
 T3 | S2,S3 | Sync design system from actual tokens and prepare Atlas/Laboratorio/Documental comparable canvas previews with realistic identical content; do not silently select a theme | route: bounded writer + parent canvas | status: done | commit: 1da676b,bf479e9
 T4 | S1,S2,S3 | Build controlled reference deck and verify content/composition/render/checker and existing behavior; independently verify any named high-risk boundary | route: bounded writer + verify if risk trigger | status: done | commit: de92786
 T3b | S2 | Implement the chosen Plano direction as plano-lavanda/durazno/menta deck themes with vendored fonts | route: inline | status: done | commit: d0cefe7
-T5 | S1,S2,S3 | Update catalogue and Quarto docs, run applicable tests and record verification | route: inline | status: done | commit: see L22
-T6 | S3 | Synchronize installed skill only after validated implementation and explicit applicable guards; preserve user-owned configuration | route: parent | status: pending | commit: pending
+T5 | S1,S2,S3 | Update catalogue and Quarto docs, run applicable tests and record verification | route: inline | status: done | commit: ebd9f68
+T6 | S3 | Synchronize installed skill only after validated implementation and explicit applicable guards; preserve user-owned configuration | route: parent | status: done | commit: none (runtime sync, see L23)
 
 ## Log
 L1. User: "ahora quiero mejorar la skill siento que me da a veces diapo muy genericas y con espacios vacios"
@@ -39,3 +39,4 @@ L19. User: "otra paleta de colores usa". Added lavanda (default), durazno and me
 L20. User: "dale agrega los 3 temas". Added plano-lavanda, plano-durazno, plano-menta deck themes (Nimbus Sans Narrow 700 + Noto Sans Mono 400/700 vendored). First written in the main checkout by mistake; moved to this branch byte-identical and main restored. RED catalog test (3 themes missing) -> GREEN; all 6 test suites OK; check_deck --dom density/overflow pass on quality-reference with plano-lavanda and plano-menta; visual PDF review of catalog and reference deck. Commit d0cefe7 (also copies design/slides-theme-directions and syncs design/system.md/html).
 L21. User: "dale actualiza todo continua con el plan". T5 resumed inline.
 L22. T5: catalogue now registers deck-case-map, deck-compare, deck-annotated-code (12 components x 12 themes); RED test_build_catalog 3 failures -> GREEN; catalog/ regenerated; visual check of the new components on terminal, pop, retro, pizarra; portal docs list the plano themes and the three new components.
+L23. T6: branch already contains main (merge-base 2b8ed4d). scripts/sync_skills.sh dry run then --apply, exit 0: gate passed (65 pytest, deck/guide/speaker-guide fixtures, catalog current); rsync without --delete into ~/.claude/skills, ~/.codex/skills, ~/.pi/agent/skills; each has the 3 plano themes and the new build_catalog.py. Temporary .venv symlink in the worktree removed. Feature complete; push/PR/merge remain the user's decision.
