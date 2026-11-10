@@ -34,7 +34,7 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, A
 | No theme named | Propose one with a reason; wait for accept or switch. |
 | Outline not approved | Stop at gate 1. |
 | Checker fails | Fix before showing the PDF. |
-| PDF not reviewed | Stop at gate 2. |
+| PDF ready for review | Open it in the viewer (`setsid -f xdg-open FILE.pdf`), then stop at gate 2. |
 | User praises an element | Harvest it into `components/` of the source repo (`~/devwork/apps/academic-slides-automation`), note the source, then run `scripts/sync_skills.sh --apply`; never into a runtime copy, which the sync overwrites. |
 
 ## Execution Steps
@@ -45,8 +45,8 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, A
 4. Draft the outline (`component | message | visual | spoken note [| speaker [| m:ss]]`), run `tools/outline.py`, show outline + plan. Stop for gate 1.
 5. Copy the shell, `themes/deck-base.css` + the theme (or `metro.css` for a guide), `assets/fonts/`, `assets/anim/` for a deck (the shell links it last; never ship an unanimated deck HTML or a separate animated copy), `assets/katex/` if a formula is used, and the components into the destination. No ad-hoc CSS unless it becomes a component.
 6. Run `tools/render.sh` and `tools/check_deck.py --mode … --outline … --dom`. Inspect thumbnails for hierarchy, purposeful whitespace and content fit; fix accidental emptiness, overflow, empty pages, and density without filling space for its own sake.
-7. Show the deck HTML (animated) and the PDF. Stop for gate 2.
-8. Group talk: build the speaker guide with `tools/speaker_guide.py` as a separate guide, render and check it.
+7. Open the PDF in the user's viewer (`setsid -f xdg-open destination/index.pdf`), give the HTML (animated) and PDF paths. Stop for gate 2.
+8. Group talk: build the speaker guide with `tools/speaker_guide.py` as a separate guide, render, check and open it for review.
 9. If praised, harvest the element; a praised experimental theme becomes proven.
 
 ## Output Contract

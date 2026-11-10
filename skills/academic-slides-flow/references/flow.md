@@ -89,7 +89,13 @@ In `deck` mode the checker also reports `density:` lines: a slide above 3 items 
 
 ## Gate 2 — visual review
 
-Show the PDF path and the checker stdout. Stop. Only an explicit review continues.
+Open the PDF in the user's viewer, detached so the session does not block:
+
+```
+setsid -f xdg-open destination/index.pdf >/dev/null 2>&1
+```
+
+Every document handed over for review (deck, guide, speaker guide, any revision) is opened this way, not only named. Then give the PDF path and the checker stdout. Stop. Only an explicit review continues.
 
 ## Speaker guide (guía de expositores)
 
