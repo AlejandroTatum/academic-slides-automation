@@ -31,7 +31,8 @@
 #progress { display: none; }
 @media screen and (prefers-reduced-motion: no-preference) { body:not(.print) #progress { display: block; } }
 @keyframes anim-rise { from { opacity: 0; transform: translateY(46px); } to { opacity: 1; transform: none; } }
-@keyframes anim-rise-title { from { opacity: 0; transform: translateY(30px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); } }
+/* clip-path top/bottom -30%: the reveal must not cut the tilde of Ñ or the accents of capitals (the box ends at the cap height) */
+@keyframes anim-rise-title { from { opacity: 0; transform: translateY(30px); clip-path: inset(-30% 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(-30% 0 -30% 0); } }
 @keyframes anim-slide-in { from { opacity: 0; transform: translateX(-40px); letter-spacing: .4em; } to { opacity: 1; transform: none; } }
 @keyframes anim-pop { from { transform: scale(0); } to { transform: scale(1); } }
 @keyframes anim-draw { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
