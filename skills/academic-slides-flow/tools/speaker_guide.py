@@ -30,7 +30,14 @@ from outline import Plan, clock, parse  # noqa: E402
 
 SKILL = Path(__file__).resolve().parent.parent
 USAGE = "usage: speaker_guide.py DECK OUTLINE [--out FILE] [--force]"
-PAGE_WEIGHT = 6  # rows per A4 portrait page; a long note weighs more
+# Page packing in millimetres, estimated from the metro guide metrics:
+# 10.5 pt body (5.1 mm per line, ~76 characters per row line), A4 inner height
+# 263 mm minus the page heading. The cover holds its cast, then fills with rows.
+PAGE_MM = 255
+COVER_MM = 150
+LINE_MM = 5.1
+ROW_CHARS = 76
+ROW_FIXED_MM = 21
 LINES = ["a", "b", "c", "d"]
 STYLE = """<style>
   .sg-cover h1 { font-family: var(--head); font-weight: 700; font-size: 40pt; line-height: .95; letter-spacing: -0.03em; margin: 6mm 0 3mm; }
@@ -41,6 +48,7 @@ STYLE = """<style>
   .sg-cast .k { font-family: var(--mono); font-size: 8pt; color: var(--muted); }
   .sg-rows { display: flex; flex-direction: column; gap: 2.6mm; }
   .sg-rows { gap: 3.4mm; }
+  .sg-cover .sg-rows { margin-top: 8mm; }
   .sg-row { display: grid; grid-template-columns: 20mm 1fr; gap: 4mm; align-items: start; padding: 3mm 4mm; background: #FBF9F4;
     border: 0.3mm solid var(--rule); border-left: 1.4mm solid currentColor; border-radius: 1.6mm; }
   .sg-who { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; padding-bottom: 1.2mm; margin-bottom: 1.6mm; border-bottom: 0.3mm dashed var(--rule); }
@@ -90,15 +98,21 @@ def deck_notes(path: Path) -> list[str]:
     return [re.sub(r"\s+", " ", note).strip() for note in parser.slides]
 
 
-def pages(rows: list[tuple[int, str]]) -> list[list[tuple[int, str]]]:
-    out, current, weight = [], [], 0
+def row_mm(message: str, said: str) -> float:
+    lines = -(-len(said) // ROW_CHARS) + -(-len(message) // 60) - 1
+    return ROW_FIXED_MM + lines * LINE_MM
+
+
+def pages(rows: list[tuple[int, str, str]], first: float = PAGE_MM) -> list[list[tuple[int, str, str]]]:
+    """Pack rows into pages by estimated height; the first page has `first` mm."""
+    out, current, used, budget = [], [], 0.0, first
     for row in rows:
-        w = 1 + len(row[1].split()) // 60
-        if current and weight + w > PAGE_WEIGHT:
+        h = row_mm(row[1], row[2])
+        if current and used + h > budget:
             out.append(current)
-            current, weight = [], 0
+            current, used, budget = [], 0.0, PAGE_MM
         current.append(row)
-        weight += w
+        used += h
     if current:
         out.append(current)
     return out
@@ -137,12 +151,12 @@ def render(plan: Plan, notes: list[str], theme_href: str) -> tuple[str, int]:
     rows = []
     for slide, note in zip(plan.slides, notes):
         said = note or slide.note
-        rows.append((slide.number, said))
-    chunks = pages(rows)
-    for index, chunk in enumerate(chunks, start=2):
-        first, last = chunk[0][0], chunk[-1][0]
+        rows.append((slide.number, slide.message, said))
+    chunks = pages(rows, COVER_MM)
+
+    def row_html(chunk: list[tuple[int, str, str]]) -> str:
         items = []
-        for number, said in chunk:
+        for number, _, said in chunk:
             s = plan.slides[number - 1]
             who = s.speaker or "—"
             end = s.start + (s.seconds or 0)
@@ -152,11 +166,16 @@ def render(plan: Plan, notes: list[str], theme_href: str) -> tuple[str, int]:
                 f'<div class="sg-say"><div class="sg-who"><p>{e(who)}</p><span class="k">{e(s.component)}</span></div>'
                 f'<h3>{e(s.message)}</h3><p>{e(said)}</p></div></article>'
             )
+        return f'<div class="sg-rows">{"".join(items)}</div>'
+
+    sections[0] = sections[0].replace("  <div class=\"foot\">", f"  {row_html(chunks[0])}\n  <div class=\"foot\">") if chunks else sections[0]
+    for index, chunk in enumerate(chunks[1:], start=2):
+        first, last = chunk[0][0], chunk[-1][0]
         label = f"Diapositivas {first}–{last}" if first != last else f"Diapositiva {first}"
         sections.append(
             f'<section class="page" id="p{index}">\n'
             f'  <div class="top"><div><div class="kicker">{label}</div><h2>{e(title)}</h2></div></div>\n'
-            f'  <div class="sg-rows">{"".join(items)}</div>\n'
+            f'  {row_html(chunk)}\n'
             f'  <div class="foot"><span>{index}</span><nav><a href="#reparto">Reparto</a></nav></div>\n</section>'
         )
     doc = f"""<!DOCTYPE html>
