@@ -65,13 +65,13 @@ class SpeakerGuideTests(unittest.TestCase):
         self.assertEqual(
             proc.stdout,
             f"copied: themes/metro.css\ncopied: assets/fonts (9 files)\n"
-            f"speaker-guide: 5 slides, 2 speakers, 3 pages -> {self.out}\n",
+            f"speaker-guide: 5 slides, 2 speakers, 2 pages -> {self.out}\n",
         )
         self.assertEqual(before, (digest(self.deck), digest(self.outline)))
         html = self.out.read_text(encoding="utf-8")
         self.assertIn('data-mode="guide"', html)
         self.assertIn('href="themes/metro.css"', html)
-        check = subprocess.run([sys.executable, str(CHECK), str(self.out), "--mode", "guide", "--expect", "3"],
+        check = subprocess.run([sys.executable, str(CHECK), str(self.out), "--mode", "guide", "--expect", "2"],
                                text=True, capture_output=True, check=False)
         self.assertEqual(check.returncode, 0, check.stdout)
 

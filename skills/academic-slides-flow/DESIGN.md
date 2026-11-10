@@ -20,10 +20,10 @@ messy or inconsistent, not by lacking citations. No rubric TDD, no judge loop.
 |---|---|---|
 | Purpose | Projected, spoken over | Read alone, reviewed for exams |
 | Density | Low: one idea per slide | High: cards, tables, quiz |
-| Canvas | 1920×1080 px | 297×167 mm (16:9, printable) |
+| Canvas | 1920×1080 px | A4 portrait, 210×297 mm |
 | Interaction | Keyboard nav, speaker notes (`N`), live demos | Internal PDF links: map → card, question ↔ answer |
 | Companion | `guia-expositores` (who says what, timing) | Spaced-review sheet (days 1/3/7/14) |
-| Output | `.html` (present) + `.pdf` (`?print`) | `.pdf` (+ source `.html`) |
+| Output | always both: animated `.html` (present, `assets/anim/`) + static `.pdf` (`?print`) | `.pdf` (+ source `.html`) |
 
 ## Proven references (the "models that already worked")
 
@@ -112,7 +112,7 @@ academic-slides-flow/
 │   └── nav-footer.html
 ├── shells/
 │   ├── deck.html             # keyboard nav, notes overlay, ?print mode
-│   └── guide.html            # @page 297x167mm, anchors
+│   └── guide.html            # @page A4 portrait (210x297mm), anchors
 ├── tools/
 │   ├── render.sh             # Brave/Chrome headless → PDF, then pdftoppm thumbnails
 │   └── check_deck.py         # mechanical checks (see Hard rules)
@@ -142,7 +142,7 @@ academic-slides-flow/
 
 ## Hard rules (lessons already paid for)
 
-- Body text ≥ 10.5 pt on the 297×167 mm guide canvas; ≥ 28 px on 1920×1080 decks.
+- Body text ≥ 10.5 pt on the A4 portrait guide canvas; ≥ 28 px on 1920×1080 decks.
   Smaller text leaves pages visually empty.
 - Color is never decorative: every accent maps to a category the reader can name.
 - Terms or concepts not in the user's source list are marked `TIP`/extra.

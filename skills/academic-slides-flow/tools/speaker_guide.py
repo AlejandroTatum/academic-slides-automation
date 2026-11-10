@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build the speaker guide (guía de expositores) for a deck: a separate
-study-guide document (guide mode, theme metro, 297x167 mm) that says who
+study-guide document (guide mode, theme metro, A4 portrait 210x297 mm) that says who
 speaks, on which slide, for how long, and what they say.
 
     speaker_guide.py DECK.html OUTLINE.txt [--out FILE] [--force]
@@ -30,7 +30,7 @@ from outline import Plan, clock, parse  # noqa: E402
 
 SKILL = Path(__file__).resolve().parent.parent
 USAGE = "usage: speaker_guide.py DECK OUTLINE [--out FILE] [--force]"
-PAGE_WEIGHT = 4  # rows per page; a long note weighs more
+PAGE_WEIGHT = 6  # rows per A4 portrait page; a long note weighs more
 LINES = ["a", "b", "c", "d"]
 STYLE = """<style>
   .sg-cover h1 { font-family: var(--head); font-weight: 700; font-size: 40pt; line-height: .95; letter-spacing: -0.03em; margin: 6mm 0 3mm; }
@@ -40,8 +40,10 @@ STYLE = """<style>
   .sg-cast li p { color: var(--ink); }
   .sg-cast .k { font-family: var(--mono); font-size: 8pt; color: var(--muted); }
   .sg-rows { display: flex; flex-direction: column; gap: 2.6mm; }
-  .sg-row { display: grid; grid-template-columns: 34mm 30mm 1fr; gap: 4mm; align-items: start; padding: 2.4mm 3mm; background: #FBF9F4;
+  .sg-rows { gap: 3.4mm; }
+  .sg-row { display: grid; grid-template-columns: 20mm 1fr; gap: 4mm; align-items: start; padding: 3mm 4mm; background: #FBF9F4;
     border: 0.3mm solid var(--rule); border-left: 1.4mm solid currentColor; border-radius: 1.6mm; }
+  .sg-who { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; padding-bottom: 1.2mm; margin-bottom: 1.6mm; border-bottom: 0.3mm dashed var(--rule); }
   .sg-n { font-family: var(--head); font-weight: 700; font-size: 18pt; line-height: 1; color: var(--ink); }
   .sg-t { font-family: var(--mono); font-size: 8pt; color: var(--muted); display: block; margin-top: 1mm; }
   .sg-who p { font-weight: 600; }
@@ -91,7 +93,7 @@ def deck_notes(path: Path) -> list[str]:
 def pages(rows: list[tuple[int, str]]) -> list[list[tuple[int, str]]]:
     out, current, weight = [], [], 0
     for row in rows:
-        w = 1 + len(row[1].split()) // 45
+        w = 1 + len(row[1].split()) // 60
         if current and weight + w > PAGE_WEIGHT:
             out.append(current)
             current, weight = [], 0
@@ -147,8 +149,8 @@ def render(plan: Plan, notes: list[str], theme_href: str) -> tuple[str, int]:
             items.append(
                 f'<article class="sg-row fg-{color(plan, s.speaker)}" id="s{number}">'
                 f'<div><span class="sg-n">{number:02d}</span><span class="sg-t">{clock(s.start)}–{clock(end)} · {clock(s.seconds or 0)}</span></div>'
-                f'<div class="sg-who"><p>{e(who)}</p><span class="k">{e(s.component)}</span></div>'
-                f'<div class="sg-say"><h3>{e(s.message)}</h3><p>{e(said)}</p></div></article>'
+                f'<div class="sg-say"><div class="sg-who"><p>{e(who)}</p><span class="k">{e(s.component)}</span></div>'
+                f'<h3>{e(s.message)}</h3><p>{e(said)}</p></div></article>'
             )
         label = f"Diapositivas {first}–{last}" if first != last else f"Diapositiva {first}"
         sections.append(
