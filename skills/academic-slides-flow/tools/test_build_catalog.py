@@ -83,6 +83,39 @@ class BuildCatalogTests(unittest.TestCase):
             for name in COMPONENTS:
                 self.assertIn(name, index)
 
+    def test_catalog_covers_eligible_component_files(self):
+        components = SKILL / "components"
+        files = {p.stem: p.read_text(encoding="utf-8") for p in components.glob("*.html")}
+        # Sprite is an embedded helper; live-demo is theme-specific; reveal-steps
+        # requires shell key-handler integration even though it contains an example slide.
+        excluded = {"icon-sprite", "live-demo", "reveal-steps"}
+        self.assertTrue(excluded <= files.keys())
+        self.assertIn("deck, every theme", files["icon-sprite"].splitlines()[0])
+        self.assertIn("theme: deportivo", files["live-demo"].splitlines()[0])
+        self.assertIn("add revealStep() to the shell keydown handler", files["reveal-steps"])
+        eligible = {
+            name for name, text in files.items()
+            if name not in excluded and "deck, every theme" in text.splitlines()[0]
+            and re.search(r'<section class="slide(?:\s|"|$)', text)
+        }
+        self.assertTrue(eligible)
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            proc = build("--out", str(out))
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertEqual(proc.stderr, "")
+            index = (out / "index.html").read_text(encoding="utf-8")
+            for theme in DECK_THEMES:
+                html = (out / f"{theme}.html").read_text(encoding="utf-8")
+                names = re.findall(r'<section class="slide[^"]*"[^>]*\bdata-component="([\w-]+)"', html)
+                self.assertEqual(set(names), eligible, theme)
+                self.assertEqual(len(names), len(eligible), theme)
+                for number, name in enumerate(names, 1):
+                    self.assertIn(f'<iframe src="{theme}.html#{number}" loading="lazy" tabindex="-1" title="{theme} {name}"></iframe>', index)
+                    self.assertIn(f'<span>{number}. {name}</span>', index)
+                self.assertTrue(excluded.isdisjoint(names), theme)
+            self.assertEqual(proc.stdout, f"catalog: {len(DECK_THEMES)} themes, {len(eligible)} components -> {out}\n")
+
     def test_unknown_option_is_usage(self):
         proc = build("--nope")
         self.assertEqual(proc.returncode, 2)
