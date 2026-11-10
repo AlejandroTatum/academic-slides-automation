@@ -2,7 +2,8 @@
      A concrete case shown as three related actors, not a generic process sequence.
      Nodes are tall cards that fill the slide body: .case-role names the kind of
      actor, strong names it, p says what it contributes. Link labels state each
-     relationship; accents identify the actors. -->
+     relationship; accents identify the actors. Optional .case-tag (a short status chip at the foot of a
+     node, e.g. "Implementado", "Parcial"; source: deck "Sumativa 1 DBP (2026-11-10)", slide 3). -->
 <style>
   :where(.deck-case-map .case-map) { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 160px minmax(0, 1fr) 160px minmax(0, 1fr); align-items: stretch; gap: 16px; }
   :where(.deck-case-map .case-node) { --node: var(--a1); display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 44px 40px; border-top: 14px solid var(--node); background: color-mix(in srgb, var(--node) 10%, transparent); }
@@ -11,6 +12,8 @@
   :where(.deck-case-map .case-role) { font: 600 26px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
   :where(.deck-case-map .case-node strong) { font: var(--dw) 58px/1.05 var(--display); overflow-wrap: anywhere; }
   :where(.deck-case-map .case-node p:last-child) { font-size: 38px; }
+  :where(.deck-case-map .case-tag) { align-self: flex-start; padding: 6px 20px; border: 3px solid var(--node); border-radius: 999px; color: var(--node); font: 700 26px/1.2 var(--mono); }
+  :where(.deck-case-map .case-tag.on) { background: var(--node); color: var(--dot-fg, var(--bg)); }
   :where(.deck-case-map .case-link) { align-self: center; text-align: center; font-size: 32px; font-weight: 600; line-height: 1.2; }
   :where(.deck-case-map .case-link)::after { content: '⟶'; display: block; font-size: 88px; line-height: 1; color: var(--muted); }
 </style>

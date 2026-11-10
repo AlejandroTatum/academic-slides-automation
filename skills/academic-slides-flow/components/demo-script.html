@@ -1,0 +1,55 @@
+<!-- component: demo-script | deck, every theme (live-demo stays deportivo-only)
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slides 11, 13, 14, 15.
+     The slide drives a live demonstration instead of showing a screenshot of it. Two blocks:
+     .demo-script  an optional .demo-link (a real <a href>, opens in the browser; the PDF shows it as text)
+                   and numbered steps: method + path (.path), the input (.body) and the expected result (.expect;
+                   .ok = filled, success; .no = outline, rejection). Keep 3-5 steps.
+     .demo-cmd     one command to run in a terminal: .live tag (en vivo / respaldo), a selectable <pre>
+                   (click selects all) and the expected output in .expect-row.
+     Optional .demo-backup: crisp backup captures (use .browser-frame from evidence-frame) for when the demo fails.
+     --k picks the category accent (.k1 .k2 .k3; default a2). Put the pre-demo checklist in .notes.
+     Mark the slide data-dense: the script is the content. Never write real passwords: use ••• . -->
+<style>
+  :where(.demo-link) { --k: var(--a2); align-self: flex-start; display: inline-flex; align-items: center; gap: 22px; padding: 14px 38px 14px 16px; border-radius: 999px;
+    background: var(--k); color: var(--dot-fg, var(--bg)); font: 700 34px/1.2 var(--mono); text-decoration: none; box-shadow: 8px 8px 0 color-mix(in srgb, var(--k) 25%, transparent); }
+  :where(.demo-link .go) { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--dot-fg, var(--bg)); }
+  :where(.demo-link .go)::before { content: ""; margin-left: 8px; border-left: 22px solid var(--k); border-top: 14px solid transparent; border-bottom: 14px solid transparent; }
+  :where(.demo-script) { --k: var(--a2); list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+  :where(.demo-script li) { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; align-items: center; column-gap: 26px; row-gap: 2px; padding: 16px 28px 16px 20px;
+    border-left: 10px solid var(--k); background: color-mix(in srgb, var(--k) 9%, transparent); }
+  :where(.demo-script .pin) { --pin: var(--k); grid-row: 1 / span 2; margin: 0; width: 56px; height: 56px; }
+  :where(.demo-script .step-line) { font: 600 34px/1.25 var(--mono); overflow-wrap: anywhere; }
+  :where(.demo-script .verb) { color: var(--k); font-weight: 700; margin-right: .5ch; }
+  :where(.demo-script .body) { grid-column: 2 / span 2; font: 400 26px/1.3 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+  :where(.demo-script .expect) { font: 700 30px/1 var(--mono); padding: 10px 22px; border: 3px solid var(--k); border-radius: 12px; white-space: nowrap; }
+  :where(.demo-script .expect.ok) { background: var(--k); color: var(--dot-fg, var(--bg)); }
+  :where(.demo-script .expect.no) { color: var(--k); }
+  :where(.demo-backup) { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+  :where(.demo-backup .backup-tag) { font: 700 24px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  :where(.demo-cmd) { --k: var(--a3); display: flex; flex-direction: column; border: 4px solid var(--k); border-radius: 18px; overflow: hidden;
+    background: color-mix(in srgb, var(--fg) 88%, #000); color: var(--bg); box-shadow: 12px 12px 0 color-mix(in srgb, var(--k) 22%, transparent); }
+  :where(.demo-cmd.k1) { --k: var(--a1); } :where(.demo-cmd.k2) { --k: var(--a2); }
+  :where(.demo-cmd .cmd-bar) { display: flex; align-items: center; gap: 16px; padding: 8px 26px; background: var(--k); color: var(--dot-fg, var(--bg));
+    font: 700 24px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+  :where(.demo-cmd .live)::before { content: ""; display: inline-block; width: 16px; height: 16px; margin-right: 14px; border-radius: 50%; background: currentColor; vertical-align: -1px; }
+  :where(.demo-cmd .cmd-note) { margin-left: auto; opacity: .8; font-weight: 500; letter-spacing: .06em; text-transform: none; }
+  :where(.demo-cmd pre) { margin: 0; padding: 20px 30px; font: 500 28px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; user-select: all; }
+  :where(.demo-cmd pre b) { color: color-mix(in srgb, var(--k) 55%, var(--bg)); font-weight: 600; }
+  :where(.demo-cmd .expect-row) { display: flex; align-items: baseline; gap: 22px; padding: 12px 30px 16px; border-top: 3px dashed color-mix(in srgb, var(--bg) 40%, transparent); font: 500 28px/1.35 var(--mono); }
+  :where(.demo-cmd .expect-row .lbl) { flex: none; font: 700 22px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--k) 55%, var(--bg)); }
+</style>
+<section class="slide" id="demo-en-vivo" data-dense>
+  <p class="kicker">Demo en vivo · ejemplo ilustrativo</p>
+  <h1 class="title sm">Demo: crear un recurso y repetirlo</h1>
+  <a class="demo-link fx" href="http://127.0.0.1:8000/docs/" target="_blank" rel="noopener"><span class="go"></span>Abrir Swagger · 127.0.0.1:8000/docs/</a>
+  <ol class="demo-script">
+    <li class="fx"><b class="pin">1</b><span class="step-line"><span class="verb">POST</span>/api/v1/items/</span><span class="expect ok">201</span><code class="body">{"nombre": "demo"}</code></li>
+    <li class="fx"><b class="pin">2</b><span class="step-line"><span class="verb">POST</span>/api/v1/items/</span><span class="expect no">409</span><code class="body">el mismo cuerpo, otra vez</code></li>
+  </ol>
+  <div class="demo-cmd fx">
+    <div class="cmd-bar"><span class="live">En vivo</span><span class="cmd-note">o capturas de respaldo</span></div>
+<pre><code><b>$</b> curl -i http://127.0.0.1:8000/health/</code></pre>
+    <div class="expect-row"><span class="lbl">Esperado</span><code>200 OK · {"status": "ok"}</code></div>
+  </div>
+  <aside class="notes">Lista previa a la demo: servicio levantado, usuario de prueba con contraseña conocida, número libre para repetir y la pestaña del navegador lista. Ejemplo ilustrativo: ningún dato es real.</aside>
+</section>

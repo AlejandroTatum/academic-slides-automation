@@ -1,0 +1,24 @@
+<!-- component: stair-steps | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slide 4.
+     A process that builds on itself as ascending cards: the step number (.n), a display .lbl and a short .desc.
+     Each card is taller than the last (set --r from 0 to 4 on every li) and the row aligns at the bottom, so the
+     ladder reads left to right as progress. 4-5 steps, one category color (--k, default a1). Mark data-dense at 5. -->
+<style>
+  :where(.stair-steps) { --k: var(--a1); list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 20px; align-items: end; }
+  :where(.stair-steps li) { --r: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; min-height: calc(250px + var(--r) * 52px); padding: 26px 22px 30px;
+    border-top: 14px solid var(--k); background: color-mix(in srgb, var(--k) calc(8% + var(--r) * 4%), transparent); }
+  :where(.stair-steps .n) { margin-bottom: auto; font: var(--dw) 76px/1 var(--display); color: var(--k); }
+  :where(.stair-steps .lbl) { font: var(--dw) 36px/1.05 var(--display); text-transform: var(--tt); letter-spacing: var(--ls); overflow-wrap: anywhere; }
+  :where(.stair-steps .desc) { font-size: 30px; line-height: 1.25; opacity: .85; }
+</style>
+<section class="slide" id="escalera" data-dense>
+  <p class="kicker">Método · ejemplo ilustrativo</p>
+  <h1 class="title sm">Cada paso apoya al siguiente</h1>
+  <ol class="stair-steps">
+    <li class="fx" style="--r: 0"><span class="n">1</span><span class="lbl">Reglas</span><span class="desc">Acuerdos del equipo</span></li>
+    <li class="fx" style="--r: 1"><span class="n">2</span><span class="lbl">Requisitos</span><span class="desc">Qué y para quién</span></li>
+    <li class="fx" style="--r: 2"><span class="n">3</span><span class="lbl">Plan</span><span class="desc">Cómo se construye</span></li>
+    <li class="fx" style="--r: 3"><span class="n">4</span><span class="lbl">Tareas</span><span class="desc">Trabajo por historia</span></li>
+  </ol>
+  <aside class="notes">Ejemplo ilustrativo sin datos medidos. La escalera sube porque cada archivo depende del anterior.</aside>
+</section>

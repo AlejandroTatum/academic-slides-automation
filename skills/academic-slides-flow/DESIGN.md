@@ -81,6 +81,12 @@ content needs more. New components, all deck, all themes: `big-number`,
 `recap`, `figure-full`, `formula-hero` (local KaTeX). `cover` and
 `section-divider` gained a token-based deck variant.
 
+The catalog also includes ten patterns harvested from the deck “Sumativa 1 DBP
+(2026-11-10)”: `avatar-cards`,
+`block-opener`, `demo-script`, `evidence-frame`, `pipeline-flow`,
+`rail-timeline`, `scatter-cards`, `sheet-frame`, `stair-steps`, and
+`stat-hero`. They follow the original twelve catalog components.
+
 ## Flow tools (2026-10-13)
 
 - `tools/build_catalog.py` → `catalog/<theme>.html` + `catalog/index.html`, so

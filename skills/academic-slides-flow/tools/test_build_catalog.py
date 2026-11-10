@@ -18,6 +18,9 @@ COMPONENTS = [
     "cover", "question-hook", "icon-row", "big-number", "flow-steps",
     "deck-case-map", "deck-compare", "figure-full", "formula-hero",
     "deck-annotated-code", "section-divider", "recap",
+    "avatar-cards", "block-opener", "demo-script", "evidence-frame",
+    "pipeline-flow", "rail-timeline", "scatter-cards", "sheet-frame",
+    "stair-steps", "stat-hero",
 ]
 
 
@@ -37,7 +40,7 @@ def build(*args: str):
 class BuildCatalogTests(unittest.TestCase):
     def test_writes_one_deck_per_theme_and_an_index(self):
         before = tree_hash(SKILL / "components"), tree_hash(SKILL / "themes")
-        with tempfile.TemporaryDirectory(dir=SKILL) as tmp:
+        with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp)
             proc = build("--out", str(out))
             self.assertEqual(proc.returncode, 0, proc.stderr)
@@ -48,8 +51,10 @@ class BuildCatalogTests(unittest.TestCase):
             self.assertEqual(before, (tree_hash(SKILL / "components"), tree_hash(SKILL / "themes")))
 
     def test_each_deck_has_every_component_in_order_and_passes_the_checker(self):
-        with tempfile.TemporaryDirectory(dir=SKILL) as tmp:
-            out = Path(tmp)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "assets").symlink_to(SKILL / "assets", target_is_directory=True)
+            out = root / "catalog"
             self.assertEqual(build("--out", str(out)).returncode, 0)
             for theme in DECK_THEMES:
                 deck = out / f"{theme}.html"
@@ -68,7 +73,7 @@ class BuildCatalogTests(unittest.TestCase):
                 self.assertEqual(check.returncode, 0, f"{theme}\n{check.stdout}")
 
     def test_index_frames_every_slide_of_every_theme(self):
-        with tempfile.TemporaryDirectory(dir=SKILL) as tmp:
+        with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp)
             self.assertEqual(build("--out", str(out)).returncode, 0)
             index = (out / "index.html").read_text(encoding="utf-8")

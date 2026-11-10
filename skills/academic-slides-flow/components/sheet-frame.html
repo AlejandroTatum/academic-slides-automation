@@ -1,0 +1,35 @@
+<!-- component: sheet-frame | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slides 6-9.
+     A diagram as a drawing sheet: the figure sits on a white sheet with a title block underneath (.sheet-title):
+     FIG. number, the source file and, optionally, .tabs that show the level (C1 C2 C3 C4) with the current one
+     filled (.on), or a legend for the pins. Numbered .pin.abs badges (evidence-frame) mark up to four key
+     spots by left/top percentages of the image: the wrapper .fit shrinks to the image so percentages hold.
+     Set the image height with --fig-h on the figure (default 640px); wide diagrams are limited by width instead.
+     Legend text and tabs count as visible words: keep them short. --k picks the category (.k1 .k2 .k3; default a1). -->
+<style>
+  :where(.sheet-frame) { --k: var(--a1); --fig-h: 640px; flex: 0 1 auto; margin: 0; display: flex; flex-direction: column; min-width: 0; min-height: 0; border: 4px solid var(--k); background: var(--bg); box-shadow: 14px 14px 0 color-mix(in srgb, var(--k) 22%, transparent); }
+  :where(.sheet-frame.k2) { --k: var(--a2); } :where(.sheet-frame.k3) { --k: var(--a3); }
+  :where(.sheet-frame .sheet) { flex: 0 1 auto; display: grid; place-items: center; padding: 14px; background: #fff; }
+  :where(.sheet-frame .fit) { position: relative; max-width: 100%; }
+  :where(.sheet-frame .fit img) { display: block; width: auto; height: auto; max-width: 100%; max-height: var(--fig-h); }
+  :where(.sheet-frame .sheet-title) { flex: none; display: flex; align-items: stretch; border-top: 4px solid var(--k); font: 600 24px/1.2 var(--mono); }
+  :where(.sheet-frame .sheet-title > *) { display: flex; align-items: center; gap: 16px; padding: 10px 26px; border-right: 3px solid color-mix(in srgb, var(--k) 45%, transparent); white-space: nowrap; }
+  :where(.sheet-frame .sheet-title > :last-child) { border-right: 0; }
+  :where(.sheet-frame .sheet-title .fig) { background: var(--k); color: var(--dot-fg, var(--bg)); font-weight: 700; letter-spacing: .14em; }
+  :where(.sheet-frame .sheet-title .src) { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+  :where(.sheet-frame .tabs) { gap: 10px; }
+  :where(.sheet-frame .tab) { padding: 2px 14px; border: 3px solid var(--k); border-radius: 8px; color: var(--k); font-weight: 700; }
+  :where(.sheet-frame .tab.on) { background: var(--k); color: var(--dot-fg, var(--bg)); }
+  :where(.sheet-frame .legend) { flex: 1; gap: 28px; }
+  :where(.sheet-frame .legend span) { display: inline-flex; align-items: center; gap: 10px; }
+  :where(.sheet-frame .legend .pin) { width: 38px; height: 38px; margin: 0; font-size: 22px; --pin: var(--k); }
+</style>
+<section class="slide" id="lamina">
+  <p class="kicker">Arquitectura · ejemplo ilustrativo</p>
+  <h1 class="title sm">Una lámina con bloque de título</h1>
+  <figure class="sheet-frame fx" style="--fig-h: 520px">
+    <div class="sheet"><div class="fit"><svg viewBox="0 0 1200 520" width="1200" height="520" role="img" aria-label="Tres cajas conectadas por flechas" fill="none" stroke="#365E58" stroke-width="5"><rect x="40" y="170" width="280" height="180" rx="14"/><rect x="460" y="170" width="280" height="180" rx="14"/><rect x="880" y="170" width="280" height="180" rx="14"/><path d="M320 260h140m-24-22 24 22-24 22M740 260h140m-24-22 24 22-24 22"/></svg><b class="pin abs" style="left: 38%; top: 33%;">1</b></div></div>
+    <figcaption class="sheet-title"><span class="fig">FIG. 01</span><span class="src">docs/figuras/ejemplo.svg</span><span class="tabs"><span class="tab on">C2</span><span class="tab">C3</span></span></figcaption>
+  </figure>
+  <aside class="notes">Ejemplo ilustrativo: la lámina da contexto (número, archivo fuente y nivel) sin quitarle tamaño al diagrama.</aside>
+</section>

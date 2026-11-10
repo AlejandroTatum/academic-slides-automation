@@ -1,0 +1,40 @@
+<!-- component: pipeline-flow | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slides 5, 10, 12 and 18.
+     A request-to-response path as chained stages, not a bulleted process: each .stage is a card with a
+     mono .tag (where it happens), a display .lbl (the stage or a status code) and an optional .desc.
+     A triangle joins the stages. Modifiers: .k1 .k2 .k3 color a stage by category (default a1);
+     .pass fills the stage (the success exit); .gate gives .lbl the size of a status code (add a .code line with
+     the stable error code). Sizes: .slim (one-line stages with a .pin, for a strip under a figure) and .big (fills a closing slide).
+     3-5 stages; keep .lbl to 1-3 words. The transitions between stages are spoken, in .notes. -->
+<style>
+  :where(.pipeline-flow) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 64px; }
+  :where(.pipeline-flow .stage) { --node: var(--a1); position: relative; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 26px 24px 30px;
+    border-top: 14px solid var(--node); background: color-mix(in srgb, var(--node) 10%, transparent); }
+  :where(.pipeline-flow .stage.k2) { --node: var(--a2); } :where(.pipeline-flow .stage.k3) { --node: var(--a3); }
+  :where(.pipeline-flow .stage + .stage)::before { content: ""; position: absolute; left: -48px; top: 50%; transform: translateY(-50%); width: 0; height: 0;
+    border-top: 22px solid transparent; border-bottom: 22px solid transparent; border-left: 30px solid var(--muted); }
+  :where(.pipeline-flow .tag) { font: 700 24px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--node); }
+  :where(.pipeline-flow .lbl) { font: var(--dw) 52px/1.05 var(--display); text-transform: var(--tt); letter-spacing: var(--ls); overflow-wrap: anywhere; }
+  :where(.pipeline-flow .gate .lbl) { font-size: 128px; line-height: .95; color: var(--node); }
+  :where(.pipeline-flow .desc) { font-size: 30px; line-height: 1.25; }
+  :where(.pipeline-flow .code) { font: 600 22px/1.2 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+  :where(.pipeline-flow.slim) { gap: 56px; grid-auto-columns: auto; justify-content: space-between; }
+  :where(.pipeline-flow.slim .stage) { flex-direction: row; align-items: center; gap: 18px; padding: 12px 22px; border-top: 0; border-left: 10px solid var(--node); }
+  :where(.pipeline-flow.slim .stage .pin) { --pin: var(--node); flex: none; margin: 0; width: 44px; height: 44px; font-size: 26px; }
+  :where(.pipeline-flow.slim .lbl) { font-size: 38px; text-transform: none; white-space: nowrap; }
+  :where(.pipeline-flow.big .stage) { padding: 44px 40px 48px; gap: 20px; }
+  :where(.pipeline-flow.big .lbl) { font-size: 68px; }
+  :where(.pipeline-flow.big .desc) { font-size: 42px; }
+  :where(.pipeline-flow .stage.pass) { background: var(--node); color: var(--dot-fg, var(--bg)); }
+  :where(.pipeline-flow .stage.pass .tag, .pipeline-flow .stage.pass .lbl) { color: inherit; }
+</style>
+<section class="slide" id="camino">
+  <p class="kicker">Ejemplo ilustrativo · Petición HTTP</p>
+  <h1 class="title sm">Una petición cruza tres etapas</h1>
+  <ol class="pipeline-flow">
+    <li class="stage k1 fx"><span class="tag">Entra</span><span class="lbl">Petición</span><span class="desc">POST con el cuerpo</span></li>
+    <li class="stage k2 fx"><span class="tag">Decide</span><span class="lbl">Reglas</span><span class="desc">Valida y persiste</span></li>
+    <li class="stage k3 pass fx"><span class="tag">Sale</span><span class="lbl">Respuesta</span><span class="desc">Sobre con código</span></li>
+  </ol>
+  <aside class="notes">Ejemplo ilustrativo sin datos medidos. Recorrer de izquierda a derecha: lo que entra, dónde se decide y lo que sale.</aside>
+</section>
