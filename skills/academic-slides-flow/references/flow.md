@@ -72,7 +72,7 @@ A deck links `themes/deck-base.css` first, then `themes/<theme>.css`. A guide li
 
 Paste the component `<style>` once and the markup per item. No ad-hoc CSS. A new visual pattern becomes a file in `components/` first.
 
-`deck`: one idea per slide, speaker notes in `.notes`, keyboard nav already in the shell (`N` notes, arrows, `?print` for PDF). `guide`: map links to cards, quiz links to answers, spaced-review page for days 1/3/7/14 when the user asked for a study guide.
+`deck`: one idea per slide, speaker notes in `.notes`, keyboard nav already in the shell (`N` notes, arrows, `?print` for PDF). The shell links `assets/anim/anim.css` and `anim.js` last: the HTML always animates (staggered entrances, count-up numbers, progress bar; add class `fx` to stagger any other element), while `?print` and reduced-motion show the final static state, so the PDF never loses content. A deck is always delivered as that animated `index.html` plus `index.pdf`; do not make a separate animated copy. `guide`: map links to cards, quiz links to answers, spaced-review page for days 1/3/7/14 when the user asked for a study guide.
 
 ## Render and check
 
@@ -101,7 +101,7 @@ tools/render.sh destination/guia-expositores.html
 python3 tools/check_deck.py destination/guia-expositores.html --mode guide --expect N --dom
 ```
 
-It is a `guide` (theme `metro`, 297×167 mm): a cast page (who, how many slides, how long, linked) and one row per slide (number, start–end, speaker, message, what they say). What they say is the slide `.notes`; the outline note fills a slide without notes. N is the page count the tool prints. It refuses to overwrite an existing guide without `--force`.
+It is a `guide` (theme `metro`, A4 portrait 210×297 mm, like every guide): a cast page (who, how many slides, how long, linked) and one row per slide (number, start–end, speaker, message, what they say). What they say is the slide `.notes`; the outline note fills a slide without notes. N is the page count the tool prints. It refuses to overwrite an existing guide without `--force`.
 
 ## Harvest
 

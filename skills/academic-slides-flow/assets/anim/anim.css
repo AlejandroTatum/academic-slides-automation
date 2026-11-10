@@ -1,0 +1,39 @@
+/* Deck animation layer: slide entrances, staggered items, count-up, progress bar.
+   Link it after the theme. Screen only: ?print (the PDF) and reduced-motion keep the final static state.
+   Mark extra elements with class "fx" to stagger them; data-step elements are left alone. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  body:not(.print) .slide { transition: opacity .55s ease, transform .7s cubic-bezier(.2,.8,.2,1); transform: translateX(60px) scale(.985); }
+  body:not(.print) .slide.active { transform: none; }
+  body:not(.print) .slide.back { transform: translateX(-60px) scale(.985); }
+
+  body:not(.print) .slide.active [data-anim] { animation: anim-rise .75s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i, 0) * 110ms + 120ms); }
+  body:not(.print) .slide.active .title[data-anim] { animation-name: anim-rise-title; animation-duration: .9s; }
+  body:not(.print) .slide.active .kicker[data-anim] { animation-name: anim-slide-in; }
+
+  body:not(.print) .slide.active .flow-steps .dot,
+  body:not(.print) .slide.active .recap .dot { animation: anim-pop .6s cubic-bezier(.3,1.6,.5,1) both; animation-delay: calc(var(--i, 0) * 110ms + 260ms); }
+  body:not(.print) .slide.active .icon-row .icon { stroke-dasharray: 120; animation: anim-draw 1.4s ease both, anim-pop .6s cubic-bezier(.3,1.6,.5,1) both;
+    animation-delay: calc(var(--i, 0) * 110ms + 300ms); }
+  body:not(.print) .slide.active .icon-row li:hover .icon { animation: anim-wiggle .6s ease; }
+
+  body:not(.print) .slide.active .stat-cards li,
+  body:not(.print) .slide.active .compare-side { transition: transform .3s ease; }
+  body:not(.print) .slide.active .stat-cards li:hover,
+  body:not(.print) .slide.active .compare-side:hover { transform: translateY(-8px); }
+  body:not(.print) .slide.active .compare-trait[data-mark]::before { animation: anim-pop .5s cubic-bezier(.3,1.6,.5,1) both; animation-delay: 900ms; }
+
+  body:not(.print) .slide.alt.active::before { content: ""; position: absolute; width: 900px; height: 900px; right: -200px; top: -260px; border-radius: 50%; z-index: 0; pointer-events: none;
+    background: radial-gradient(circle, color-mix(in srgb, var(--a1, #3D6BFF) 35%, transparent), transparent 65%); animation: anim-drift 9s ease-in-out infinite alternate; }
+
+  #progress { position: fixed; left: 0; top: 0; height: 6px; z-index: 10; transition: width .6s cubic-bezier(.2,.8,.2,1);
+    background: linear-gradient(90deg, var(--a1, #3D6BFF), var(--a2, #FFD600), var(--a3, #7395FF)); }
+}
+#progress { display: none; }
+@media screen and (prefers-reduced-motion: no-preference) { body:not(.print) #progress { display: block; } }
+@keyframes anim-rise { from { opacity: 0; transform: translateY(46px); } to { opacity: 1; transform: none; } }
+@keyframes anim-rise-title { from { opacity: 0; transform: translateY(30px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); } }
+@keyframes anim-slide-in { from { opacity: 0; transform: translateX(-40px); letter-spacing: .4em; } to { opacity: 1; transform: none; } }
+@keyframes anim-pop { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes anim-draw { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
+@keyframes anim-wiggle { 30% { transform: rotate(-8deg) scale(1.06); } 60% { transform: rotate(6deg) scale(1.06); } }
+@keyframes anim-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(-160px, 120px) scale(1.15); } }

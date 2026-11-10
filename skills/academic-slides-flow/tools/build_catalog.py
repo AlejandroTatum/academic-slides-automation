@@ -39,7 +39,7 @@ class Usage(argparse.ArgumentParser):
 def deck_themes() -> list[str]:
     names = []
     for css in sorted((SKILL / "themes").glob("*.css")):
-        if css.stem == "deck-base" or "297mm" in css.read_text(encoding="utf-8"):
+        if css.stem == "deck-base" or re.search(r"@page\s*\{[^}]*\dmm", css.read_text(encoding="utf-8")):  # guide themes print in mm
             continue
         names.append(css.stem)
     return [n for n in FIRST_THEMES if n in names] + [n for n in names if n not in FIRST_THEMES]

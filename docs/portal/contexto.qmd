@@ -7,7 +7,7 @@ title: "Contexto y alcance"
 | Modo | Propósito | Formato | Tema |
 |---|---|---|---|
 | `deck` | Exposición oral con apoyo visual | 1920 × 1080 | Tema de deck elegido por el usuario |
-| `guide` | Lectura autónoma y estudio | 297 × 167 mm | `metro` |
+| `guide` | Lectura autónoma y estudio | A4 vertical (210 × 297 mm) | `metro` |
 
 Un deck muestra una idea por diapositiva; la explicación completa va en `.notes`. Una guía debe poder entenderse sin una exposición oral. El modo lo elige el usuario, nunca se infiere.
 
@@ -24,7 +24,7 @@ Los perfiles de `references/profiles/` agregan reglas por materia y tienen prior
 
 ## Qué se entrega
 
-La salida informa modo, tema y condición experimental, destino, estado del outline y plan, stdout del checker y ruta del PDF. Si se construye una guía de expositores, se informa su ruta por separado. También se indica si la revisión visual sigue pendiente.
+La salida informa modo, tema y condición experimental, destino, estado del outline y plan, stdout del checker y las rutas del HTML animado y del PDF (un deck siempre entrega ambos; el PDF se imprime estático con `?print`). Las guías, incluida la de expositores, son siempre A4 vertical. Si se construye una guía de expositores, se informa su ruta por separado. También se indica si la revisión visual sigue pendiente.
 
 No se sobrescribe un deck o una guía existente sin un pedido explícito. No se anuncia una aprobación que el usuario no dio.
 

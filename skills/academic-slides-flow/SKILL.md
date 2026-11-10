@@ -11,7 +11,7 @@ metadata:
 
 Use when creating or revising a university presentation deck or study guide. Do not use for reports, exercises, or figures alone (`academic-report-flow`, `academic-visual-builder`).
 
-The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, 297×167 mm). Never infer it.
+The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, A4 portrait 210×297 mm). Never infer it. Fixed formats: every guide, including the speaker guide, is A4 portrait; every deck is delivered as an animated `.html` plus a static `.pdf`.
 
 ## Hard Rules
 
@@ -43,15 +43,15 @@ The user chooses the mode: `deck` (spoken, 1920×1080) or `guide` (read alone, 2
 2. Intake: mode, subject, audience, duration or term list, sources, destination folder.
 3. Deck: turn the duration into slides (about 1 per minute). Propose the theme. Show `catalog/index.html` so the user picks components by sight.
 4. Draft the outline (`component | message | visual | spoken note [| speaker [| m:ss]]`), run `tools/outline.py`, show outline + plan. Stop for gate 1.
-5. Copy the shell, `themes/deck-base.css` + the theme (or `metro.css` for a guide), `assets/fonts/`, `assets/katex/` if a formula is used, and the components into the destination. No ad-hoc CSS unless it becomes a component.
+5. Copy the shell, `themes/deck-base.css` + the theme (or `metro.css` for a guide), `assets/fonts/`, `assets/anim/` for a deck (the shell links it last; never ship an unanimated deck HTML or a separate animated copy), `assets/katex/` if a formula is used, and the components into the destination. No ad-hoc CSS unless it becomes a component.
 6. Run `tools/render.sh` and `tools/check_deck.py --mode … --outline … --dom`. Inspect thumbnails for hierarchy, purposeful whitespace and content fit; fix accidental emptiness, overflow, empty pages, and density without filling space for its own sake.
-7. Show the PDF. Stop for gate 2.
+7. Show the deck HTML (animated) and the PDF. Stop for gate 2.
 8. Group talk: build the speaker guide with `tools/speaker_guide.py` as a separate guide, render and check it.
 9. If praised, harvest the element; a praised experimental theme becomes proven.
 
 ## Output Contract
 
-Return the mode, theme (and whether it is experimental), destination path, outline status and plan, checker stdout, PDF path, speaker guide path if built, and whether gate 2 is still open. Do not claim the deck is approved.
+Return the mode, theme (and whether it is experimental), destination path, outline status and plan, checker stdout, HTML path (animated) and PDF path (a deck always has both), speaker guide path if built, and whether gate 2 is still open. Do not claim the deck is approved.
 
 ## References
 

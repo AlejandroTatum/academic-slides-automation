@@ -12,8 +12,10 @@
   .sg-cast li p { color: var(--ink); }
   .sg-cast .k { font-family: var(--mono); font-size: 8pt; color: var(--muted); }
   .sg-rows { display: flex; flex-direction: column; gap: 2.6mm; }
-  .sg-row { display: grid; grid-template-columns: 34mm 30mm 1fr; gap: 4mm; align-items: start; padding: 2.4mm 3mm; background: #FBF9F4;
+  .sg-rows { gap: 3.4mm; }
+  .sg-row { display: grid; grid-template-columns: 20mm 1fr; gap: 4mm; align-items: start; padding: 3mm 4mm; background: #FBF9F4;
     border: 0.3mm solid var(--rule); border-left: 1.4mm solid currentColor; border-radius: 1.6mm; }
+  .sg-who { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; padding-bottom: 1.2mm; margin-bottom: 1.6mm; border-bottom: 0.3mm dashed var(--rule); }
   .sg-n { font-family: var(--head); font-weight: 700; font-size: 18pt; line-height: 1; color: var(--ink); }
   .sg-t { font-family: var(--mono); font-size: 8pt; color: var(--muted); display: block; margin-top: 1mm; }
   .sg-who p { font-weight: 600; }
@@ -32,14 +34,9 @@
   <div class="foot"><span>Reparto</span><nav><a href="#s1">Diapositiva 1</a></nav></div>
 </section>
 <section class="page" id="p2">
-  <div class="top"><div><div class="kicker">Diapositivas 1–4</div><h2>Planificación de procesos</h2></div></div>
-  <div class="sg-rows"><article class="sg-row fg-a" id="s1"><div><span class="sg-n">01</span><span class="sg-t">0:00–1:00 · 1:00</span></div><div class="sg-who"><p>Ana</p><span class="k">cover</span></div><div class="sg-say"><h3>Planificación de procesos</h3><p>Hola, somos el grupo tres y hoy explicamos cómo el sistema reparte la CPU.</p></div></article><article class="sg-row fg-a" id="s2"><div><span class="sg-n">02</span><span class="sg-t">1:00–2:00 · 1:00</span></div><div class="sg-who"><p>Ana</p><span class="k">question-hook</span></div><div class="sg-say"><h3>¿Quién usa la CPU ahora?</h3><p>Pregunta abierta al aula antes de explicar el planificador.</p></div></article><article class="sg-row fg-b" id="s3"><div><span class="sg-n">03</span><span class="sg-t">2:00–3:00 · 1:00</span></div><div class="sg-who"><p>Luis</p><span class="k">icon-row</span></div><div class="sg-say"><h3>Qué decide el planificador</h3><p>El planificador elige el próximo proceso, cuánto tiempo corre y quién queda en la cola.</p></div></article><article class="sg-row fg-b" id="s4"><div><span class="sg-n">04</span><span class="sg-t">3:00–4:00 · 1:00</span></div><div class="sg-who"><p>Luis</p><span class="k">flow-steps</span></div><div class="sg-say"><h3>Ciclo de un proceso</h3><p>Se crea, espera CPU en la cola de listos y el planificador lo despacha.</p></div></article></div>
+  <div class="top"><div><div class="kicker">Diapositivas 1–6</div><h2>Planificación de procesos</h2></div></div>
+  <div class="sg-rows"><article class="sg-row fg-a" id="s1"><div><span class="sg-n">01</span><span class="sg-t">0:00–1:00 · 1:00</span></div><div class="sg-say"><div class="sg-who"><p>Ana</p><span class="k">cover</span></div><h3>Planificación de procesos</h3><p>Hola, somos el grupo tres y hoy explicamos cómo el sistema reparte la CPU.</p></div></article><article class="sg-row fg-a" id="s2"><div><span class="sg-n">02</span><span class="sg-t">1:00–2:00 · 1:00</span></div><div class="sg-say"><div class="sg-who"><p>Ana</p><span class="k">question-hook</span></div><h3>¿Quién usa la CPU ahora?</h3><p>Pregunta abierta al aula antes de explicar el planificador.</p></div></article><article class="sg-row fg-b" id="s3"><div><span class="sg-n">03</span><span class="sg-t">2:00–3:00 · 1:00</span></div><div class="sg-say"><div class="sg-who"><p>Luis</p><span class="k">icon-row</span></div><h3>Qué decide el planificador</h3><p>El planificador elige el próximo proceso, cuánto tiempo corre y quién queda en la cola.</p></div></article><article class="sg-row fg-b" id="s4"><div><span class="sg-n">04</span><span class="sg-t">3:00–4:00 · 1:00</span></div><div class="sg-say"><div class="sg-who"><p>Luis</p><span class="k">flow-steps</span></div><h3>Ciclo de un proceso</h3><p>Se crea, espera CPU en la cola de listos y el planificador lo despacha.</p></div></article><article class="sg-row fg-c" id="s5"><div><span class="sg-n">05</span><span class="sg-t">4:00–5:00 · 1:00</span></div><div class="sg-say"><div class="sg-who"><p>Sofía</p><span class="k">big-number</span></div><h3>El quantum de Round Robin</h3><p>Qué significa el número y de dónde sale.</p></div></article><article class="sg-row fg-c" id="s6"><div><span class="sg-n">06</span><span class="sg-t">5:00–6:00 · 1:00</span></div><div class="sg-say"><div class="sg-who"><p>Sofía</p><span class="k">recap</span></div><h3>Para llevarse</h3><p>Repasar las tres ideas y abrir preguntas.</p></div></article></div>
   <div class="foot"><span>2</span><nav><a href="#reparto">Reparto</a></nav></div>
-</section>
-<section class="page" id="p3">
-  <div class="top"><div><div class="kicker">Diapositivas 5–6</div><h2>Planificación de procesos</h2></div></div>
-  <div class="sg-rows"><article class="sg-row fg-c" id="s5"><div><span class="sg-n">05</span><span class="sg-t">4:00–5:00 · 1:00</span></div><div class="sg-who"><p>Sofía</p><span class="k">big-number</span></div><div class="sg-say"><h3>El quantum de Round Robin</h3><p>Qué significa el número y de dónde sale.</p></div></article><article class="sg-row fg-c" id="s6"><div><span class="sg-n">06</span><span class="sg-t">5:00–6:00 · 1:00</span></div><div class="sg-who"><p>Sofía</p><span class="k">recap</span></div><div class="sg-say"><h3>Para llevarse</h3><p>Repasar las tres ideas y abrir preguntas.</p></div></article></div>
-  <div class="foot"><span>3</span><nav><a href="#reparto">Reparto</a></nav></div>
 </section>
 </body>
 </html>
