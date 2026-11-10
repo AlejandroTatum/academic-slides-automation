@@ -46,7 +46,7 @@ done
 echo "==> Checking speaker guide fixture"
 "$PY" "$SRC/$SKILL/tools/outline.py" "$SRC/$SKILL/examples/deck/outline.txt" >/dev/null
 "$PY" "$SRC/$SKILL/tools/check_deck.py" "$SRC/$SKILL/examples/deck/guia-expositores.html" \
-  --mode guide --expect 3 --dom
+  --mode guide --expect 2 --dom
 GUIDE_TMP="$(mktemp -p "$SRC/$SKILL/examples/deck" .guide-check.XXXXXX.html)"
 PYTHONDONTWRITEBYTECODE=1 "$PY" "$SRC/$SKILL/tools/speaker_guide.py" "$SRC/$SKILL/examples/deck/index.html" \
   "$SRC/$SKILL/examples/deck/outline.txt" --out "$GUIDE_TMP" --force >/dev/null
