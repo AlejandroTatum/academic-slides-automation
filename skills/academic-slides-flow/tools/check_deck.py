@@ -42,6 +42,7 @@ USAGE = (
     "usage: check_deck.py HTML --mode deck|guide (--expect N | --outline FILE) [--dom]"
     " [--max-items N] [--max-words N]"
 )
+DOM_SCOPE = "page-boundary overflow only; not inter-element overlaps, composition, or visual quality"
 MAX_ITEMS = 3
 MAX_WORDS = 30
 # Text inside these never counts toward slide density: it is spoken, chrome, or code.
@@ -100,22 +101,25 @@ def density_lines(html: str, max_items: int, max_words: int) -> list[str]:
     parser = Density()
     parser.feed(html)
     failures: list[str] = []
+    counts: list[str] = []
     dense = 0
     for number, slide in enumerate(parser.slides, start=1):
+        name = f"slide {number}" + (f" (#{slide['id']})" if slide["id"] else "")
+        exempt = " (data-dense exempt)" if slide["dense"] else ""
+        counts.append(f"density: {name}: {slide['items']} items, {slide['words']} words{exempt}")
         if slide["dense"]:
             dense += 1
             continue
-        name = f"slide {number}" + (f" (#{slide['id']})" if slide["id"] else "")
         if slide["items"] > max_items:
             failures.append(f"density: {name} has {slide['items']} items (max {max_items})")
         if slide["words"] > max_words:
             failures.append(f"density: {name} has {slide['words']} words (max {max_words})")
     if failures:
-        return failures
+        return counts + failures
     if dense:
         plural = "slide" if dense == 1 else "slides"
-        return [f"density: pass ({dense} dense {plural} allowed)"]
-    return ["density: pass"]
+        return counts + [f"density: pass ({dense} dense {plural} allowed)"]
+    return counts + ["density: pass"]
 
 
 def positive(text: str) -> int:
@@ -360,7 +364,11 @@ addEventListener('load', () => {
 
 
 def passing(line: str) -> bool:
-    if line.startswith("density: pass"):
+    if line.startswith("density: pass") or re.fullmatch(
+        r"density: slide \d+(?: \(#[\s\S]*\))?: \d+ items, \d+ words(?: \(data-dense exempt\))?", line
+    ):
+        return True
+    if line == f"overflow: scope: {DOM_SCOPE}":
         return True
     return line in {
         "count: pass",
@@ -385,6 +393,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.help or not args.mode or (args.expect is None and not args.outline) or not args.html:
         print(USAGE, file=sys.stderr)
+        if args.help:
+            print(f"--dom: checks {DOM_SCOPE}", file=sys.stderr)
         return 2
     limits_given = args.max_items is not None or args.max_words is not None
     if limits_given and args.mode != "deck":
@@ -415,7 +425,11 @@ def main(argv: list[str] | None = None) -> int:
     lines.extend(font_findings(css, args.mode))
     if args.mode == "deck":
         lines.extend(density_lines(html, max_items, max_words))
-    lines.extend(dom_overflow(html_path) if args.dom else ["overflow: skipped"])
+    if args.dom:
+        lines.append(f"overflow: scope: {DOM_SCOPE}")
+        lines.extend(dom_overflow(html_path))
+    else:
+        lines.append("overflow: skipped")
     sys.stdout.write("\n".join(lines) + "\n")
     return 0 if all(passing(line) for line in lines) else 1
 

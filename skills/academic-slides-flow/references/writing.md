@@ -36,7 +36,7 @@ By default a deck slide shows at most **3 items** and **30 words**. Visual first
 - The full spoken text stays in `.notes`. Bare labels with no guide are too thin; paragraphs are too much.
 
 - An item is an `<li>` or an element with class `item`. Words are the visible text outside `.notes`, `.kicker`, `.foot`, `pre`, `code`, `svg`, and math.
-- When the user asks for more, or the content needs it (a comparison table, a dense recap), mark that slide `data-dense`. Say why in the outline line.
+- When the user asks for more, or the content needs it (a comparison table, a dense recap), mark that slide `data-dense`. Say why in the outline line. The checker still reports its item and word counts and marks it exempt.
 - When the user wants a denser deck overall, run the checker with `--max-items N` and/or `--max-words N`. Record the values in the outline header.
 - Never shrink text to fit the default. Split the slide, move text to `.notes`, or mark it dense.
 

@@ -2,6 +2,7 @@
 """Tests for check_deck.py. Public CLI only."""
 
 import hashlib
+import os
 import subprocess
 import sys
 import tempfile
@@ -11,7 +12,7 @@ from pathlib import Path
 TOOL = Path(__file__).with_name("check_deck.py")
 
 
-def run(html: str, *args: str, files: dict[str, str] | None = None):
+def run(html: str, *args: str, files: dict[str, str] | None = None, fake_dom: bool = False):
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         path = root / "deck.html"
@@ -20,12 +21,19 @@ def run(html: str, *args: str, files: dict[str, str] | None = None):
             dest = root / name
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_text(text, encoding="utf-8")
+        env = None
+        if fake_dom:
+            brave = root / "brave"
+            brave.write_text('#!/bin/sh\nprintf \'<pre id="check-report">[]</pre>\\n\'\n', encoding="utf-8")
+            brave.chmod(0o755)
+            env = {**os.environ, "PATH": str(root) + os.pathsep + os.environ.get("PATH", "")}
         before = hashlib.sha256(path.read_bytes()).hexdigest()
         proc = subprocess.run(
             [sys.executable, str(TOOL), str(path), *args],
             text=True,
             capture_output=True,
             check=False,
+            env=env,
         )
         after = hashlib.sha256(path.read_bytes()).hexdigest()
         return proc, before == after
@@ -72,7 +80,7 @@ class DensityTests(unittest.TestCase):
         self.assertEqual(proc.returncode, 1)
         self.assertEqual(proc.stderr, "")
         self.assertTrue(same)
-        self.assertIn("density: slide 1 (#s1) has 4 items (max 3)\n", proc.stdout)
+        self.assertEqual(proc.stdout, "count: pass\nanchors: pass\nfonts: local\nfont-size: pass\ndensity: slide 1 (#s1): 4 items, 5 words\ndensity: slide 1 (#s1) has 4 items (max 3)\noverflow: skipped\n")
         self.assertNotIn("density: pass", proc.stdout)
 
     def test_too_many_words_fails(self):
@@ -131,7 +139,8 @@ class DensityTests(unittest.TestCase):
         proc, same = run(deck(slide, WORDY.replace('id="s1"', 'id="s2" data-dense')), "--mode", "deck", "--expect", "2")
         self.assertEqual(proc.returncode, 0, proc.stdout)
         self.assertTrue(same)
-        self.assertIn("density: pass (2 dense slides allowed)\n", proc.stdout)
+        self.assertEqual(proc.stderr, "")
+        self.assertEqual(proc.stdout, "count: pass\nanchors: pass\nfonts: local\nfont-size: pass\ndensity: slide 1 (#s1): 4 items, 5 words (data-dense exempt)\ndensity: slide 2 (#s2): 0 items, 35 words (data-dense exempt)\ndensity: pass (2 dense slides allowed)\noverflow: skipped\n")
 
     def test_max_items_and_words_raise_the_default(self):
         proc, _ = run(deck(FOUR_ITEMS), "--mode", "deck", "--expect", "1", "--max-items", "4")
@@ -187,7 +196,7 @@ class CheckDeckTests(unittest.TestCase):
         self.assertTrue(same)
         self.assertEqual(
             proc.stdout,
-            "count: pass\nanchors: pass\nfonts: local\nfont-size: pass\ndensity: pass\noverflow: skipped\n",
+            "count: pass\nanchors: pass\nfonts: local\nfont-size: pass\ndensity: slide 1 (#s1): 0 items, 3 words\ndensity: pass\noverflow: skipped\n",
         )
 
     def test_count_mismatch(self):
@@ -276,6 +285,26 @@ html, body { font-size: 10.5pt; }"""
         proc, _ = run(html, "--mode", "guide", "--expect", "1", files={"theme.css": css})
         self.assertEqual(proc.returncode, 1)
         self.assertIn("fonts: missing fonts/missing.woff2", proc.stdout)
+
+    def test_dom_scope_for_both_modes(self):
+        scope = "overflow: scope: page-boundary overflow only; not inter-element overlaps, composition, or visual quality\n"
+        for mode, html, density in (
+            ("guide", GUIDE_OK, ""),
+            ("deck", DECK_OK, "density: slide 1 (#s1): 0 items, 3 words\ndensity: pass\n"),
+        ):
+            with self.subTest(mode=mode):
+                proc, same = run(html, "--mode", mode, "--expect", "1", "--dom", fake_dom=True)
+                self.assertEqual(proc.returncode, 0)
+                self.assertEqual(proc.stderr, "")
+                self.assertTrue(same)
+                self.assertEqual(proc.stdout, "count: pass\nanchors: pass\nfonts: local\nfont-size: pass\n" + density + scope + "overflow: pass\n")
+
+    def test_help_describes_dom_scope(self):
+        proc, same = run(GUIDE_OK, "--help")
+        self.assertEqual(proc.returncode, 2)
+        self.assertEqual(proc.stdout, "")
+        self.assertTrue(same)
+        self.assertEqual(proc.stderr, "usage: check_deck.py HTML --mode deck|guide (--expect N | --outline FILE) [--dom] [--max-items N] [--max-words N]\n--dom: checks page-boundary overflow only; not inter-element overlaps, composition, or visual quality\n")
 
     def test_dom_overflow_uses_the_linked_stylesheet(self):
         html = """<!DOCTYPE html><html data-mode="deck"><head>

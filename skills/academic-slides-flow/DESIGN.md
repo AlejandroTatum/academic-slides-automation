@@ -161,7 +161,8 @@ academic-slides-flow/
 ## `check_deck.py` (MVP scope)
 
 - Page/slide count matches the approved outline.
-- No element overflows its page (render-time bounding box check via headless DOM).
+- `--dom`: page-boundary overflow via headless DOM bounding boxes, not inter-element overlaps, composition, or visual quality.
+- Deck density: per-slide item and word counts, including marked `data-dense` exemptions; no density report for guides.
 - Minimum font size per mode.
 - Every `href="#x"` has a matching `id="x"`.
 - Fonts resolved locally (no `fonts.googleapis.com` in the HTML).
