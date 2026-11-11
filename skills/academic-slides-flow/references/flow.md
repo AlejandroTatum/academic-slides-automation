@@ -51,6 +51,8 @@ flow-steps | Un proceso listo espera turno de CPU | Secuencia: creación → esp
 
 For each content slide, draft a specific sourced point, a supporting example or evidence, and the visual's explanatory purpose. Put the source file and page/section or other locator in the outline or notes without adding fields; distinguish an illustration from evidence. Choose the existing component for that purpose, not a default icon or card. If sources are insufficient, narrow the claim, mark the gap or request evidence. Covers, section pauses and conclusions serve different roles; see `writing.md` for examples and composition review.
 
+Review the component sequence before presenting the outline. Use `writing.md`'s variety guidance to match different content jobs to different structures; flag consecutive repetitions and a dominant diagram or card layout. Keep repetition when it helps compare like material or follow one process, explaining it in the existing spoken notes. Show a brief component-mix summary and the reasons for deliberate repeats with the outline; do not impose a component quota, change the theme per slide, or count color/icon swaps as variety. This belongs to gate 1, not a new approval gate or outline field.
+
 Run `python3 tools/outline.py outline.txt`. It prints the plan (start, length, speaker per slide) and exits 1 on an unknown component, a bad time, an unknown speaker, or explicit times over the duration. `note:` lines (long message, slide count far from the duration) are advice. Show the plan with the outline at gate 1. Correct factual errors in the source here and list each correction before styling. Terms that are not in the user's list are `TIP`, on that line.
 
 Stop. Wait for an explicit approval. Silence is not approval.
@@ -87,7 +89,7 @@ In `deck` mode the checker reports per-slide item and word counts, marking `data
 
 For both modes, `--dom` checks page-boundary overflow only, not inter-element overlaps, composition, or visual quality.
 
-`check_deck.py` writes findings to stdout and does not modify the HTML. Exit 0 is required before showing the PDF. Then inspect thumbnails for hierarchy, legibility, evidence and visual fit. Keep whitespace that focuses or separates; fix content that looks stranded or unsupported, overflow and empty pages. Do not fill space with decoration or enforce occupancy or word minima. A checker pass is neither a composition judgment nor visual approval.
+`check_deck.py` writes findings to stdout and does not modify the HTML. Exit 0 is required before showing the PDF. Then inspect thumbnails individually and as a sequence for hierarchy, legibility, evidence, visual fit and component diversity. Check that the content slides do not repeat the same diagram or card grid for unrelated information jobs; covers and pauses do not compensate for a monotonous body. Preserve intentional repetition justified in the outline. Keep whitespace that focuses or separates; fix content that looks stranded or unsupported, overflow and empty pages. Do not fill space with decoration or enforce occupancy or word minima. A checker pass is neither a composition judgment nor visual approval.
 
 ## Gate 2 — visual review
 
