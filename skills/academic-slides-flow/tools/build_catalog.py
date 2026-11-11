@@ -22,6 +22,9 @@ COMPONENTS = [
     "cover", "question-hook", "icon-row", "big-number", "flow-steps",
     "deck-case-map", "deck-compare", "figure-full", "formula-hero",
     "deck-annotated-code", "section-divider", "recap",
+    "avatar-cards", "block-opener", "demo-script", "evidence-frame",
+    "pipeline-flow", "rail-timeline", "scatter-cards", "sheet-frame",
+    "stair-steps", "stat-hero",
 ]
 FIRST_THEMES = ["deportivo", "metro-deck"]
 STYLE = re.compile(r"<style>.*?</style>", re.S)

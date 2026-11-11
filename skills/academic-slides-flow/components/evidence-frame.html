@@ -1,0 +1,52 @@
+<!-- component: evidence-frame | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slides 5, 10, 16.
+     Evidence as an object, not a loose picture. .browser-frame wraps a web screenshot in window chrome
+     (three dots + the real URL in .url); .terminal-frame wraps terminal or HTTP output (command in .ttl).
+     .compact: a smaller bar without dots, for thumbnails and side-by-side frames with a long URL.
+     --k picks the category accent: .k1 .k2 .k3 (default a1). Numbered .pin badges point at the key
+     spot: inline at the end of a code line, or .pin.abs with left/top percentages over a screenshot.
+     .pin-legend is the ordered key (pin + short phrase) when the phrases are not in the frame.
+     Capture screenshots at deviceScaleFactor 2 with an element clip; never upscale. The URL must be the
+     real address of the capture. Pin numbers and their legend are the only text that counts as density. -->
+<style>
+  :where(.browser-frame, .terminal-frame) { --k: var(--a1); margin: 0; display: flex; flex-direction: column; min-width: 0; min-height: 0;
+    border: 4px solid var(--k); border-radius: 20px; overflow: hidden; background: var(--bg); box-shadow: 16px 16px 0 color-mix(in srgb, var(--k) 22%, transparent); }
+  :where(.browser-frame.k2, .terminal-frame.k2) { --k: var(--a2); }
+  :where(.browser-frame.k3, .terminal-frame.k3) { --k: var(--a3); }
+  :where(.browser-frame .bar, .terminal-frame .bar) { flex: none; display: flex; align-items: center; gap: 12px; padding: 14px 24px; background: var(--k); color: var(--dot-fg, var(--bg)); }
+  :where(.browser-frame .bar i, .terminal-frame .bar i) { flex: none; width: 18px; height: 18px; border-radius: 50%; background: currentColor; opacity: .55; }
+  :where(.browser-frame .url, .terminal-frame .ttl) { flex: 1; min-width: 0; margin-left: 12px; padding: 7px 24px; border-radius: 999px; background: color-mix(in srgb, currentColor 18%, transparent);
+    font: 500 24px/1.3 var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  :where(.browser-frame.compact .bar) { padding: 10px 16px; }
+  :where(.browser-frame.compact .bar i) { display: none; }
+  :where(.browser-frame.compact .url) { margin-left: 0; padding: 5px 16px; font-size: 20px; }
+  :where(.browser-frame .shot) { position: relative; flex: none; background: #fff; }
+  :where(.browser-frame .shot img, .browser-frame .shot svg) { display: block; width: 100%; height: auto; }
+  :where(.terminal-frame pre) { margin: 0; padding: 36px 44px; flex: 1; font: 500 34px/1.65 var(--mono); white-space: pre; overflow: hidden;
+    background: color-mix(in srgb, var(--fg) 88%, #000); color: var(--bg); }
+  :where(.terminal-frame pre span) { display: block; }
+  :where(.terminal-frame pre .hl) { margin: 0 -44px; padding: 0 44px; background: color-mix(in srgb, var(--k) 50%, transparent); }
+  :where(.terminal-frame pre .dim) { opacity: .6; }
+  :where(.pin) { --pin: var(--a2); display: inline-grid; place-items: center; width: 48px; height: 48px; margin-left: 20px; border-radius: 50%; vertical-align: middle;
+    background: var(--pin); color: var(--dot-fg, var(--bg)); font: 700 28px/1 var(--mono); }
+  :where(.terminal-frame .pin) { --pin: var(--bg); color: var(--fg); }
+  :where(.pin-legend) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  :where(.pin-legend li) { display: flex; align-items: center; gap: 24px; font-size: 38px; font-weight: 600; }
+  :where(.pin-legend .pin) { flex: none; margin: 0; }
+  :where(.pin.abs) { position: absolute; margin: 0; transform: translate(-50%, -50%); box-shadow: 0 0 0 6px color-mix(in srgb, var(--pin) 28%, transparent); }
+</style>
+<section class="slide" id="evidencia">
+  <p class="kicker">Evidencia · ejemplo ilustrativo</p>
+  <h1 class="title sm">La evidencia es un objeto, no una imagen suelta</h1>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 56px;">
+    <figure class="browser-frame fx">
+      <div class="bar"><i></i><i></i><i></i><span class="url">example.org/docs/matriz.md</span></div>
+      <div class="shot"><svg viewBox="0 0 800 360" role="img" aria-label="Tabla con tres filas; la segunda destacada con un pin"><rect width="800" height="360" fill="#fff"/><g fill="#d8dee4"><rect x="30" y="30" width="740" height="44"/><rect x="30" y="110" width="740" height="44"/><rect x="30" y="190" width="740" height="44" fill="#b7d9d0"/><rect x="30" y="270" width="740" height="44"/></g></svg><b class="pin abs" style="left: 90%; top: 60%;">1</b></div>
+    </figure>
+    <figure class="terminal-frame k2 fx">
+      <div class="bar"><i></i><i></i><i></i><span class="ttl">$ curl -i example.org/health/</span></div>
+      <pre><code><span class="dim">HTTP/1.1 200 OK</span><span class="hl">X-Request-ID: demo-01<b class="pin">2</b></span><span>{"status": "ok"}</span></code></pre>
+    </figure>
+  </div>
+  <aside class="notes">Ejemplo ilustrativo sin datos reales: a la izquierda una captura web en marco de navegador con la URL real; a la derecha una salida de terminal con la línea clave marcada. El pin numerado enlaza con la explicación hablada.</aside>
+</section>

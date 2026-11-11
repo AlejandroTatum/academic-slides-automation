@@ -45,6 +45,13 @@ class DeckHtmlIsAnimated(unittest.TestCase):
             for part in selector.split(","):
                 self.assertIn("body:not(.print)", part, part)
 
+    def test_title_reveal_preserves_accent_extents(self):
+        css = read("assets/anim/anim.css")
+        keyframes = re.search(r"@keyframes anim-rise-title\s*\{\s*from\s*\{([^}]*)\}\s*to\s*\{([^}]*)\}\s*\}", css)
+        self.assertIsNotNone(keyframes)
+        self.assertIn("clip-path: inset(-30% 0 100% 0)", keyframes.group(1))
+        self.assertIn("clip-path: inset(-30% 0 -30% 0)", keyframes.group(2))
+
     def test_animation_script_is_plain_js_and_skips_print(self):
         js = read("assets/anim/anim.js")
         self.assertNotIn("<script", js)

@@ -1,0 +1,23 @@
+<!-- component: scatter-cards | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slide 2.
+     A problem that is "scattered" shown as loose paper cards at different angles, beside a big question on an .alt
+     slide (question-hook). Papers use the inverse tokens (--alt-fg paper, --alt-bg ink). 3 papers, one word or two each;
+     set --rot and --dx/--dy per paper (keep the lead under ~960px so it never runs under them). The container is positioned by the slide, never by the theme. -->
+<style>
+  .slide.alt > .scatter-cards { position: absolute; right: 100px; top: 250px; width: 560px; height: 640px; margin: 0; padding: 0; list-style: none; }
+  :where(.scatter-cards .paper) { --rot: 0deg; --dx: 0px; --dy: 0px; position: absolute; left: var(--dx); top: var(--dy); width: 400px; padding: 30px 32px 34px; background: var(--alt-fg); color: var(--alt-bg);
+    transform: rotate(var(--rot)); box-shadow: 12px 14px 0 color-mix(in srgb, var(--alt-bg) 40%, #000); border-radius: 6px; }
+  :where(.scatter-cards .paper .lbl) { display: block; font: var(--dw) 46px/1.05 var(--display); text-transform: var(--tt); letter-spacing: var(--ls); }
+  :where(.scatter-cards .paper)::after { content: ""; display: block; height: 62px; margin-top: 20px; background: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--alt-bg) 40%, transparent) 0 6px, transparent 6px 22px); }
+</style>
+<section class="slide alt question-hook" id="disperso">
+  <p class="kicker">Problema · ejemplo ilustrativo</p>
+  <h1 class="title" style="max-width: 900px">¿Dónde está lo que pasó?</h1>
+  <p class="lead">Hoy está repartido.</p>
+  <ul class="scatter-cards" aria-hidden="true">
+    <li class="paper fx" style="--rot: -6deg; --dx: 10px; --dy: 0px"><span class="lbl">Formularios</span></li>
+    <li class="paper fx" style="--rot: 4deg; --dx: 150px; --dy: 200px"><span class="lbl">Correos</span></li>
+    <li class="paper fx" style="--rot: -3deg; --dx: 40px; --dy: 400px"><span class="lbl">Archivos</span></li>
+  </ul>
+  <aside class="notes">Ejemplo ilustrativo: tres papeles sueltos y torcidos comunican dispersión mejor que una lista.</aside>
+</section>

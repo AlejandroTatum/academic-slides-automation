@@ -1,0 +1,35 @@
+<!-- component: block-opener | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slides 1 and 10.
+     Opens a speaker block (or a section) in color, with a role label that says who and what:
+     .block-role is a .kicker pill ("Teoría y diseño · Alejandro"); it never counts toward density.
+     Two forms, both full-bleed:
+     .opener-mark   on an .alt slide (cover): a huge outlined glyph, decorative, aria-hidden.
+     .block-split   a full-height color panel (--blk, default a2) with the role, title and lead on the left
+                    and the slide's real content (a frame, a figure) on the right in .block-main.
+     Category color: the panel color is the block's category (a1 theory and design, a2 implementation, a3 quality). -->
+<style>
+  :where(.block-role) { align-self: flex-start; padding: 10px 26px; border: 3px solid currentColor; border-radius: 999px; color: inherit; }
+  .slide.alt > .opener-mark { position: absolute; z-index: 0; right: 90px; bottom: 100px; margin: 0; font: var(--dw) 300px/.8 var(--display); letter-spacing: var(--ls);
+    color: transparent; -webkit-text-stroke: 4px color-mix(in srgb, var(--alt-fg) 40%, transparent); pointer-events: none; user-select: none; }
+  .slide.block-split { --blk: var(--a2); flex-direction: row; align-items: stretch; gap: 72px; padding: 96px 120px 150px 780px; }
+  .slide.block-split > .block-panel { position: absolute; left: 0; top: 0; bottom: 0; width: 700px; padding: 96px 56px 150px 150px; display: flex; flex-direction: column; justify-content: center; gap: 36px;
+    background: var(--blk); color: var(--dot-fg, var(--bg)); }
+  .slide.block-split > .block-panel .kicker, .slide.block-split > .block-panel .lead { color: inherit; }
+  .slide.block-split > .block-panel .title { max-width: none; }
+  .slide.block-split .foot > :first-child { max-width: 480px; line-height: 1.4; color: var(--dot-fg, var(--bg)); }
+  .slide.block-split > .block-main { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 32px; }
+</style>
+<section class="slide block-split" id="bloque" style="--blk: var(--a2)">
+  <div class="block-panel">
+    <p class="kicker block-role">Implementación · Ana</p>
+    <h1 class="title sm">Un título que afirma algo</h1>
+    <p class="lead">Una línea de contexto.</p>
+  </div>
+  <div class="block-main">
+    <figure class="terminal-frame k2 fx">
+      <div class="bar"><i></i><i></i><i></i><span class="ttl">$ ejemplo</span></div>
+      <pre><code><span>GET /health/</span><span class="hl">200 OK<b class="pin">1</b></span></code></pre>
+    </figure>
+  </div>
+  <aside class="notes">Ejemplo ilustrativo: el panel de color abre el bloque de quien presenta; el contenido real vive a la derecha. Usa evidence-frame para el marco de la derecha.</aside>
+</section>

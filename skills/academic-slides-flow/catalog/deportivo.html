@@ -55,6 +55,8 @@
   :where(.deck-case-map .case-role) { font: 600 26px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
   :where(.deck-case-map .case-node strong) { font: var(--dw) 58px/1.05 var(--display); overflow-wrap: anywhere; }
   :where(.deck-case-map .case-node p:last-child) { font-size: 38px; }
+  :where(.deck-case-map .case-tag) { align-self: flex-start; padding: 6px 20px; border: 3px solid var(--node); border-radius: 999px; color: var(--node); font: 700 26px/1.2 var(--mono); }
+  :where(.deck-case-map .case-tag.on) { background: var(--node); color: var(--dot-fg, var(--bg)); }
   :where(.deck-case-map .case-link) { align-self: center; text-align: center; font-size: 32px; font-weight: 600; line-height: 1.2; }
   :where(.deck-case-map .case-link)::after { content: '⟶'; display: block; font-size: 88px; line-height: 1; color: var(--muted); }
 </style>
@@ -110,6 +112,187 @@
     color: var(--dot-fg, var(--bg)); font-family: var(--display); font-weight: var(--dw); font-size: 56px; }
   :where(.recap li:nth-child(3n+2) .dot) { background: var(--a2); }
   :where(.recap li:nth-child(3n) .dot) { background: var(--a3); }
+</style>
+<!-- avatar-cards -->
+<style>
+  :where(.avatar-cards) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  :where(.avatar-cards li) { --k: color-mix(in srgb, var(--fg) 55%, var(--bg)); display: grid; grid-template-columns: 92px 190px minmax(0, 1fr) auto; align-items: center; column-gap: 24px;
+    padding: 8px 28px 8px 12px; border-radius: 999px; background: color-mix(in srgb, var(--fg) 6%, transparent); }
+  :where(.avatar-cards li.k1) { --k: var(--a1); } :where(.avatar-cards li.k2) { --k: var(--a2); } :where(.avatar-cards li.k3) { --k: var(--a3); }
+  :where(.avatar-cards .avatar) { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: var(--k); color: var(--dot-fg, var(--bg)); font: var(--dw) 40px/1 var(--display); letter-spacing: .02em; }
+  :where(.avatar-cards .name) { font-size: 34px; font-weight: 600; }
+  :where(.avatar-cards .meter) { height: 18px; border-radius: 999px; background: color-mix(in srgb, var(--fg) 12%, transparent); overflow: hidden; }
+  :where(.avatar-cards .meter)::before { content: ""; display: block; width: var(--w, 50%); height: 100%; border-radius: 999px; background: var(--k); }
+  :where(.avatar-cards .nums) { font: 500 30px/1 var(--mono); white-space: nowrap; }
+  :where(.avatar-cards .nums b) { font-weight: 700; }
+</style>
+<!-- block-opener -->
+<style>
+  :where(.block-role) { align-self: flex-start; padding: 10px 26px; border: 3px solid currentColor; border-radius: 999px; color: inherit; }
+  .slide.alt > .opener-mark { position: absolute; z-index: 0; right: 90px; bottom: 100px; margin: 0; font: var(--dw) 300px/.8 var(--display); letter-spacing: var(--ls);
+    color: transparent; -webkit-text-stroke: 4px color-mix(in srgb, var(--alt-fg) 40%, transparent); pointer-events: none; user-select: none; }
+  .slide.block-split { --blk: var(--a2); flex-direction: row; align-items: stretch; gap: 72px; padding: 96px 120px 150px 780px; }
+  .slide.block-split > .block-panel { position: absolute; left: 0; top: 0; bottom: 0; width: 700px; padding: 96px 56px 150px 150px; display: flex; flex-direction: column; justify-content: center; gap: 36px;
+    background: var(--blk); color: var(--dot-fg, var(--bg)); }
+  .slide.block-split > .block-panel .kicker, .slide.block-split > .block-panel .lead { color: inherit; }
+  .slide.block-split > .block-panel .title { max-width: none; }
+  .slide.block-split .foot > :first-child { max-width: 480px; line-height: 1.4; color: var(--dot-fg, var(--bg)); }
+  .slide.block-split > .block-main { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 32px; }
+</style>
+<!-- demo-script -->
+<style>
+  :where(.demo-link) { --k: var(--a2); align-self: flex-start; display: inline-flex; align-items: center; gap: 22px; padding: 14px 38px 14px 16px; border-radius: 999px;
+    background: var(--k); color: var(--dot-fg, var(--bg)); font: 700 34px/1.2 var(--mono); text-decoration: none; box-shadow: 8px 8px 0 color-mix(in srgb, var(--k) 25%, transparent); }
+  :where(.demo-link .go) { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--dot-fg, var(--bg)); }
+  :where(.demo-link .go)::before { content: ""; margin-left: 8px; border-left: 22px solid var(--k); border-top: 14px solid transparent; border-bottom: 14px solid transparent; }
+  :where(.demo-script) { --k: var(--a2); list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+  :where(.demo-script li) { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; align-items: center; column-gap: 26px; row-gap: 2px; padding: 16px 28px 16px 20px;
+    border-left: 10px solid var(--k); background: color-mix(in srgb, var(--k) 9%, transparent); }
+  :where(.demo-script .pin) { --pin: var(--k); grid-row: 1 / span 2; margin: 0; width: 56px; height: 56px; }
+  :where(.demo-script .step-line) { font: 600 34px/1.25 var(--mono); overflow-wrap: anywhere; }
+  :where(.demo-script .verb) { color: var(--k); font-weight: 700; margin-right: .5ch; }
+  :where(.demo-script .body) { grid-column: 2 / span 2; font: 400 26px/1.3 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+  :where(.demo-script .expect) { font: 700 30px/1 var(--mono); padding: 10px 22px; border: 3px solid var(--k); border-radius: 12px; white-space: nowrap; }
+  :where(.demo-script .expect.ok) { background: var(--k); color: var(--dot-fg, var(--bg)); }
+  :where(.demo-script .expect.no) { color: var(--k); }
+  :where(.demo-backup) { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+  :where(.demo-backup .backup-tag) { font: 700 24px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  :where(.demo-cmd) { --k: var(--a3); display: flex; flex-direction: column; border: 4px solid var(--k); border-radius: 18px; overflow: hidden;
+    background: color-mix(in srgb, var(--fg) 88%, #000); color: var(--bg); box-shadow: 12px 12px 0 color-mix(in srgb, var(--k) 22%, transparent); }
+  :where(.demo-cmd.k1) { --k: var(--a1); } :where(.demo-cmd.k2) { --k: var(--a2); }
+  :where(.demo-cmd .cmd-bar) { display: flex; align-items: center; gap: 16px; padding: 8px 26px; background: var(--k); color: var(--dot-fg, var(--bg));
+    font: 700 24px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+  :where(.demo-cmd .live)::before { content: ""; display: inline-block; width: 16px; height: 16px; margin-right: 14px; border-radius: 50%; background: currentColor; vertical-align: -1px; }
+  :where(.demo-cmd .cmd-note) { margin-left: auto; opacity: .8; font-weight: 500; letter-spacing: .06em; text-transform: none; }
+  :where(.demo-cmd pre) { margin: 0; padding: 20px 30px; font: 500 28px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; user-select: all; }
+  :where(.demo-cmd pre b) { color: color-mix(in srgb, var(--k) 55%, var(--bg)); font-weight: 600; }
+  :where(.demo-cmd .expect-row) { display: flex; align-items: baseline; gap: 22px; padding: 12px 30px 16px; border-top: 3px dashed color-mix(in srgb, var(--bg) 40%, transparent); font: 500 28px/1.35 var(--mono); }
+  :where(.demo-cmd .expect-row .lbl) { flex: none; font: 700 22px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--k) 55%, var(--bg)); }
+</style>
+<!-- evidence-frame -->
+<style>
+  :where(.browser-frame, .terminal-frame) { --k: var(--a1); margin: 0; display: flex; flex-direction: column; min-width: 0; min-height: 0;
+    border: 4px solid var(--k); border-radius: 20px; overflow: hidden; background: var(--bg); box-shadow: 16px 16px 0 color-mix(in srgb, var(--k) 22%, transparent); }
+  :where(.browser-frame.k2, .terminal-frame.k2) { --k: var(--a2); }
+  :where(.browser-frame.k3, .terminal-frame.k3) { --k: var(--a3); }
+  :where(.browser-frame .bar, .terminal-frame .bar) { flex: none; display: flex; align-items: center; gap: 12px; padding: 14px 24px; background: var(--k); color: var(--dot-fg, var(--bg)); }
+  :where(.browser-frame .bar i, .terminal-frame .bar i) { flex: none; width: 18px; height: 18px; border-radius: 50%; background: currentColor; opacity: .55; }
+  :where(.browser-frame .url, .terminal-frame .ttl) { flex: 1; min-width: 0; margin-left: 12px; padding: 7px 24px; border-radius: 999px; background: color-mix(in srgb, currentColor 18%, transparent);
+    font: 500 24px/1.3 var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  :where(.browser-frame.compact .bar) { padding: 10px 16px; }
+  :where(.browser-frame.compact .bar i) { display: none; }
+  :where(.browser-frame.compact .url) { margin-left: 0; padding: 5px 16px; font-size: 20px; }
+  :where(.browser-frame .shot) { position: relative; flex: none; background: #fff; }
+  :where(.browser-frame .shot img, .browser-frame .shot svg) { display: block; width: 100%; height: auto; }
+  :where(.terminal-frame pre) { margin: 0; padding: 36px 44px; flex: 1; font: 500 34px/1.65 var(--mono); white-space: pre; overflow: hidden;
+    background: color-mix(in srgb, var(--fg) 88%, #000); color: var(--bg); }
+  :where(.terminal-frame pre span) { display: block; }
+  :where(.terminal-frame pre .hl) { margin: 0 -44px; padding: 0 44px; background: color-mix(in srgb, var(--k) 50%, transparent); }
+  :where(.terminal-frame pre .dim) { opacity: .6; }
+  :where(.pin) { --pin: var(--a2); display: inline-grid; place-items: center; width: 48px; height: 48px; margin-left: 20px; border-radius: 50%; vertical-align: middle;
+    background: var(--pin); color: var(--dot-fg, var(--bg)); font: 700 28px/1 var(--mono); }
+  :where(.terminal-frame .pin) { --pin: var(--bg); color: var(--fg); }
+  :where(.pin-legend) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  :where(.pin-legend li) { display: flex; align-items: center; gap: 24px; font-size: 38px; font-weight: 600; }
+  :where(.pin-legend .pin) { flex: none; margin: 0; }
+  :where(.pin.abs) { position: absolute; margin: 0; transform: translate(-50%, -50%); box-shadow: 0 0 0 6px color-mix(in srgb, var(--pin) 28%, transparent); }
+</style>
+<!-- pipeline-flow -->
+<style>
+  :where(.pipeline-flow) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 64px; }
+  :where(.pipeline-flow .stage) { --node: var(--a1); position: relative; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 26px 24px 30px;
+    border-top: 14px solid var(--node); background: color-mix(in srgb, var(--node) 10%, transparent); }
+  :where(.pipeline-flow .stage.k2) { --node: var(--a2); } :where(.pipeline-flow .stage.k3) { --node: var(--a3); }
+  :where(.pipeline-flow .stage + .stage)::before { content: ""; position: absolute; left: -48px; top: 50%; transform: translateY(-50%); width: 0; height: 0;
+    border-top: 22px solid transparent; border-bottom: 22px solid transparent; border-left: 30px solid var(--muted); }
+  :where(.pipeline-flow .tag) { font: 700 24px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--node); }
+  :where(.pipeline-flow .lbl) { font: var(--dw) 52px/1.05 var(--display); text-transform: var(--tt); letter-spacing: var(--ls); overflow-wrap: anywhere; }
+  :where(.pipeline-flow .gate .lbl) { font-size: 128px; line-height: .95; color: var(--node); }
+  :where(.pipeline-flow .desc) { font-size: 30px; line-height: 1.25; }
+  :where(.pipeline-flow .code) { font: 600 22px/1.2 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+  :where(.pipeline-flow.slim) { gap: 56px; grid-auto-columns: auto; justify-content: space-between; }
+  :where(.pipeline-flow.slim .stage) { flex-direction: row; align-items: center; gap: 18px; padding: 12px 22px; border-top: 0; border-left: 10px solid var(--node); }
+  :where(.pipeline-flow.slim .stage .pin) { --pin: var(--node); flex: none; margin: 0; width: 44px; height: 44px; font-size: 26px; }
+  :where(.pipeline-flow.slim .lbl) { font-size: 38px; text-transform: none; white-space: nowrap; }
+  :where(.pipeline-flow.big .stage) { padding: 44px 40px 48px; gap: 20px; }
+  :where(.pipeline-flow.big .lbl) { font-size: 68px; }
+  :where(.pipeline-flow.big .desc) { font-size: 42px; }
+  :where(.pipeline-flow .stage.pass) { background: var(--node); color: var(--dot-fg, var(--bg)); }
+  :where(.pipeline-flow .stage.pass .tag, .pipeline-flow .stage.pass .lbl) { color: inherit; }
+</style>
+<!-- rail-timeline -->
+<style>
+  :where(.rail-timeline) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+  :where(.rail-timeline .node) { --k: var(--a1); position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 0 40px 0 0; }
+  :where(.rail-timeline .node.k2) { --k: var(--a2); } :where(.rail-timeline .node.k3) { --k: var(--a3); }
+  :where(.rail-timeline .node:not(:last-child))::before { content: ""; position: absolute; left: 84px; right: 0; top: 36px; height: 8px; background: color-mix(in srgb, var(--fg) 28%, transparent); }
+  :where(.rail-timeline .node:not(:last-child))::after { content: ""; position: absolute; right: 0; top: 24px; width: 0; height: 0; border-top: 16px solid transparent; border-bottom: 16px solid transparent; border-left: 22px solid color-mix(in srgb, var(--fg) 28%, transparent); }
+  :where(.rail-timeline .pt) { position: relative; z-index: 1; width: 80px; height: 80px; margin-bottom: 14px; border-radius: 50%; display: grid; place-items: center; background: var(--k);
+    color: var(--dot-fg, var(--bg)); font: var(--dw) 44px/1 var(--display); box-shadow: 0 0 0 8px var(--bg); }
+  :where(.rail-timeline .lbl) { font: var(--dw) 52px/1.05 var(--display); text-transform: var(--tt); letter-spacing: var(--ls); color: var(--k); }
+  :where(.rail-timeline .desc) { font-size: 32px; line-height: 1.25; }
+  :where(.rail-timeline .chip) { margin-top: 6px; padding: 8px 22px; border: 3px solid var(--k); border-radius: 999px; font: 700 28px/1.2 var(--mono); color: var(--k); white-space: nowrap; }
+</style>
+<!-- scatter-cards -->
+<style>
+  .slide.alt > .scatter-cards { position: absolute; right: 100px; top: 250px; width: 560px; height: 640px; margin: 0; padding: 0; list-style: none; }
+  :where(.scatter-cards .paper) { --rot: 0deg; --dx: 0px; --dy: 0px; position: absolute; left: var(--dx); top: var(--dy); width: 400px; padding: 30px 32px 34px; background: var(--alt-fg); color: var(--alt-bg);
+    transform: rotate(var(--rot)); box-shadow: 12px 14px 0 color-mix(in srgb, var(--alt-bg) 40%, #000); border-radius: 6px; }
+  :where(.scatter-cards .paper .lbl) { display: block; font: var(--dw) 46px/1.05 var(--display); text-transform: var(--tt); letter-spacing: var(--ls); }
+  :where(.scatter-cards .paper)::after { content: ""; display: block; height: 62px; margin-top: 20px; background: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--alt-bg) 40%, transparent) 0 6px, transparent 6px 22px); }
+</style>
+<!-- sheet-frame -->
+<style>
+  :where(.sheet-frame) { --k: var(--a1); --fig-h: 640px; flex: 0 1 auto; margin: 0; display: flex; flex-direction: column; min-width: 0; min-height: 0; border: 4px solid var(--k); background: var(--bg); box-shadow: 14px 14px 0 color-mix(in srgb, var(--k) 22%, transparent); }
+  :where(.sheet-frame.k2) { --k: var(--a2); } :where(.sheet-frame.k3) { --k: var(--a3); }
+  :where(.sheet-frame .sheet) { flex: 0 1 auto; display: grid; place-items: center; padding: 14px; background: #fff; }
+  :where(.sheet-frame .fit) { position: relative; max-width: 100%; }
+  :where(.sheet-frame .fit img) { display: block; width: auto; height: auto; max-width: 100%; max-height: var(--fig-h); }
+  :where(.sheet-frame .sheet-title) { flex: none; display: flex; align-items: stretch; border-top: 4px solid var(--k); font: 600 24px/1.2 var(--mono); }
+  :where(.sheet-frame .sheet-title > *) { display: flex; align-items: center; gap: 16px; padding: 10px 26px; border-right: 3px solid color-mix(in srgb, var(--k) 45%, transparent); white-space: nowrap; }
+  :where(.sheet-frame .sheet-title > :last-child) { border-right: 0; }
+  :where(.sheet-frame .sheet-title .fig) { background: var(--k); color: var(--dot-fg, var(--bg)); font-weight: 700; letter-spacing: .14em; }
+  :where(.sheet-frame .sheet-title .src) { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+  :where(.sheet-frame .tabs) { gap: 10px; }
+  :where(.sheet-frame .tab) { padding: 2px 14px; border: 3px solid var(--k); border-radius: 8px; color: var(--k); font-weight: 700; }
+  :where(.sheet-frame .tab.on) { background: var(--k); color: var(--dot-fg, var(--bg)); }
+  :where(.sheet-frame .legend) { flex: 1; gap: 28px; }
+  :where(.sheet-frame .legend span) { display: inline-flex; align-items: center; gap: 10px; }
+  :where(.sheet-frame .legend .pin) { width: 38px; height: 38px; margin: 0; font-size: 22px; --pin: var(--k); }
+</style>
+<!-- stair-steps -->
+<style>
+  :where(.stair-steps) { --k: var(--a1); list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 20px; align-items: end; }
+  :where(.stair-steps li) { --r: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; min-height: calc(250px + var(--r) * 52px); padding: 26px 22px 30px;
+    border-top: 14px solid var(--k); background: color-mix(in srgb, var(--k) calc(8% + var(--r) * 4%), transparent); }
+  :where(.stair-steps .n) { margin-bottom: auto; font: var(--dw) 76px/1 var(--display); color: var(--k); }
+  :where(.stair-steps .lbl) { font: var(--dw) 36px/1.05 var(--display); text-transform: var(--tt); letter-spacing: var(--ls); overflow-wrap: anywhere; }
+  :where(.stair-steps .desc) { font-size: 30px; line-height: 1.25; opacity: .85; }
+</style>
+<!-- stat-hero -->
+<style>
+  :where(.stat-hero) { --k: var(--a3); display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: center; column-gap: 72px; }
+  :where(.stat-hero .hero-num) { display: flex; flex-direction: column; gap: 8px; }
+  :where(.stat-hero .hero-num .count) { font: var(--dw) 280px/.85 var(--display); letter-spacing: var(--ls); color: var(--k); }
+  :where(.stat-hero .cap) { font-size: 42px; font-weight: 600; }
+  :where(.stat-hero .hero-ring) { margin: 0; width: 280px; text-align: center; }
+  :where(.stat-hero .hero-ring svg) { display: block; width: 280px; height: 280px; }
+  :where(.stat-hero .hero-ring .trk) { fill: none; stroke: color-mix(in srgb, var(--fg) 14%, transparent); stroke-width: 22; }
+  :where(.stat-hero .hero-ring .val) { fill: none; stroke: var(--k); stroke-width: 22; stroke-linecap: round; }
+  :where(.stat-hero .hero-ring text) { font-family: var(--display); font-weight: var(--dw); fill: currentColor; }
+  :where(.stat-hero .hero-ring figcaption) { margin-top: 6px; font-size: 36px; font-weight: 600; white-space: nowrap; }
+  :where(.stat-hero .hero-chips) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+  :where(.stat-hero .hero-chips li) { display: flex; flex-direction: column; gap: 2px; padding: 18px 28px; border-left: 10px solid var(--k); background: color-mix(in srgb, var(--k) 9%, transparent); }
+  :where(.stat-hero .hero-chips .big) { font: var(--dw) 64px/1 var(--display); color: var(--k); }
+  :where(.stat-hero .hero-chips .lbl) { font-size: 32px; font-weight: 600; }
+  :where(.stat-rows) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+  :where(.stat-rows li) { --k: var(--a3); display: grid; grid-template-columns: var(--bigw, 250px) minmax(0, 1fr); align-items: center; column-gap: 28px; padding: 22px 30px 22px 28px;
+    border-left: 12px solid var(--k); background: color-mix(in srgb, var(--k) 9%, transparent); }
+  :where(.stat-rows li.k1) { --k: var(--a1); } :where(.stat-rows li.k2) { --k: var(--a2); }
+  :where(.stat-rows .big) { font: var(--dw) 84px/1 var(--display); letter-spacing: var(--ls); color: var(--k); }
+  :where(.stat-rows .txt) { display: flex; flex-direction: column; gap: 2px; }
+  :where(.stat-rows .lbl) { font-size: 40px; font-weight: 600; line-height: 1.15; }
+  :where(.stat-rows .desc) { font-size: 30px; opacity: .8; }
 </style>
 </head>
 <body>
@@ -280,6 +463,126 @@
     <li><span class="dot">3</span>Cada proceso cambia de estado</li>
   </ol>
   <aside class="notes">Repasar las tres ideas y abrir preguntas.</aside>
+</section>
+<section class="slide" data-component="avatar-cards" data-window="AVATAR-CARDS.EXE" id="equipo" data-dense>
+  <p class="kicker">Equipo · ejemplo ilustrativo</p>
+  <h1 class="title sm">Cada integrante deja huella</h1>
+  <ul class="avatar-cards">
+    <li class="k1 fx"><span class="avatar">AB</span><span class="name">Ana</span><span class="meter" style="--w: 100%"></span><span class="nums"><b>40</b> commits · <b>6</b> PR</span></li>
+    <li class="k2 fx"><span class="avatar">LC</span><span class="name">Luis</span><span class="meter" style="--w: 60%"></span><span class="nums"><b>24</b> commits · <b>4</b> PR</span></li>
+    <li class="fx"><span class="avatar">MR</span><span class="name">Marta</span><span class="meter" style="--w: 30%"></span><span class="nums"><b>12</b> commits · <b>2</b> PR</span></li>
+  </ul>
+  <aside class="notes">Ejemplo ilustrativo con cifras inventadas. Cada fila es una persona; la barra es proporcional a la métrica principal.</aside>
+</section>
+<section class="slide block-split" data-component="block-opener" data-window="BLOCK-OPENER.EXE" id="bloque" style="--blk: var(--a2)">
+  <div class="block-panel">
+    <p class="kicker block-role">Implementación · Ana</p>
+    <h1 class="title sm">Un título que afirma algo</h1>
+    <p class="lead">Una línea de contexto.</p>
+  </div>
+  <div class="block-main">
+    <figure class="terminal-frame k2 fx">
+      <div class="bar"><i></i><i></i><i></i><span class="ttl">$ ejemplo</span></div>
+      <pre><code><span>GET /health/</span><span class="hl">200 OK<b class="pin">1</b></span></code></pre>
+    </figure>
+  </div>
+  <aside class="notes">Ejemplo ilustrativo: el panel de color abre el bloque de quien presenta; el contenido real vive a la derecha. Usa evidence-frame para el marco de la derecha.</aside>
+</section>
+<section class="slide" data-component="demo-script" data-window="DEMO-SCRIPT.EXE" id="demo-en-vivo" data-dense>
+  <p class="kicker">Demo en vivo · ejemplo ilustrativo</p>
+  <h1 class="title sm">Demo: crear un recurso y repetirlo</h1>
+  <a class="demo-link fx" href="http://127.0.0.1:8000/docs/" target="_blank" rel="noopener"><span class="go"></span>Abrir Swagger · 127.0.0.1:8000/docs/</a>
+  <ol class="demo-script">
+    <li class="fx"><b class="pin">1</b><span class="step-line"><span class="verb">POST</span>/api/v1/items/</span><span class="expect ok">201</span><code class="body">{"nombre": "demo"}</code></li>
+    <li class="fx"><b class="pin">2</b><span class="step-line"><span class="verb">POST</span>/api/v1/items/</span><span class="expect no">409</span><code class="body">el mismo cuerpo, otra vez</code></li>
+  </ol>
+  <div class="demo-cmd fx">
+    <div class="cmd-bar"><span class="live">En vivo</span><span class="cmd-note">o capturas de respaldo</span></div>
+<pre><code><b>$</b> curl -i http://127.0.0.1:8000/health/</code></pre>
+    <div class="expect-row"><span class="lbl">Esperado</span><code>200 OK · {"status": "ok"}</code></div>
+  </div>
+  <aside class="notes">Lista previa a la demo: servicio levantado, usuario de prueba con contraseña conocida, número libre para repetir y la pestaña del navegador lista. Ejemplo ilustrativo: ningún dato es real.</aside>
+</section>
+<section class="slide" data-component="evidence-frame" data-window="EVIDENCE-FRAME.EXE" id="evidencia">
+  <p class="kicker">Evidencia · ejemplo ilustrativo</p>
+  <h1 class="title sm">La evidencia es un objeto, no una imagen suelta</h1>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 56px;">
+    <figure class="browser-frame fx">
+      <div class="bar"><i></i><i></i><i></i><span class="url">example.org/docs/matriz.md</span></div>
+      <div class="shot"><svg viewBox="0 0 800 360" role="img" aria-label="Tabla con tres filas; la segunda destacada con un pin"><rect width="800" height="360" fill="#fff"/><g fill="#d8dee4"><rect x="30" y="30" width="740" height="44"/><rect x="30" y="110" width="740" height="44"/><rect x="30" y="190" width="740" height="44" fill="#b7d9d0"/><rect x="30" y="270" width="740" height="44"/></g></svg><b class="pin abs" style="left: 90%; top: 60%;">1</b></div>
+    </figure>
+    <figure class="terminal-frame k2 fx">
+      <div class="bar"><i></i><i></i><i></i><span class="ttl">$ curl -i example.org/health/</span></div>
+      <pre><code><span class="dim">HTTP/1.1 200 OK</span><span class="hl">X-Request-ID: demo-01<b class="pin">2</b></span><span>{"status": "ok"}</span></code></pre>
+    </figure>
+  </div>
+  <aside class="notes">Ejemplo ilustrativo sin datos reales: a la izquierda una captura web en marco de navegador con la URL real; a la derecha una salida de terminal con la línea clave marcada. El pin numerado enlaza con la explicación hablada.</aside>
+</section>
+<section class="slide" data-component="pipeline-flow" data-window="PIPELINE-FLOW.EXE" id="camino">
+  <p class="kicker">Ejemplo ilustrativo · Petición HTTP</p>
+  <h1 class="title sm">Una petición cruza tres etapas</h1>
+  <ol class="pipeline-flow">
+    <li class="stage k1 fx"><span class="tag">Entra</span><span class="lbl">Petición</span><span class="desc">POST con el cuerpo</span></li>
+    <li class="stage k2 fx"><span class="tag">Decide</span><span class="lbl">Reglas</span><span class="desc">Valida y persiste</span></li>
+    <li class="stage k3 pass fx"><span class="tag">Sale</span><span class="lbl">Respuesta</span><span class="desc">Sobre con código</span></li>
+  </ol>
+  <aside class="notes">Ejemplo ilustrativo sin datos medidos. Recorrer de izquierda a derecha: lo que entra, dónde se decide y lo que sale.</aside>
+</section>
+<section class="slide" data-component="rail-timeline" data-window="RAIL-TIMELINE.EXE" id="riel">
+  <p class="kicker">Operación · ejemplo ilustrativo</p>
+  <h1 class="title sm">Del código al servicio, en tres pasos</h1>
+  <ol class="rail-timeline">
+    <li class="node k2 fx"><span class="pt">1</span><span class="lbl">Construir</span><span class="desc">Imagen reproducible</span><span class="chip">1 comando</span></li>
+    <li class="node k3 fx"><span class="pt">2</span><span class="lbl">Verificar</span><span class="desc">Pruebas en cada push</span><span class="chip">CI en verde</span></li>
+    <li class="node k3 fx"><span class="pt">3</span><span class="lbl">Observar</span><span class="desc">Salud y registro</span><span class="chip">200 OK</span></li>
+  </ol>
+  <aside class="notes">Ejemplo ilustrativo sin datos medidos. El riel muestra que cada etapa depende de la anterior; el chip es el resultado que se puede comprobar.</aside>
+</section>
+<section class="slide alt question-hook" data-component="scatter-cards" data-window="SCATTER-CARDS.EXE" id="disperso">
+  <p class="kicker">Problema · ejemplo ilustrativo</p>
+  <h1 class="title" style="max-width: 900px">¿Dónde está lo que pasó?</h1>
+  <p class="lead">Hoy está repartido.</p>
+  <ul class="scatter-cards" aria-hidden="true">
+    <li class="paper fx" style="--rot: -6deg; --dx: 10px; --dy: 0px"><span class="lbl">Formularios</span></li>
+    <li class="paper fx" style="--rot: 4deg; --dx: 150px; --dy: 200px"><span class="lbl">Correos</span></li>
+    <li class="paper fx" style="--rot: -3deg; --dx: 40px; --dy: 400px"><span class="lbl">Archivos</span></li>
+  </ul>
+  <aside class="notes">Ejemplo ilustrativo: tres papeles sueltos y torcidos comunican dispersión mejor que una lista.</aside>
+</section>
+<section class="slide" data-component="sheet-frame" data-window="SHEET-FRAME.EXE" id="lamina">
+  <p class="kicker">Arquitectura · ejemplo ilustrativo</p>
+  <h1 class="title sm">Una lámina con bloque de título</h1>
+  <figure class="sheet-frame fx" style="--fig-h: 520px">
+    <div class="sheet"><div class="fit"><svg viewBox="0 0 1200 520" width="1200" height="520" role="img" aria-label="Tres cajas conectadas por flechas" fill="none" stroke="#365E58" stroke-width="5"><rect x="40" y="170" width="280" height="180" rx="14"/><rect x="460" y="170" width="280" height="180" rx="14"/><rect x="880" y="170" width="280" height="180" rx="14"/><path d="M320 260h140m-24-22 24 22-24 22M740 260h140m-24-22 24 22-24 22"/></svg><b class="pin abs" style="left: 38%; top: 33%;">1</b></div></div>
+    <figcaption class="sheet-title"><span class="fig">FIG. 01</span><span class="src">docs/figuras/ejemplo.svg</span><span class="tabs"><span class="tab on">C2</span><span class="tab">C3</span></span></figcaption>
+  </figure>
+  <aside class="notes">Ejemplo ilustrativo: la lámina da contexto (número, archivo fuente y nivel) sin quitarle tamaño al diagrama.</aside>
+</section>
+<section class="slide" data-component="stair-steps" data-window="STAIR-STEPS.EXE" id="escalera" data-dense>
+  <p class="kicker">Método · ejemplo ilustrativo</p>
+  <h1 class="title sm">Cada paso apoya al siguiente</h1>
+  <ol class="stair-steps">
+    <li class="fx" style="--r: 0"><span class="n">1</span><span class="lbl">Reglas</span><span class="desc">Acuerdos del equipo</span></li>
+    <li class="fx" style="--r: 1"><span class="n">2</span><span class="lbl">Requisitos</span><span class="desc">Qué y para quién</span></li>
+    <li class="fx" style="--r: 2"><span class="n">3</span><span class="lbl">Plan</span><span class="desc">Cómo se construye</span></li>
+    <li class="fx" style="--r: 3"><span class="n">4</span><span class="lbl">Tareas</span><span class="desc">Trabajo por historia</span></li>
+  </ol>
+  <aside class="notes">Ejemplo ilustrativo sin datos medidos. La escalera sube porque cada archivo depende del anterior.</aside>
+</section>
+<section class="slide" data-component="stat-hero" data-window="STAT-HERO.EXE" id="heroe">
+  <p class="kicker">Calidad · ejemplo ilustrativo</p>
+  <h1 class="title sm">Un número protagonista</h1>
+  <div class="stat-hero">
+    <div class="hero-num fx"><span class="count">120</span><span class="cap">pruebas pasan</span></div>
+    <figure class="hero-ring fx">
+      <svg viewBox="0 0 200 200" role="img" aria-label="Anillo al 90 %"><circle class="trk" cx="100" cy="100" r="84"/><circle class="val" cx="100" cy="100" r="84" stroke-dasharray="475 528" transform="rotate(-90 100 100)"/><text class="count" x="100" y="116" text-anchor="middle" font-size="52">90 %</text></svg>
+      <figcaption>cobertura</figcaption>
+    </figure>
+    <ul class="hero-chips">
+      <li class="fx"><span class="big">2</span><span class="lbl">Omitidas</span></li>
+    </ul>
+  </div>
+  <aside class="notes">Ejemplo ilustrativo: las cifras no son medidas. El número grande es la diapositiva; el anillo da la proporción.</aside>
 </section>
   <div id="notes"></div>
 </div>

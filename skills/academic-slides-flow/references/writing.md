@@ -20,6 +20,26 @@ flow-steps | Un proceso listo espera turno de CPU | Secuencia: creación → esp
 
 Here the sequence explains the wait instead of placing three unrelated icons below “Ciclo de un proceso”. The source locator is relative to `skills/academic-slides-flow/`; replace it with the actual course source and locator when using course evidence. Do not present this illustration as a measured result.
 
+## Plan variety across the deck
+
+Choose the explanatory structure before the component. Do not reuse the last deck's favorite diagram by default, or turn every kind of content into the same row of cards. Use the catalog to compare alternatives that suit the actual material:
+
+| Content job | Candidate components to inspect |
+|---|---|
+| Contrast alternatives or trade-offs | `deck-compare` |
+| Explain a sequence or process | `flow-steps`, `pipeline-flow`, `stair-steps` |
+| Locate events in time | `rail-timeline` |
+| Connect a concrete case to a concept | `deck-case-map` |
+| Show an artifact or source evidence | `evidence-frame`, `figure-full`, `sheet-frame` |
+| Explain implementation | `deck-annotated-code`, `demo-script` |
+| Emphasize a supported magnitude | `big-number`, `stat-hero` |
+
+These are candidates, not interchangeable presets: inspect their examples and use only a structure the source material supports. The same family can still look repetitive; swapping `flow-steps` for `pipeline-flow` does not help when the content never needed a sequence. Changing colors, icons, orientation or labels alone does not establish meaningful variety.
+
+Before gate 1, review the full outline's component sequence. Summarize the mix, identify consecutive repetitions or a dominant structure, and replace accidental repetition with a better-fitting component. Explain intentional repetitions in the existing outline notes, without adding fields. Reusing a structure is useful for direct comparisons, a recurring exercise or continuity within one process; do not force a quota of different components or change the meaning just to vary the layout. Keep one theme and stable typography, tokens and navigation.
+
+Before gate 2, inspect the rendered thumbnails as a sequence as well as individually. Check that different information jobs are visibly distinct and that the body of the deck is not one repeated diagram with different text. Covers and section dividers alone do not make repetitive content slides diverse. If a needed structure is missing, follow the existing component-harvest rule rather than inventing one-off CSS. Variety is a planning and visual-review requirement, not something a passing structural checker proves.
+
 ## Review composition, not occupancy
 
 Inspect rendered slides individually and as a sequence. Ask what should be seen first, whether the evidence and visual are legible and connected to the point, and whether the composition suits the slide's role. Whitespace can separate ideas, focus attention or give a cover or pause room to breathe. It is suspect when content appears stranded, hierarchy is unclear, a visual is too small to explain anything, or a content slide lacks the support needed to understand its point.
@@ -36,7 +56,7 @@ By default a deck slide shows at most **3 items** and **30 words**. Visual first
 - The full spoken text stays in `.notes`. Bare labels with no guide are too thin; paragraphs are too much.
 
 - An item is an `<li>` or an element with class `item`. Words are the visible text outside `.notes`, `.kicker`, `.foot`, `pre`, `code`, `svg`, and math.
-- When the user asks for more, or the content needs it (a comparison table, a dense recap), mark that slide `data-dense`. Say why in the outline line.
+- When the user asks for more, or the content needs it (a comparison table, a dense recap), mark that slide `data-dense`. Say why in the outline line. The checker still reports its item and word counts and marks it exempt.
 - When the user wants a denser deck overall, run the checker with `--max-items N` and/or `--max-words N`. Record the values in the outline header.
 - Never shrink text to fit the default. Split the slide, move text to `.notes`, or mark it dense.
 

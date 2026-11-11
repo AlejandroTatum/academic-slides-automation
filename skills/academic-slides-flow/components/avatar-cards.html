@@ -1,0 +1,28 @@
+<!-- component: avatar-cards | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slide 17.
+     One row per person: initials avatar (.avatar, display font), first name (.name), a bar scaled to the main
+     metric (--w, a percentage of the largest) and the figures (.nums with <b>). Initials, not photos: nothing to
+     license. Rows are neutral; .k1 .k2 .k3 color an avatar when the color already means something in the deck
+     (here the speaker block). 3-5 rows: mark the slide data-dense when there are more than 3. -->
+<style>
+  :where(.avatar-cards) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  :where(.avatar-cards li) { --k: color-mix(in srgb, var(--fg) 55%, var(--bg)); display: grid; grid-template-columns: 92px 190px minmax(0, 1fr) auto; align-items: center; column-gap: 24px;
+    padding: 8px 28px 8px 12px; border-radius: 999px; background: color-mix(in srgb, var(--fg) 6%, transparent); }
+  :where(.avatar-cards li.k1) { --k: var(--a1); } :where(.avatar-cards li.k2) { --k: var(--a2); } :where(.avatar-cards li.k3) { --k: var(--a3); }
+  :where(.avatar-cards .avatar) { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: var(--k); color: var(--dot-fg, var(--bg)); font: var(--dw) 40px/1 var(--display); letter-spacing: .02em; }
+  :where(.avatar-cards .name) { font-size: 34px; font-weight: 600; }
+  :where(.avatar-cards .meter) { height: 18px; border-radius: 999px; background: color-mix(in srgb, var(--fg) 12%, transparent); overflow: hidden; }
+  :where(.avatar-cards .meter)::before { content: ""; display: block; width: var(--w, 50%); height: 100%; border-radius: 999px; background: var(--k); }
+  :where(.avatar-cards .nums) { font: 500 30px/1 var(--mono); white-space: nowrap; }
+  :where(.avatar-cards .nums b) { font-weight: 700; }
+</style>
+<section class="slide" id="equipo" data-dense>
+  <p class="kicker">Equipo · ejemplo ilustrativo</p>
+  <h1 class="title sm">Cada integrante deja huella</h1>
+  <ul class="avatar-cards">
+    <li class="k1 fx"><span class="avatar">AB</span><span class="name">Ana</span><span class="meter" style="--w: 100%"></span><span class="nums"><b>40</b> commits · <b>6</b> PR</span></li>
+    <li class="k2 fx"><span class="avatar">LC</span><span class="name">Luis</span><span class="meter" style="--w: 60%"></span><span class="nums"><b>24</b> commits · <b>4</b> PR</span></li>
+    <li class="fx"><span class="avatar">MR</span><span class="name">Marta</span><span class="meter" style="--w: 30%"></span><span class="nums"><b>12</b> commits · <b>2</b> PR</span></li>
+  </ul>
+  <aside class="notes">Ejemplo ilustrativo con cifras inventadas. Cada fila es una persona; la barra es proporcional a la métrica principal.</aside>
+</section>

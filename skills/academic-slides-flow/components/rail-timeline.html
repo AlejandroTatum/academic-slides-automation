@@ -1,0 +1,28 @@
+<!-- component: rail-timeline | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slide 15.
+     A sequence on a continuous rail: each .node has a point (.pt) on the line, a display .lbl, a short .desc
+     and an optional .chip with the measurable outcome ("1 comando", "3 min 4 s", "200"). Use it for stages that
+     chain in time (build, ship, verify). Modifiers .k1 .k2 .k3 color a node by category (default a1).
+     3-4 nodes; the transitions are spoken, in .notes. -->
+<style>
+  :where(.rail-timeline) { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+  :where(.rail-timeline .node) { --k: var(--a1); position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 0 40px 0 0; }
+  :where(.rail-timeline .node.k2) { --k: var(--a2); } :where(.rail-timeline .node.k3) { --k: var(--a3); }
+  :where(.rail-timeline .node:not(:last-child))::before { content: ""; position: absolute; left: 84px; right: 0; top: 36px; height: 8px; background: color-mix(in srgb, var(--fg) 28%, transparent); }
+  :where(.rail-timeline .node:not(:last-child))::after { content: ""; position: absolute; right: 0; top: 24px; width: 0; height: 0; border-top: 16px solid transparent; border-bottom: 16px solid transparent; border-left: 22px solid color-mix(in srgb, var(--fg) 28%, transparent); }
+  :where(.rail-timeline .pt) { position: relative; z-index: 1; width: 80px; height: 80px; margin-bottom: 14px; border-radius: 50%; display: grid; place-items: center; background: var(--k);
+    color: var(--dot-fg, var(--bg)); font: var(--dw) 44px/1 var(--display); box-shadow: 0 0 0 8px var(--bg); }
+  :where(.rail-timeline .lbl) { font: var(--dw) 52px/1.05 var(--display); text-transform: var(--tt); letter-spacing: var(--ls); color: var(--k); }
+  :where(.rail-timeline .desc) { font-size: 32px; line-height: 1.25; }
+  :where(.rail-timeline .chip) { margin-top: 6px; padding: 8px 22px; border: 3px solid var(--k); border-radius: 999px; font: 700 28px/1.2 var(--mono); color: var(--k); white-space: nowrap; }
+</style>
+<section class="slide" id="riel">
+  <p class="kicker">Operación · ejemplo ilustrativo</p>
+  <h1 class="title sm">Del código al servicio, en tres pasos</h1>
+  <ol class="rail-timeline">
+    <li class="node k2 fx"><span class="pt">1</span><span class="lbl">Construir</span><span class="desc">Imagen reproducible</span><span class="chip">1 comando</span></li>
+    <li class="node k3 fx"><span class="pt">2</span><span class="lbl">Verificar</span><span class="desc">Pruebas en cada push</span><span class="chip">CI en verde</span></li>
+    <li class="node k3 fx"><span class="pt">3</span><span class="lbl">Observar</span><span class="desc">Salud y registro</span><span class="chip">200 OK</span></li>
+  </ol>
+  <aside class="notes">Ejemplo ilustrativo sin datos medidos. El riel muestra que cada etapa depende de la anterior; el chip es el resultado que se puede comprobar.</aside>
+</section>

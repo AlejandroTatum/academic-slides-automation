@@ -1,0 +1,46 @@
+<!-- component: stat-hero | deck, every theme
+     Source: deck "Sumativa 1 DBP (2026-11-10)", slides 13 and 14.
+     .stat-hero    one hero number (.hero-num, count-up via class count), a progress ring (.hero-ring, SVG:
+                   r = 84, circumference 527.8; set stroke-dasharray to value x 5.278) and up to three .hero-chips.
+     .stat-rows    stacked rows (.big figure + .lbl + .desc), one category color per row (.k1 .k2 .k3),
+                   for 2-3 supporting figures beside a command or a figure; --bigw (default 250px) sets the figure column.
+     The hero is the slide: the explanation goes in .notes. Hero color: --k (default a3). -->
+<style>
+  :where(.stat-hero) { --k: var(--a3); display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: center; column-gap: 72px; }
+  :where(.stat-hero .hero-num) { display: flex; flex-direction: column; gap: 8px; }
+  :where(.stat-hero .hero-num .count) { font: var(--dw) 280px/.85 var(--display); letter-spacing: var(--ls); color: var(--k); }
+  :where(.stat-hero .cap) { font-size: 42px; font-weight: 600; }
+  :where(.stat-hero .hero-ring) { margin: 0; width: 280px; text-align: center; }
+  :where(.stat-hero .hero-ring svg) { display: block; width: 280px; height: 280px; }
+  :where(.stat-hero .hero-ring .trk) { fill: none; stroke: color-mix(in srgb, var(--fg) 14%, transparent); stroke-width: 22; }
+  :where(.stat-hero .hero-ring .val) { fill: none; stroke: var(--k); stroke-width: 22; stroke-linecap: round; }
+  :where(.stat-hero .hero-ring text) { font-family: var(--display); font-weight: var(--dw); fill: currentColor; }
+  :where(.stat-hero .hero-ring figcaption) { margin-top: 6px; font-size: 36px; font-weight: 600; white-space: nowrap; }
+  :where(.stat-hero .hero-chips) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+  :where(.stat-hero .hero-chips li) { display: flex; flex-direction: column; gap: 2px; padding: 18px 28px; border-left: 10px solid var(--k); background: color-mix(in srgb, var(--k) 9%, transparent); }
+  :where(.stat-hero .hero-chips .big) { font: var(--dw) 64px/1 var(--display); color: var(--k); }
+  :where(.stat-hero .hero-chips .lbl) { font-size: 32px; font-weight: 600; }
+  :where(.stat-rows) { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+  :where(.stat-rows li) { --k: var(--a3); display: grid; grid-template-columns: var(--bigw, 250px) minmax(0, 1fr); align-items: center; column-gap: 28px; padding: 22px 30px 22px 28px;
+    border-left: 12px solid var(--k); background: color-mix(in srgb, var(--k) 9%, transparent); }
+  :where(.stat-rows li.k1) { --k: var(--a1); } :where(.stat-rows li.k2) { --k: var(--a2); }
+  :where(.stat-rows .big) { font: var(--dw) 84px/1 var(--display); letter-spacing: var(--ls); color: var(--k); }
+  :where(.stat-rows .txt) { display: flex; flex-direction: column; gap: 2px; }
+  :where(.stat-rows .lbl) { font-size: 40px; font-weight: 600; line-height: 1.15; }
+  :where(.stat-rows .desc) { font-size: 30px; opacity: .8; }
+</style>
+<section class="slide" id="heroe">
+  <p class="kicker">Calidad · ejemplo ilustrativo</p>
+  <h1 class="title sm">Un número protagonista</h1>
+  <div class="stat-hero">
+    <div class="hero-num fx"><span class="count">120</span><span class="cap">pruebas pasan</span></div>
+    <figure class="hero-ring fx">
+      <svg viewBox="0 0 200 200" role="img" aria-label="Anillo al 90 %"><circle class="trk" cx="100" cy="100" r="84"/><circle class="val" cx="100" cy="100" r="84" stroke-dasharray="475 528" transform="rotate(-90 100 100)"/><text class="count" x="100" y="116" text-anchor="middle" font-size="52">90 %</text></svg>
+      <figcaption>cobertura</figcaption>
+    </figure>
+    <ul class="hero-chips">
+      <li class="fx"><span class="big">2</span><span class="lbl">Omitidas</span></li>
+    </ul>
+  </div>
+  <aside class="notes">Ejemplo ilustrativo: las cifras no son medidas. El número grande es la diapositiva; el anillo da la proporción.</aside>
+</section>
